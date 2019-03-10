@@ -6,59 +6,59 @@ source 'https://rubygems.org'
 # end
 
 #对新项目增加的gem
-gem 'activesupport','5.1.6'
-gem 'jquery-rails'
-gem 'bootstrap-will_paginate'
-gem 'bootstrap-sass'
-gem 'faker'
+gem 'jquery-rails','4.3.3'
+gem 'bootstrap-will_paginate','1.0.0'
+gem 'bootstrap-sass','3.4.1'
+gem 'faker','1.9.3'
 gem 'bcrypt-ruby',"3.1.2"
 gem 'carrierwave','1.2.1'
 gem 'mini_magick',"4.7.0"
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.1.6'
+gem 'rails', '5.2.2'
 # Use sqlite3 as the database for Active Record
 
 # Use Puma as the app server
-gem 'puma', '~> 3.7'
+gem 'puma', '3.12.0'
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
+gem 'sass-rails', '5.0.7'
 # Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
+gem 'uglifier', '4.1.20'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
 # Use CoffeeScript for .coffee assets and views
-gem 'coffee-rails', '~> 4.2'
+gem 'coffee-rails', '4.2.2'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'turbolinks', '~> 5'
+gem 'turbolinks', ' 5.2.0'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.5'
+gem 'jbuilder', '2.8.0'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
- gem 'bcrypt', '~> 3.1.7'
+ gem 'bcrypt', '3.1.12'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
-  gem 'sqlite3'
+  gem 'sqlite3','1.3.13'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri]
   # Adds support for Capybara system testing and selenium driver
- gem 'capybara', '~> 2.13'
- gem 'selenium-webdriver'
+ gem 'capybara', '3.3.1'
+ gem 'selenium-webdriver','3.141.0'
 end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
-  gem 'web-console', '>= 3.3.0'
-  gem 'listen', '>= 3.0.5', '< 3.2'
+
+  gem 'web-console', '3.7.0'
+  gem 'listen', '3.1.5'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'spring','2.0.2'
+  gem 'spring-watcher-listen', '2.0.1'
 end
 
 group :test do
