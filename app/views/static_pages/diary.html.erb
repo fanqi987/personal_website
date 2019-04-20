@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<div class="container">
+  <aside class="col-md-3 hidden-sm hidden-xs" id="article_aside">
+    <section id="post_article_section">
+      <button class="btn btn-primary btn-block btn-lg fas fa-edit" id="post_article_section_button">
+        发表新日志
+      </button>
+    </section>
+    <hr/>
+    <section id="search_article_section">
+      <p class="glyphicon glyphicon-search"> 搜索日志</p>
+
+      <!--      <select class="form-control" id="select_search_micropost_method">-->
+      <!--        <option value="select_by_time_range" selected="selected">按时间段选择</option>-->
+      <!--        <option value="select_by_key_word">按关键字选择</option>-->
+      <!--      </select>-->
+      <hr/>
+      <form id="select_search_article_form">
+        <div class="form-group">
+          <label><span class="glyphicon glyphicon-time"></span>
+            开始时间:</label><input class="form-control" id="select_search_micropost_date_start" type="date">
+        </div>
+        <div class="form-group">
+          <label><span class="glyphicon glyphicon-time"></span>
+            结束时间:</label><input class="form-control" id="select_search_micropost_date_end" type="date">
+        </div>
+        <div class="form-group">
+          <label><span class="	glyphicon glyphicon-pencil"></span> 请输入关键字:</label>
+          <input class="form-control" id="select_search_micropost_key_word" type="text">
+        </div>
+        <hr>
+        <button class="btn btn-success btn-block" type="submit">提交</button>
+      </form>
+      <button class="btn btn-success btn-block" data-toggle="modal" data-target="#search_article_modal" style="margin-top: 1rem;">查看搜索模态</button>
+    </section>
+  </aside>
+
+  <div class="modal fade" id="search_article_modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+      <form>
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <p class="glyphicon glyphicon-search"> 搜索日志</p>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label><span class="glyphicon glyphicon-time"></span>
+                开始时间:</label><input class="form-control" id="select_search_article_date_start" type="date">
+            </div>
+            <div class="form-group">
+              <label><span class="glyphicon glyphicon-time"></span>
+                结束时间:</label><input class="form-control" id="select_search_article_date_end" type="date">
+            </div>
+            <div class="form-group">
+              <label><span class="glyphicon glyphicon-pencil"></span> 请输入关键字:</label>
+              <input class="form-control" id="select_search_article_key_word" type="text">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-success" type="submit">提交</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <article class="col-md-9 col-sm-12">
+    <section class="row" id="article_main_title">
+      <span>日志 <span>123</span></span>
+    </section>
+    <section class="row" id="article_main_content">
+      <div class="media" id="article_content_media">
+        <div class="media-body">
+          <p class="media-heading" id="article_title">
+            这是标题<span>作者:佚名</span><span>2019年12月12日 12:12:12</span>
+          </p>
+          <p id="article_content">
+            这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div id="article_paginate">
+      <span id="article_paginate_first_page">首页</span>
+      <span id="article_paginate_prev_page">上一页 </span>
+      <span id="article_paginate_number">[1] [2] [3] ... [100] </span>
+      <span id="article_paginate_next_page">下一页 </span>
+      <span id="article_paginate_end_page">末页 </span>
+      <span id="article_paginate_skip">跳转:<input id="article_paginate_skip_page" type="text"></span>
+
+    </div>
+    <section id="article_empty">
+    </section>
+    <p>没有日志要！</p>
+  </article>
+
+</div>
+</body>
+<script>
+    onDocumentContentReady(2);
+</script>
+</html>

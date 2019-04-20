@@ -1,0 +1,655 @@
+// Place all the styles related to the StaticPages controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import 'bootstrap';
+@import 'bootstrap-sprockets';
+@import 'froala_editor.min';
+@import 'froala_style.min';
+@import 'font-awesome-sprockets';
+@import 'font-awesome';
+
+$bootstrap-pill-blue: #337ab7;
+$footer_background: #2d2d2d;
+$footer_index_gray: #b6b6b6;
+$footer_index_dark_gray: #4e4e4e;
+$home-icon-intro: #ffc09f;
+$home-content-intro: #666;
+$header-xs-list: #666;
+$micropost_time: #737350;
+
+$lg-width: 1200px;
+$md-width: 992px;
+$sm-width: 768px;
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+@media (min-width: 1200px) {
+  html {
+    font-size: 10px;
+  }
+  .modal {
+    width: 1170px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media (max-width: 1200px) and (min-width: 992px) {
+
+  html {
+    font-size: 13px;
+  }
+  .modal {
+    width: 970px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media (max-width: 992px) and (min-width: 768px) {
+
+  html {
+    font-size: 16px;
+  }
+  .modal {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 19px;
+  }
+  .modal {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 992px) {
+  .container {
+    width: 100%;
+  }
+}
+
+//头尾样式
+#logo_static_pages, #nav_static_pages {
+  margin-top: 4.5rem;
+  margin-bottom: 4.5rem;
+  cursor: pointer;
+}
+
+#logo_static_pages {
+  display: inline-block;
+  line-height: 0.8;
+  font-size: 4.5rem;
+  #name1 {
+    color: $bootstrap-pill-blue;
+  }
+  #name2 {
+    color: lightgray;
+  }
+}
+
+#nav_static_pages {
+  font-size: 2.4rem;
+  margin-top: 3rem;
+}
+
+#nav-xs-static-pages {
+  position: fixed;
+  right: 2rem;
+  top: 2rem;
+  float: left;
+  z-index: 10;
+  text-align: center;
+  width: 8rem;
+  height: 8rem;
+  border: 0.15rem solid white;
+  border-radius: 8rem;
+  background-color: $bootstrap-pill-blue;
+  box-shadow: 1px 1px 0.5rem gray;
+  span {
+    position: relative;
+    top: 50%;
+    transform: translateY(-53%);
+    font-size: 4rem;
+    color: white;
+  }
+
+}
+
+#nav-xs-list-static-pages {
+  display: none;
+  position: fixed;
+  right: 4rem;
+  top: 4rem;
+  z-index: 9;
+  float: left;
+  padding: 0;
+  height: 60%;
+  width: 50%;
+  overflow: auto;
+  opacity: 0.7;
+  background-color: white;
+  border: 1px solid lightgray;
+  li {
+    font-size: 4rem;
+    list-style: none;
+    margin: 2rem 4rem 2rem;
+    cursor: pointer;
+    a {
+      margin-left: 4rem;
+      text-decoration: none;
+      color: $header-xs-list;
+
+    }
+    &.active {
+      * {
+        color: $bootstrap-pill-blue;
+      }
+    }
+    //.active {
+    //  span, a {
+    //  }
+    //}
+  }
+}
+
+#footer_static_page {
+  position: relative;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  margin-top: 3rem;
+  background-color: $footer_background;
+  .container {
+    div {
+      text-align: center;
+      font-size: 2rem;
+      color: $footer_index_dark_gray;
+      &:first-child {
+        color: $footer_index_gray;
+        a {
+          text-decoration: none;
+          color: $footer_index_gray;
+          &:hover {
+            color: $bootstrap-pill-blue;
+          }
+        }
+      }
+      a {
+        text-decoration: none;
+        color: $footer_index_dark_gray;
+        &:hover {
+          color: $bootstrap-pill-blue;
+        }
+      }
+    }
+  }
+}
+
+#banner_img_static_page {
+  position: relative;
+  right: 0;
+  left: 0;
+  height: 35rem;
+  background-image: image_url("time.jpg");
+  background-size: cover;
+}
+
+//首页样式
+#intro_home {
+  margin: 5rem 0 10rem;
+  > div {
+    .icon-intro-home {
+      margin: auto;
+      text-align: center;
+      width: 10rem;
+      height: 10rem;
+      border-radius: 6rem;
+      color: white;
+      background-color: $home-icon-intro;
+      span {
+        display: inline-block;
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 6rem;
+        //@media (max-width: 992px) {
+        //  font-size: ;
+        //}
+      }
+    }
+    .title-intro-home {
+      display: flex;
+      justify-content: center;
+      //text-align: center;
+      margin: 2rem auto auto;
+      width: 100%;
+      line-height: 2;
+      font-size: 2.4rem;
+      font-weight: bold;
+      color: #555;
+    }
+    .content-intro-home {
+      line-height: 1.5;
+      color: $home-content-intro;
+      font-size: 1.8rem;
+      a {
+        color: $home-content-intro;
+      }
+    }
+  }
+  //div+div:before{
+  //  display:inline-block;
+  //  content:"";
+  //  height:50px;
+  //  width:1px;
+  //  border:1px solid #eee;
+  //}
+}
+
+.cite_block_home {
+  margin-top: 5rem;
+  padding-bottom: 0;
+  line-height: 0.5;
+  border-left-color: $bootstrap-pill-blue;
+  p {
+    line-height: 0.5;
+    color: $bootstrap-pill-blue;
+    font-size: 3rem;
+  }
+  small {
+    font-size: 1.4rem;
+  }
+}
+
+#content_home {
+  margin-top: 5rem;
+  > div {
+    > div {
+      padding-bottom: 33.333333333333%;
+      border: 0.5rem solid transparent;
+      > div {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: 0;
+        overflow: hidden;
+        background-size: cover;
+        border-radius: 3rem;
+        &:hover {
+          box-shadow: 1px 1px 1.5rem gray;
+        }
+      }
+      #micropost_content_home {
+        background-image: image_url("tips2.jpg");
+        color: $micropost_time;
+        overflow: hidden;
+
+        p {
+          margin: 26% 20% 15% 17%;
+          height:38%;
+          #micropost_content_first_word_home {
+            float: left;
+            margin-top: -2%;
+            vertical-align: top;
+            color: #535330;
+          }
+        }
+        #micropost_time_home {
+          margin-left: 33%;
+          padding-top: 3%;
+          border-top: 0.15rem dotted $micropost_time;
+        }
+      }
+
+      #article_home {
+        background-image: image_url("notebook4.jpg");
+        #article_title_home {
+          margin: 16% 23% 0.4% 25%;
+        }
+        #article_content_home {
+          margin: 0% 23% 3% 25%;
+          height:60%;
+          overflow: hidden;
+        }
+        #article_time_home {
+          margin: 0% 23% 15% 25%;
+
+        }
+      }
+      #message_board_home {
+        color: #cecece;
+        background-image: url("messageboard5.jpg");
+
+        #message_board_name_home {
+          margin: 39% 17% 0.4% 21%;
+        }
+        #message_board_content_home {
+          margin: 0% 17% 0.4% 21%;
+          height:29%;
+          overflow: hidden;
+        }
+        #message_board_time_home {
+          margin: 1% 17% 15% 40%;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
+      }
+      #materials_home {
+        #materials_img_home {
+          height: 61.8%;
+          background-image: url('materials.jpg');
+          background-size: cover;
+        }
+        #materials_content_home {
+          height: 38.2%;
+          background-color: #a88e6b;
+          text-align: center;
+          p {
+            display: inline-block;
+            position: relative;
+            transform: translateY(-50%);
+            top: 50%;
+            width: 80%;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            font-size: 1.5rem;
+            color: white;
+            overflow: hidden;
+
+          }
+        }
+      }
+
+      #games_img_1_home {
+        background-image: image_url("test_game.jpg");
+      }
+    }
+
+  }
+}
+
+//微博,日志侧边样式
+
+#micropost_aside,#article_aside {
+  position: sticky;
+  top: 0;
+  #post_micropost_section,#post_article_section {
+    margin-top: 2rem;
+    padding: 2rem 1rem;
+    border-radius: 1rem;
+    border: 1px solid lightgray;
+  }
+}
+
+.modal {
+  .modal-dialog {
+    width: 95%;
+    top: 10%;
+    .modal-content {
+      .modal-header {
+        padding: 2rem;
+        button.close {
+          font-size: 3rem;
+        }
+        span, p {
+          font-size: 3rem;
+          color: #555;
+        }
+      }
+      .modal-body {
+        margin: 2rem 2rem;
+        textarea {
+          font-size: 2rem;
+          resize: none;
+          height: 20rem;
+          //width:80%;
+        }
+        label {
+          line-height: 1;
+          margin-bottom: 3rem;
+          font-size: 2rem;
+        }
+        input {
+          font-size: 3rem;
+          height: 5rem;
+          margin-bottom: 3rem;
+        }
+      }
+      .modal-footer {
+        * {
+          margin: 0.8rem;
+        }
+        span {
+          font-size: 2rem;
+          color: #555;
+        }
+        button {
+          border-radius: 2rem;
+          font-size: 2rem;
+          width: 20%;
+        }
+      }
+    }
+  }
+}
+
+#search_micropost_section,#search_article_section {
+  border: 1px solid lightgray;
+  border-radius: 1rem;
+  padding: 1rem 1rem 3rem 1rem;
+  p:first-child {
+    margin-top: 1rem;
+    color: #666;
+    font-size: 1.6rem;
+    font-weight: bold;
+  }
+
+  #select_search_micropost_form,#select_search_article_form {
+    label {
+      color: #777;
+    }
+  }
+}
+
+#micropost_footer {
+  margin-bottom: 8rem;
+  div {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 8rem;
+    background-color: #eee;
+    div {
+      float: left;
+      display: inline-block;
+      height: 100%;
+      position: relative;
+      top: 50%;
+      transform: translateY(-30%);
+      width: 50%;
+      p {
+        font-size: xx-large;
+        color: #555;
+        display: block;
+        text-align: center;
+      }
+    }
+  }
+}
+
+//微博正文,日志列表样式
+#micropost_main_title,#article_main_title {
+  font-size: 2.5rem;
+  border-bottom: 0.1rem solid lightgray;
+  position: sticky;
+  z-index: 8;
+  top: 0;
+  background-color: white;
+  > span {
+    display: inline-block;
+    padding: 2rem 2rem 0.5rem 2rem;
+    color: $bootstrap-pill-blue;
+    border-bottom: 0.1rem solid $bootstrap-pill-blue;
+    > span {
+      vertical-align: middle;
+      color: #539ad7;
+      font-size: 1.8rem;
+
+    }
+  }
+
+}
+
+
+#micropost_main_content,#micropost_main_comments,#article_main_content{
+  border: 0.1rem solid #ccc;
+}
+#micropost_main_content,#article_main_content {
+  background-color: #fefefe;
+  margin: 1rem 0 ;
+}
+#micropost_main_comments {
+  background-color: #f6f6f6;
+  margin: 0;
+  border-radius: 1rem;
+}
+
+.media {
+  padding: 1rem 1.5rem;
+  .media-left {
+    .media-object {
+      background-image: url("avatar.jpg");
+      background-size: cover;
+    }
+    #micropost_content_avatar{
+      border-radius: 0.5rem;
+      height: 6rem;
+      width: 6rem;
+    }
+    #micropost_comments_avatar{
+      border-radius: 0.25rem;
+      height: 3rem;
+      width: 3rem;
+    }
+  }
+  .media-body {
+    .media-heading {
+      color: #333
+    }
+    #article_title{
+      font-size: 3rem;
+      span{
+        font-size: 1.6rem;
+        color: #999;
+      }
+      span:first-child{
+        margin-left: 1rem;
+      }
+      span:nth-child(2)
+      {
+        float:right;
+      }
+    }
+    #micropost_content_username{
+      font-size: 2rem;
+    }
+    #micropost_comments_username{
+      font-size: 1.6rem;
+    }
+    #article_content{
+      font-size: 2rem;
+      color: #666;
+    }
+    #micropost_content_content {
+      font-size: 1.8rem;
+      color: #666;
+    }
+    #micropost_comments_content{
+      font-size: 1.6rem;
+      color: #666;
+    }
+    .micropost_edit_items{
+      span{
+        color: #777;
+        float: right;
+        cursor: pointer;
+      }
+      .micropost_post_time{
+        cursor: default;
+      }
+    }
+    #micropost_content_edit_items {
+      span {
+        font-size: 1.5rem;
+        margin: 1rem 1rem 0 1rem;
+        height: 2rem;
+      }
+    }
+    #micropost_comments_edit_items {
+      span {
+        font-size: 1.3rem;
+        margin: 0.5rem 1rem 0 1rem;
+        height: 1.5rem;
+      }
+    }
+    &+hr{
+      border-top:1px solid #d3d3d3;
+      margin-bottom: 0.5rem;
+    }
+  }
+}
+
+#micropost_comments_more{
+  font-size: 1.6rem;
+  color:gray;
+  text-align: center;
+  margin-bottom: 0.8rem;
+}
+
+#micropost_content_more{
+  font-size: 2rem;
+  color: gray;
+  text-align: center;
+}
+
+#micropost_empty,#article_empty {
+  margin-top: 10rem;
+  background-image: url("empty_box2.jpg");
+  background-size: cover;
+  width: 70%;
+  text-align: center;
+  margin-right: auto;
+  margin-left: auto;
+  padding-bottom: 70%;
+  & + p {
+    color: #888;
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 10rem;
+  }
+}
+
+//日志分页
+#article_paginate{
+  display: table;
+  margin: 2rem auto;
+  span{
+
+    font-size: 2rem;
+    input{
+      width:5rem;
+    }
+  }
+}
