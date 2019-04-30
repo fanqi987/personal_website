@@ -16,12 +16,25 @@
 
 <footer id="micropost_footer" class="hidden-md hidden-lg">
   <div>
-    <div data-toggle="modal" data-target="#post_micropost_modal">
+    <div data-toggle="modal" data-target="#post_micropost_modal" onclick="return false">
       <p class=" fas fa-blog"></p>
-      <p >写微博</p>
+      <p>写微博</p>
     </div>
-    <div data-toggle="modal" data-target="#search_micropost_modal"><p class="glyphicon glyphicon-search"></p>
+    <div data-toggle="modal" data-target="#search_micropost_modal" onclick="return false">
+      <p class="glyphicon glyphicon-search"></p>
       <p>搜索微博</p>
+    </div>
+  </div>
+</footer>
+<footer id="article_footer" class="hidden-md hidden-lg">
+  <div>
+    <div onclick="showArticleWritePage()">
+      <p class=" fas fa-newspaper"></p>
+      <p>写日志</p>
+    </div>
+    <div data-toggle="modal" data-target="#search_article_modal" onclick="return false">
+      <p class="glyphicon glyphicon-search"></p>
+      <p>搜索日志</p>
     </div>
   </div>
 </footer>

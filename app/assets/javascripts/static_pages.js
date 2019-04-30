@@ -1,4 +1,14 @@
+var footers = ["#micropost_footer", "#article_footer"];
+var document_first_loading=true;
 
+
+function showFooter(index) {
+    for (var i = 0; i < footers.length; i++) {
+        $(footers[i]).hide();
+    }
+    if (index >= 0)
+        $(footers[index]).show();
+}
 
 function lightingMenuButtons(index) {
     $('#nav_static_pages>li:eq(' + index + ')').addClass('active').siblings().removeClass('active');
@@ -24,8 +34,11 @@ function onDocumentHeaderReady() {
 }
 
 function onDocumentContentReady(menuIndex) {
+    if(document.readyState=='complete')
+        document_first_loading=false;
     $(document).ready(function () {
         lightingMenuButtons(menuIndex);
+        showFooter(menuIndex - 1);
         // console.log($("").froalaEditor);
         // $("p").froalaEditor({
         //     language: "zh_cn"
@@ -44,6 +57,7 @@ function onDocumentContentReady(menuIndex) {
                 break;
             //娱乐
             case 3:
+                initScrollboxHobby();
                 break;
 
             //信息

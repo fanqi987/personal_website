@@ -1,7 +1,5 @@
 source 'https://rubygems.org'
 
-
-
 gem 'rails', '~> 5.1.6'
 gem 'puma', '~> 3.7'
 gem 'sass-rails', '~> 5.0'
@@ -15,8 +13,7 @@ gem 'wysiwyg-rails'
 gem 'font-awesome-sass'
 gem 'bootstrap-sass'
 gem 'bootstrap-will_paginate'
-
-
+gem 'owlcarousel-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

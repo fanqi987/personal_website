@@ -1,5 +1,10 @@
 <!DOCTYPE html>
 <html>
+<head>
+  <script>
+      onDocumentContentReady(1);
+  </script>
+</head>
 <body>
 
 <div class="container">
@@ -7,7 +12,7 @@
 
   <aside class="col-md-3 hidden-sm hidden-xs" id="micropost_aside">
     <section id="post_micropost_section">
-      <button class="btn btn-primary btn-block btn-lg fas fa-blog" id="post_micropost_section_button" data-toggle="modal" data-target="#post_micropost_modal">
+      <button class="btn btn-primary btn-block btn-lg fas fa-blog" id="post_micropost_section_button" data-toggle="modal" data-target="#post_micropost_modal" onclick="return false">
         <strong>发表新微博</strong>
       </button>
     </section>
@@ -36,7 +41,7 @@
         <hr>
         <button class="btn btn-success btn-block" type="submit">提交</button>
       </form>
-      <button class="btn btn-success btn-block" data-toggle="modal" data-target="#search_micropost_modal" style="margin-top: 1rem;">查看搜索模态</button>
+      <button class="btn btn-success btn-block" data-toggle="modal" data-target="#search_micropost_modal" onclick="return false" style="margin-top: 1rem;">查看搜索模态</button>
     </section>
   </aside>
 
@@ -94,7 +99,7 @@
 
   <article class="col-md-9 col-sm-12">
     <section class="row" id="micropost_main_title">
-      <span>微博 <span>123</span></span>
+      <span class="fas fa-chevron-left" id="article_main_title_back"></span><span>微博 <span>123</span></span>
     </section>
     <section class="row" id="micropost_main_content">
       <div class="media" id="micropost_content_media">
@@ -151,9 +156,7 @@
 
 </div>
 </body>
-<script>
-    onDocumentContentReady(1);
-</script>
+
 
 </html>
 

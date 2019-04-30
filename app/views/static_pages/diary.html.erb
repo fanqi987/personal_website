@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html>
+<head>
+  <script>
+      onDocumentContentReady(2);
+  </script>
+</head>
 <body>
 
 <div class="container">
   <aside class="col-md-3 hidden-sm hidden-xs" id="article_aside">
     <section id="post_article_section">
-      <button class="btn btn-primary btn-block btn-lg fas fa-edit" id="post_article_section_button">
+      <button class="btn btn-primary btn-block btn-lg fas fa-edit" id="post_article_section_button" onclick="showArticleWritePage()">
         发表新日志
       </button>
     </section>
@@ -34,7 +39,7 @@
         <hr>
         <button class="btn btn-success btn-block" type="submit">提交</button>
       </form>
-      <button class="btn btn-success btn-block" data-toggle="modal" data-target="#search_article_modal" style="margin-top: 1rem;">查看搜索模态</button>
+      <button class="btn btn-success btn-block" data-toggle="modal" data-target="#search_article_modal" style="margin-top: 1rem;"  onclick="return false">查看搜索模态</button>
     </section>
   </aside>
 
@@ -68,16 +73,17 @@
     </div>
   </div>
 
-  <article class="col-md-9 col-sm-12">
+  <article class="col-md-9 col-sm-12" id="article_main_div">
     <section class="row" id="article_main_title">
-      <span>日志 <span>123</span></span>
+      <span class="fas fa-chevron-left" id="article_main_title_back"></span><span>日志 <span>123</span></span>
     </section>
     <section class="row" id="article_main_content">
       <div class="media" id="article_content_media">
         <div class="media-body">
           <p class="media-heading" id="article_title">
-            这是标题<span>作者:佚名</span><span>2019年12月12日 12:12:12</span>
+            这是标题这是标题<span>作者：佚名</span><span>2019年12月12日 12:12:12</span>
           </p>
+          <div class="clearfix"></div>
           <p id="article_content">
             这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容
           </p>
@@ -97,11 +103,29 @@
     <section id="article_empty">
     </section>
     <p>没有日志要！</p>
+
+    <article  id="article_write_div">
+      <form class="form-inline">
+        <section class="row">
+          <!--        <label id="article_title">标题:</label>-->
+          <input class="form-control" type="text" placeholder="请在这里输入标题">
+        </section>
+        <section class="row">
+          <div id="article_editor"></div>
+        </section>
+        <section class="row">
+          <button class="btn btn-primary" type="submit">发表文章</button>
+          <button class="btn btn-info " type="button">保存草稿</button>
+          <p>在2019-12-12 12:12:12时保存成功</p>
+        </section>
+      </form>
+    </article>
+
   </article>
+
+
 
 </div>
 </body>
-<script>
-    onDocumentContentReady(2);
-</script>
+
 </html>

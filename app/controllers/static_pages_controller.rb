@@ -16,4 +16,7 @@ class StaticPagesController < ApplicationController
 
   def messageboard
   end
+
+  def material
+  end
 end
