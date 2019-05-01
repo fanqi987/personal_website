@@ -1,16 +1,111 @@
 <!DOCTYPE html>
 <html>
 <body>
-<div class="container">
-  <section class="row">
-    <div class="header_profile">
-      <div class="avatar_header_profile"></div>
-      <span class="name_header_profile"></span><span class="sex_header_profile"></span>
-      <span class="birthday_header_profile"></span><span class="constellation_header_file"></span>
-      <br>
+<div class="bg_profile_div">
+  <div class="container">
+    <section class="row header_profile">
+
+      <div class="row">
+        <div class="avatar_header_border_profile">
+          <%= image_tag 'snorlax.png', class: 'avatar_header_profile' %>
+        </div>
+
+      </div>
+      <div class="row">
+        <span class="name_header_profile">c-dev
+         <span class="fa-stack sex_header_profile ">
+            <i class="fa fa-circle fa-stack-1x"></i>
+            <i class="fas fa-mars fa-inverse fa-stack-1x"></i>
+        </span>
+          <%= image_tag 'aquarius.png', class: 'birthday_header_profile', title: '水瓶座' %>
+        </span>
+        <br>
+      </div>
       <p class="say_words_profile">天天开心!</p>
-    </div>
-  </section>
+      <div class="hr_header_profile">
+      </div>
+    </section>
+    <section class="row main_title_profile">
+      <div>
+        <p>基本信息</p>
+      </div>
+    </section>
+    <section class="row connection_profile">
+      <div>
+        <%= image_tag 'tencent.png', title: 'QQ' %>
+        <span class="v_divider_profile"></span>
+        <span class="info_profile">284811590</span>
+        <div class="h_divider_profile"></div>
+      </div>
+      <div class="position_connection_profile">
+        <%= image_tag 'home.png', title: '所在地' %>
+        <span class="v_divider_profile"></span>
+        <span class="info_profile">陕西 西安</span>
+        <!--        <div class="h_divider_connection_profile"></div>-->
+      </div>
+    </section>
+    <section class="row main_title_profile">
+      <div>
+        <p>详细信息</p>
+      </div>
+    </section>
+    <section class="row hobbies_profile">
+      <div>
+        <%= image_tag 'puzzle.png', title: '爱好', alt: '爱好' %>
+        <span class="v_divider_profile"></span>
+        <span class="info_profile">
+          <%= image_tag 'game-controller.png', title: '电子游戏', alt: '电子游戏' %>
+          <%= image_tag 'code.png', title: '编程', alt: '编程' %>
+          <%= image_tag 'dictionary.png', title: '英语', alt: '英语' %>
+          <%= image_tag 'open-book.png', title: '读书', alt: '读书' %>
+          <%= image_tag 'harmonica.png', title: '口琴', alt: '口琴' %>
+          <%= image_tag 'succulent.png', title: '多肉植物', alt: '多肉植物' %>
+          <%= image_tag 'paint.png', title: '画画', alt: '画画' %>
+          <%= image_tag 'gym.png', title: '健身', alt: '健身' %>
+        </span>
+      </div>
+    </section>
+
+    <section class="row sub_likes_profile">
+      <div>
+        <%= image_tag 'favorite-food.png', title: '喜欢的食物', alt: '喜欢的食物' %>
+        <span class="v_divider_profile"></span>
+        <span class="info_profile">
+          <%= image_tag 'kfc.png', title: '肯德基', alt: '肯德基' %>
+          <%= image_tag 'tomato.png', title: '西红柿', alt: '西红柿' %>
+          <%= image_tag 'ramen.png', title: '面食', alt: '面食' %>
+          <%= image_tag 'eggs.png', title: '鸡蛋', alt: '鸡蛋' %>
+          <%= image_tag 'cake-slice.png', title: '糕点', alt: '糕点' %>
+
+        </span>
+        <div class="h_divider_profile"></div>
+      </div>
+      <div>
+        <%= image_tag 'favorite-game.png', title: '喜欢的游戏', alt: '喜欢的游戏' %>
+        <span class="v_divider_profile"></span>
+        <span class="info_profile">
+          <%= image_tag 'MapleStory.ico', title: '冒险岛Online', alt: '冒险岛Online' %>
+          <%= image_tag 'swd3e.ico', title: '轩辕剑系列', alt: '轩辕剑系列' %>
+          <%= image_tag 'PAL3.ico', title: '仙剑系列', alt: '仙剑系列' %>
+          <%= image_tag 'gujian.ico', title: '古剑系列', alt: '古剑系列' %>
+          <%= image_tag 'ed6.ico', title: '轨迹系列', alt: '轨迹系列' %>
+          <%= image_tag 'RPGXP.ico', title: 'RPG maker游戏制作', alt: 'RPG maker游戏制作' %>
+          <%= image_tag 'Ekd5.ico', title: '三国志曹操传', alt: '三国志曹操传' %>
+          <%= image_tag 'eoc3.ico', title: '神界:原罪', alt: '神界:原罪' %>
+        </span>
+      </div>
+    </section>
+    <section class="row shared_profile">
+
+      <div class="shared_buttons_profile">
+        <span>喜欢我的网站吗？&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>分享</span>
+        <%= image_tag 'QQ.ico', title: 'QQ', alt: 'QQ' %>
+        <%= image_tag 'weibo.png', title: '新浪微博', alt: '新浪微博' %>
+        <%= image_tag 'wechat.png', title: '微信', alt: '微信' %>
+      </div>
+    </section>
+  </div>
 </div>
 
 </body>
