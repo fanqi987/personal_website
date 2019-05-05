@@ -21,6 +21,16 @@ $home-content-intro: #666;
 $header-xs-list: #666;
 $micropost_time: #737350;
 
+$all_1: #ddd;
+$code_2: #8dc3ea;
+$english_3: #a3a380;
+$read_4: #cfd0bc;
+$music_5: #7296e5;
+$paint_6: #6fc018;
+$plant_7: #ef5e87;
+$fitness_8: #34352c;
+$game_9: #efde83;
+
 $lg-width: 1200px;
 $md-width: 992px;
 $sm-width: 768px;
@@ -293,10 +303,17 @@ $sm-width: 768px;
         overflow: hidden;
 
         p {
-          margin: 26% 20% 15% 17%;
-          height: 38%;
-          overflow: hidden;
+          font-size: 1.3rem;
+          margin: 26% 20% 10% 17%;
+          height: 41%;
+          overflow-y: scroll;
+          &::-webkit-scrollbar{
+            display:none;
+          }
           #micropost_content_first_word_home {
+            font-size: 3rem;
+            height:3rem;
+            display:inline-block;
             float: left;
             margin-top: -2%;
             vertical-align: top;
@@ -304,10 +321,12 @@ $sm-width: 768px;
           }
         }
         #micropost_time_home {
+          font-size: 1.2rem;
           display: block;
           margin-left: 33%;
           margin-right: 13%;
           padding-top: 3%;
+          width:50%;
           border-top: 0.15rem dotted $micropost_time;
           overflow: hidden;
           white-space: nowrap;
@@ -318,18 +337,27 @@ $sm-width: 768px;
       #article_home {
         background-image: image_url("notebook4.jpg");
         #article_title_home {
-          margin: 16% 23% 0.4% 25%;
+          margin: 16% 23% 1% 25%;
+          font-size: 1.2rem;
+
         }
         #article_content_home {
+          font-size: 1rem;
+
           margin: 0% 23% 3% 25%;
-          height: 60%;
-          overflow: hidden;
+          height: 55%;
+          overflow-y: scroll;
+          &::-webkit-scrollbar{
+            display:none;
+          }
         }
         #article_time_home {
           margin: 0% 23% 15% 25%;
           overflow: hidden;
           white-space: nowrap;
           text-overflow: ellipsis;
+          font-size: 1rem;
+
         }
       }
       #message_board_home {
@@ -337,15 +365,24 @@ $sm-width: 768px;
         background-image: url("messageboard5.jpg");
 
         #message_board_name_home {
+          font-size: 1.2rem;
+
           margin: 39% 17% 0.4% 21%;
         }
         #message_board_content_home {
-          margin: 0% 17% 0.4% 21%;
-          height: 29%;
-          overflow: hidden;
+          font-size: 1rem;
+
+          margin: 0% 17% 0 21%;
+          height: 25%;
+          overflow-y: scroll;
+          &::-webkit-scrollbar{
+            display:none;
+          }
         }
         #message_board_time_home {
-          margin: 1% 17% 15% 40%;
+          font-size: 1rem;
+
+          margin: 2% 17% 15% 40%;
           white-space: nowrap;
           text-overflow: ellipsis;
           overflow: hidden;
@@ -363,6 +400,7 @@ $sm-width: 768px;
           background-color: #a88e6b;
           text-align: center;
           p {
+            font-size: 1.6rem;
             display: inline-block;
             position: relative;
             transform: translateY(-50%);
@@ -371,7 +409,6 @@ $sm-width: 768px;
             width: 80%;
             white-space: nowrap;
             text-overflow: ellipsis;
-            font-size: 1.5rem;
             color: white;
             overflow: hidden;
 
@@ -389,11 +426,13 @@ $sm-width: 768px;
 
 //微博,日志侧边样式
 
-#micropost_aside, #article_aside {
+#micropost_aside, #article_aside, #material_aside {
+
   position: sticky;
   position: -webkit-sticky;
+  margin-bottom: 3rem;
   top: 0;
-  #post_micropost_section, #post_article_section {
+  #post_micropost_section, #post_article_section, #post_material_section {
     margin-top: 2rem;
     padding: 2rem 1rem;
     border-radius: 1rem;
@@ -421,11 +460,17 @@ $sm-width: 768px;
       }
       .modal-body {
         margin: auto 1rem;
+        select{
+          height:4rem;
+          margin-bottom: 2rem;
+        }
+
         textarea {
           font-size: 2rem;
           resize: none;
           height: 30rem;
           //width:80%;
+          margin-bottom: 2rem;
         }
         label {
           line-height: 1;
@@ -456,7 +501,7 @@ $sm-width: 768px;
   }
 }
 
-#search_micropost_section, #search_article_section {
+#search_micropost_section, #search_article_section, #search_material_section {
   border: 1px solid lightgray;
   border-radius: 1rem;
   padding: 1rem 1rem 3rem 1rem;
@@ -467,14 +512,14 @@ $sm-width: 768px;
     font-weight: bold;
   }
 
-  #select_search_micropost_form, #select_search_article_form {
+  #select_search_micropost_form, #select_search_article_form, #select_search_material_form {
     label {
       color: #777;
     }
   }
 }
 
-#micropost_footer, #article_footer {
+#micropost_footer, #article_footer,#material_footer {
   margin-bottom: 8rem;
   z-index: 11;
   position: relative;
@@ -502,20 +547,20 @@ $sm-width: 768px;
   }
 }
 
-//微博正文,日志列表样式
+//微博正文,日志,素材列表样式
 
-#micropost_main {
+#micropost_main, #material_main {
   margin-bottom: 5rem;
 }
 
-#micropost_main_title, #article_main_title {
+#micropost_main_title, #article_main_title, .main_title_messageboard, #material_main_title {
   font-size: 2.5rem;
   border-bottom: 0.1rem solid lightgray;
   position: sticky;
   position: -webkit-sticky;
 
   z-index: 8;
-  top: 0;
+  top: -1px;
   background-color: white;
   #article_main_title_back {
     cursor: pointer;
@@ -541,7 +586,7 @@ $sm-width: 768px;
 }
 
 #micropost_main_content, #micropost_main_comments {
-  border: 0.1rem solid #ccc;
+  border: 0.1rem solid #dfdfdf;
 }
 
 #article_main_content {
@@ -559,9 +604,15 @@ $sm-width: 768px;
   border-radius: 1rem;
 }
 
+//所有媒体的样式,微博和留言
 .media {
   padding: 1rem 1.5rem;
   .media-left {
+    img {
+      height: 6rem;
+      width: 6rem;
+      border-radius: 50%;
+    }
     .media-object {
       background-image: url("avatar.jpg");
       background-size: cover;
@@ -594,8 +645,19 @@ $sm-width: 768px;
         float: right;
       }
     }
-    #micropost_content_username {
+    #micropost_content_username, #messageboard_username {
       font-size: 2rem;
+      > span {
+        float: right;
+        color: #666;
+        font-size: 1.6rem;
+        .delete_content_messageboard {
+          cursor: pointer;
+          &:hover {
+            color: $bootstrap-pill-blue;
+          }
+        }
+      }
     }
     #micropost_comments_username {
       font-size: 1.6rem;
@@ -604,7 +666,7 @@ $sm-width: 768px;
       font-size: 2rem;
       color: #666;
     }
-    #micropost_content_content {
+    #micropost_content_content, #messageboard_content {
       font-size: 1.8rem;
       color: #666;
     }
@@ -735,7 +797,7 @@ $sm-width: 768px;
 }
 
 //修复不能正确显示的颜色选中图标
-.fr-active-item .fr-selected-color {
+.fr-selected-color {
   font-weight: bold !important;
   font-family: 'Font Awesome 5 Free' !important;
 }
@@ -768,34 +830,6 @@ $sm-width: 768px;
 #main_hobby {
   margin-bottom: 5rem;
 }
-
-//#scroll_box_hobby{
-//  height: 560px;
-//  position:relative;
-//
-//  ul{
-//    width:4500px;
-//    height: 560px;
-//    li{
-//      display:inline-block;
-//      width:1100px;
-//      //position:relative;
-//    }
-//
-//      #item_of_hobby2{
-//        .item_img{
-//          background-image: url("tips2.jpg");
-//
-//        }
-//      }
-//    #item_of_hobby3{
-//      .item_img{
-//        background-image: url("materials.jpg");
-//
-//      }
-//    }
-//  }
-//}
 
 #empty_item_of_hobby, .item_of_hobby {
   display: inline-block;
@@ -938,10 +972,10 @@ $sm-width: 768px;
       border-top: 1px solid #dfdfdf;
     }
   }
-  .main_title_profile,.shared_profile{
+  .main_title_profile, .shared_profile {
     margin-top: 3rem;
   }
-  .connection_profile, .hobbies_profile, .sub_likes_profile, .shared_profile,.main_title_profile {
+  .connection_profile, .hobbies_profile, .sub_likes_profile, .shared_profile, .main_title_profile {
     background-color: white;
     padding: 1.5rem;
     @media (min-width: $md-width) {
@@ -956,13 +990,13 @@ $sm-width: 768px;
       }
     }
     > div {
-      p{
+      p {
         font-size: 2.5rem;
-        color:#444;
+        color: #444;
         line-height: 2.5rem;
-        margin:0;
+        margin: 0;
         //font-weight: bold;
-        padding:1.5rem;
+        padding: 1.5rem;
       }
       img {
         height: 2.3rem;
@@ -1014,8 +1048,8 @@ $sm-width: 768px;
     }
   }
   @media (min-width: $md-width) {
-    .hobbies_profile, .sub_likes_profile{
-      >div{
+    .hobbies_profile, .sub_likes_profile {
+      > div {
         img {
           height: 4rem;
           widht: 4rem;
@@ -1027,3 +1061,216 @@ $sm-width: 768px;
   }
 }
 
+//留言板布局
+.post_messageboard {
+  background-color: #fbfbfb;
+  border-radius: 4rem;
+  padding: 3rem;
+  margin: 2rem 0;
+  p:first-child {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+  form {
+    @media (min-width: $md-width) {
+      > div {
+        display: table;
+        .form-group {
+          input {
+            display: table-cell;
+            width: 70%;
+          }
+        }
+      }
+      textarea {
+        height: 10rem;
+      }
+    }
+    > div {
+      margin: 2rem auto;
+      .form-group {
+        display: inline-block;
+        input {
+          font-size: 1.8rem;
+          height: 3.5rem;
+          margin: auto 1rem;
+          padding: 1rem;
+          background-color: #fcfcfc;
+          border-color: #eee;
+        }
+        label {
+          color: #666;
+        }
+      }
+
+    }
+    textarea {
+      display: block;
+      font-size: 1.8rem;
+      width: 96%;
+      height: 20rem;
+      resize: none;
+      margin: auto;
+      background-color: #fcfcfc;
+      border-color: #eee;
+    }
+    button {
+      margin-top: 2rem;
+      margin-right: 2rem;
+      float: right;
+      width: 15rem;
+      color: #666;
+    }
+  }
+}
+
+.main_content_messageboard {
+  .hr_content_messageboard {
+    border-top: 1px solid #eee;
+  }
+  .media {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+}
+
+//素材样式
+.choose_section_material {
+  display: block;
+  width: 100%;
+  margin: 2rem auto;
+  > div {
+    position: relative;
+    margin: 0.5rem 0.5%;
+    padding-bottom: 13.5%;
+    border-radius: 1rem;
+    float: left;
+    width: 24%;
+    text-align: center;
+    p {
+      //img{
+      //  height:2rem;
+      //  width:2rem;
+      //  opacity: 0.5;
+      //}
+      display: block;
+      position: absolute;
+      width: 100%;
+      color: white;
+      font-size: 2rem;
+      line-height: 2rem;
+      font-weight: bold;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+  @media (min-width: $sm-width) {
+    > div {
+      margin: 1rem 0.5%;
+      padding-bottom: 9%;
+      width: 15.5%;
+      p {
+        //img{
+        //  height:2.5rem;
+        //  width:2.5rem;
+        //  opacity: 0.3;
+        //}
+        font-size: 2.5rem;
+        line-height: 2.5rem;
+      }
+    }
+  }
+  > div:nth-child(1) {
+    background-color: $all_1;
+  }
+  > div:nth-child(2) {
+    background-color: $code_2;
+  }
+  > div:nth-child(3) {
+    background-color: $english_3;
+  }
+  > div:nth-child(4) {
+    background-color: $read_4;
+  }
+  > div:nth-child(5) {
+    background-color: $music_5;
+  }
+  > div:nth-child(6) {
+    background-color: $paint_6;
+  }
+  > div:nth-child(7) {
+    background-color: $plant_7;
+  }
+  > div:nth-child(8) {
+    background-color: $fitness_8;
+  }
+  > div:nth-child(9) {
+    background-color: $game_9;
+  }
+}
+
+#material_main {
+  #material_main_content_section {
+    margin-top: 2rem;
+
+    .material_main_content {
+      position: relative;
+      width: 50%;
+      padding-bottom:50%;
+      float: left;
+      border: 0.7rem solid white;
+      @media (min-width: $sm-width) {
+        width: 33.333333%;
+        padding-bottom: 33.3333333%;
+        border: 1rem solid white;
+      }
+      > div {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        padding: 1.2rem;
+
+        @media (min-width: $sm-width) {
+          padding: 1.5rem;
+
+        }
+        border-radius: 2rem;
+        background-color: $code_2;
+        &:hover {
+          box-shadow: 0 0 0.5rem gray;
+        }
+        * {
+          color: white;
+        }
+        p:first-child {
+          font-weight: bold;
+          font-size: 2.5rem;
+          margin-bottom:  0.5rem;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+        }
+        p:nth-child(2) {
+          font-size: 1.8rem;
+          height:65%;
+          font-style: italic;
+          overflow-y: scroll;
+          &::-webkit-scrollbar{
+            display: none;
+          }
+        }
+        .material_main_content_time {
+          font-size: 1.5rem;
+          position: absolute;
+          float: right;
+          bottom: 1.2rem;
+          right: 1.2rem;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+        }
+      }
+    }
+  }
+
+}

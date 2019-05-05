@@ -1,13 +1,12 @@
-var footers = ["#micropost_footer", "#article_footer"];
-var document_first_loading=true;
+var footers = ['', "#micropost_footer", "#article_footer", "", '', '', '#material_footer'];
+var document_first_loading = true;
 
 
 function showFooter(index) {
     for (var i = 0; i < footers.length; i++) {
         $(footers[i]).hide();
     }
-    if (index >= 0)
-        $(footers[index]).show();
+    $(footers[index]).show();
 }
 
 function lightingMenuButtons(index) {
@@ -34,11 +33,11 @@ function onDocumentHeaderReady() {
 }
 
 function onDocumentContentReady(menuIndex) {
-    if(document.readyState=='complete')
-        document_first_loading=false;
+    if (document.readyState == 'complete')
+        document_first_loading = false;
     $(document).ready(function () {
         lightingMenuButtons(menuIndex);
-        showFooter(menuIndex - 1);
+        showFooter(menuIndex);
         // console.log($("").froalaEditor);
         // $("p").froalaEditor({
         //     language: "zh_cn"
