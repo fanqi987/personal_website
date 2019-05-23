@@ -1,23 +1,25 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>云谷鹤峰的个人网站</title>
-    <%= csrf_meta_tags %>
-<!--    <meta name="viewport" content="user-scalable=no">-->
-    <meta name="viewport" content="width=device-width,
+<head>
+  <title>云谷鹤峰的个人网站</title>
+  <%= csrf_meta_tags %>
+  <!--    <meta name="viewport" content="user-scalable=no">-->
+  <meta name="viewport" content="width=device-width,
                                      initial-scale=1.0,
                                      maximum-scale=1.0,
                                      user-scalable=no">
-    <%= stylesheet_link_tag    'application', media: 'all',  'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
 
-  </head>
+</head>
 
-  <body>
-  <%= render "layouts/header"%>
-  <%= render 'layouts/banner' %>
-    <%= yield %>
-  <%= render "layouts/footer"%>
-  </body>
+<body>
+<%= render "layouts/header" %>
+<%= render 'layouts/banner' %>
+<%= yield %>
+<%= debug(params) if Rails.env.development? %>
+<%= render "layouts/footer" %>
+</body>
+
 </html>

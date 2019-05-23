@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+user1:
+  email: 284811590@qq.com
+  name: fanqi987
+  password_digest: <%= User.digest('19930218fq')%>
+  admin: true
+
+

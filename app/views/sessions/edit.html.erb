@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<body>
+<div class="container">
+  <div id="login_profile_title">用户信息 <span class="fas fa-info-circle"></span></div>
+  <%= render 'shared/flash' %>
+  <div class="login_profile_content">
+    <%# p "123"%>
+    <%# p @user.errors.messages.collect.to_a %>
+    <%# p @user.errors.messages.collect.to_a %>
+    <%= form_for @user, url: login_profile_info_path, method: :patch do |f| %>
+      <% if @patch_type == SessionsController::PATCH_TYPE_INFO %>
+        <%= render 'shared/errors', object: @user %>
+      <% end %>
+      <div class="form-group">
+        <%= f.label :email, '注册邮箱' %>
+        <%= f.email_field :email, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :name, '用户名' %>
+        <%= f.text_field :name, class: "form-control" %>
+      </div>
+      <%= f.submit '更新信息', class: 'btn btn-info login-profile-update' %>
+    <% end %>
+    <%# p '234' %>
+    <%# p @user.errors.messages.collect.to_a %>
+    <%= form_for @user, url: login_profile_pwd_path, method: :patch do |f| %>
+      <% if @patch_type == SessionsController::PATCH_TYPE_PWD %>
+        <%= render 'shared/errors', object: @user %>
+      <% end %>
+      <%= hidden_field_tag :email, @user.email %>
+      <%= hidden_field_tag :name, @user.name %>
+      <div class="form-group">
+        <%= f.label :password, '修改密码' %>
+        <%= f.password_field :password, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :password_confirmation, '密码确认' %>
+        <%= f.password_field :password_confirmation, class: "form-control" %>
+      </div>
+      <div>
+        <%= f.submit '修改密码', class: 'btn btn-info' %>
+        <%= link_to '退出登录', login_profile_path, method: :delete, class: 'btn btn-danger login-profile-logout' %>
+      </div>
+    <% end %>
+
+  </div>
+</div>
+</body>
+<script>
+    onDocumentContentReadyNotMenu();
+</script>
+</html>

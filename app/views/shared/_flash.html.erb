@@ -1,0 +1,8 @@
+<div class="flash_tips">
+  <% flash.each do |k, v| %>
+    <div class="alert alert-<%= k %>">
+      <span><%= v %></span>
+      <a href='#' class="close" data-dismiss="alert">&times;</a>
+    </div>
+  <% end %>
+</div>

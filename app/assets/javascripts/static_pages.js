@@ -33,6 +33,7 @@ function onDocumentHeaderReady() {
 }
 
 function onDocumentContentReady(menuIndex) {
+    //如果是第1次进来,就会是loading状态,其它时候都是complete
     if (document.readyState == 'complete')
         document_first_loading = false;
     $(document).ready(function () {
@@ -67,4 +68,21 @@ function onDocumentContentReady(menuIndex) {
                 break;
         }
     });
+}
+
+function onDocumentContentReadyNotMenu(index) {
+    $(document).ready(function () {
+        showFooter(0);
+        switch (index) {
+            //其它 -1
+            default:
+                break;
+        }
+    });
+}
+
+function onRegisterSuccessfully(url) {
+    window.setTimeout(function () {
+        window.location.href = url;
+    }, 3000);
 }

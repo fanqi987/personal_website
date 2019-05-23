@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script>
+      onDocumentContentReady(1);
+  </script>
+</head>
+<body>
+
+<div class="container">
+  <!--  手机版 -->
+
+  <aside class="col-md-3 hidden-sm hidden-xs" id="micropost_aside">
+    <section id="post_micropost_section">
+      <button class="btn btn-primary btn-block btn-lg fas fa-blog" id="post_micropost_section_button" data-toggle="modal" data-target="#post_micropost_modal" onclick="return false">
+        <strong>发表新微博</strong>
+      </button>
+    </section>
+    <hr/>
+    <section id="search_micropost_section">
+      <p class="glyphicon glyphicon-search"> 搜索微博</p>
+      <hr/>
+      <form id="select_search_micropost_form">
+        <div class="form-group">
+          <label><span class="glyphicon glyphicon-time"></span>
+            开始时间:</label><input class="form-control" id="select_search_micropost_date_start" type="date">
+        </div>
+        <div class="form-group">
+          <label><span class="glyphicon glyphicon-time"></span>
+            结束时间:</label><input class="form-control" id="select_search_micropost_date_end" type="date">
+        </div>
+        <div class="form-group">
+          <label><span class="	glyphicon glyphicon-pencil"></span> 请输入关键字:</label>
+          <input class="form-control" id="select_search_micropost_key_word" type="text">
+        </div>
+        <hr>
+        <button class="btn btn-success btn-block" type="submit">提交</button>
+      </form>
+      <button class="btn btn-success btn-block" data-toggle="modal" data-target="#search_micropost_modal" onclick="return false" style="margin-top: 1rem;">查看搜索模态</button>
+    </section>
+  </aside>
+
+  <div class="modal fade" id="post_micropost_modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+      <form>
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <span class="glyphicon glyphicon-pencil"> 发表新微博</span>
+          </div>
+          <div class="modal-body">
+            <textarea class="form-control" maxlength="140" placeholder="你现在的想法..." required></textarea>
+          </div>
+          <div class="modal-footer">
+            <span class="glyphicon glyphicon-picture" id="modal_choose_img"> 选择图片</span>
+            <button class="btn btn-primary" type="submit">发布</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <div class="modal fade" id="search_micropost_modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+      <form>
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <p class="glyphicon glyphicon-search"> 搜索微博</p>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label><span class="glyphicon glyphicon-time"></span>
+                开始时间:</label><input class="form-control" id="select_search_micropost_date_start" type="date">
+            </div>
+            <div class="form-group">
+              <label><span class="glyphicon glyphicon-time"></span>
+                结束时间:</label><input class="form-control" id="select_search_micropost_date_end" type="date">
+            </div>
+            <div class="form-group">
+              <label><span class="glyphicon glyphicon-pencil"></span> 请输入关键字:</label>
+              <input class="form-control" id="select_search_micropost_key_word" type="text">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-success" type="submit">提交</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <article class="col-md-9 col-sm-12" id="micropost_main">
+    <section class="row" id="micropost_main_title">
+      <span class="fas fa-chevron-left" id="article_main_title_back"></span><span>微博 <span>123</span></span>
+    </section>
+    <section class="row" id="micropost_main_content">
+      <div class="media" id="micropost_content_media">
+        <div class="media-left">
+          <span class="media-object" id="micropost_content_avatar"></span>
+        </div>
+        <div class="media-body">
+          <p class="media-heading" id="micropost_content_username">
+            这是名字
+          </p>
+          <p id="micropost_content_content">
+            这是内容这是内容这是内容这是内容这是内容这是内容这是内容
+          </p>
+          <img style="display: none"/>
+          <video style="display: none">
+          </video>
+          <p class="micropost_edit_items" id="micropost_content_edit_items">
+            <span class="	glyphicon glyphicon-trash" id="micropost_delete_icon"></span>
+            <span class="glyphicon micropost_post_time" id="micropost_content_post_time">2019年12月12日 12:12:12</span>
+            <span class="glyphicon glyphicon-thumbs-up" id="micropost_likes_icon">1234</span>
+            <span class="glyphicon glyphicon-comment" id="micropost_comments_icon">12</span>
+            <span class="glyphicon glyphicon-share" id="micropost_shared_icon"></span>
+          </p>
+        </div>
+      </div>
+    </section>
+    <section class="row" id="micropost_main_comments">
+      <div class="media" id="micropost_comments_media">
+        <div class="media-left">
+          <span class="media-object" id="micropost_comments_avatar"></span>
+        </div>
+
+        <div class="media-body">
+          <p class="media-heading" id="micropost_comments_username">
+            这是名字: <span id="micropost_comments_content">这是内容这是内容这是内容这是内容这是内容这是内容这是内容</span>
+          </p>
+          </p>
+          <p class="micropost_edit_items" id="micropost_comments_edit_items">
+            <span class="	glyphicon glyphicon-trash" id="micropost_comments_delete_icon"></span>
+            <span class="glyphicon" id="micropost_comments_post_time">2019年12月12日 12:12:12</span>
+            <span class="glyphicon glyphicon-thumbs-up" id="micropost_comments_likes_icon">1234</span>
+          </p>
+        </div>
+        <hr/>
+      </div>
+      <div id="micropost_comments_more">查看更多</div>
+    </section>
+    <hr/>
+    <div id="micropost_content_more">查看更多</div>
+    <section id="micropost_empty">
+    </section>
+    <p>没有微博！</p>
+  </article>
+
+</div>
+</body>
+
+
+</html>
+

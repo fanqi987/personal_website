@@ -29,7 +29,7 @@ $music_5: #7296e5;
 $paint_6: #6fc018;
 $plant_7: #ef5e87;
 $fitness_8: #34352c;
-$game_9: #efde83;
+$game_9: #dfce73;
 
 $lg-width: 1200px;
 $md-width: 992px;
@@ -204,9 +204,15 @@ $sm-width: 768px;
   position: relative;
   right: 0;
   left: 0;
-  height: 35rem;
+  height:25rem;
   background-image: image_url("time.jpg");
   background-size: cover;
+  @media (min-width: $sm-width){
+    height: 30rem;
+  }
+  @media (min-width: $md-width){
+    height: 35rem;
+  }
 }
 
 //首页样式
@@ -307,13 +313,13 @@ $sm-width: 768px;
           margin: 26% 20% 10% 17%;
           height: 41%;
           overflow-y: scroll;
-          &::-webkit-scrollbar{
-            display:none;
+          &::-webkit-scrollbar {
+            display: none;
           }
           #micropost_content_first_word_home {
             font-size: 3rem;
-            height:3rem;
-            display:inline-block;
+            height: 3rem;
+            display: inline-block;
             float: left;
             margin-top: -2%;
             vertical-align: top;
@@ -326,7 +332,7 @@ $sm-width: 768px;
           margin-left: 33%;
           margin-right: 13%;
           padding-top: 3%;
-          width:50%;
+          width: 50%;
           border-top: 0.15rem dotted $micropost_time;
           overflow: hidden;
           white-space: nowrap;
@@ -347,8 +353,8 @@ $sm-width: 768px;
           margin: 0% 23% 3% 25%;
           height: 55%;
           overflow-y: scroll;
-          &::-webkit-scrollbar{
-            display:none;
+          &::-webkit-scrollbar {
+            display: none;
           }
         }
         #article_time_home {
@@ -375,8 +381,8 @@ $sm-width: 768px;
           margin: 0% 17% 0 21%;
           height: 25%;
           overflow-y: scroll;
-          &::-webkit-scrollbar{
-            display:none;
+          &::-webkit-scrollbar {
+            display: none;
           }
         }
         #message_board_time_home {
@@ -460,8 +466,8 @@ $sm-width: 768px;
       }
       .modal-body {
         margin: auto 1rem;
-        select{
-          height:4rem;
+        select {
+          height: 4rem;
           margin-bottom: 2rem;
         }
 
@@ -519,7 +525,7 @@ $sm-width: 768px;
   }
 }
 
-#micropost_footer, #article_footer,#material_footer {
+#micropost_footer, #article_footer, #material_footer {
   margin-bottom: 8rem;
   z-index: 11;
   position: relative;
@@ -1216,7 +1222,7 @@ $sm-width: 768px;
     .material_main_content {
       position: relative;
       width: 50%;
-      padding-bottom:50%;
+      padding-bottom: 50%;
       float: left;
       border: 0.7rem solid white;
       @media (min-width: $sm-width) {
@@ -1245,17 +1251,17 @@ $sm-width: 768px;
         p:first-child {
           font-weight: bold;
           font-size: 2.5rem;
-          margin-bottom:  0.5rem;
+          margin-bottom: 0.5rem;
           text-overflow: ellipsis;
           overflow: hidden;
           white-space: nowrap;
         }
         p:nth-child(2) {
           font-size: 1.8rem;
-          height:65%;
+          height: 65%;
           font-style: italic;
           overflow-y: scroll;
-          &::-webkit-scrollbar{
+          &::-webkit-scrollbar {
             display: none;
           }
         }
@@ -1272,5 +1278,127 @@ $sm-width: 768px;
       }
     }
   }
+}
 
+//注册,登录，信息页面
+.register_title, #login_title, #login_profile_title {
+  text-align: center;
+  font-size: 3rem;
+  font-weight: bold;
+  color: #555;
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+}
+
+.register_content, .login_content, .login_profile_content {
+  text-align: center;
+  margin-bottom: 4rem;
+  form {
+    margin: auto;
+    margin-top:2rem;
+    border-radius: 2rem;
+    border: 1px solid #eee;
+    padding: 4rem;
+    background-color: #fcfcfc;
+    width: 100%;
+    @media (min-width: $sm-width) {
+      width: 50%;
+    }
+    .error_explanation {
+      color: #ff0e47;
+      .alert{
+        font-size: 1.6rem;
+      }
+      ul {
+        text-align: left;
+        margin-left: 25%;
+      }
+    }
+    .form-group {
+      * {
+        display: inline-block;
+      }
+      label {
+        font-size: 1.8rem;
+        color: #444;
+        width: 25%;
+
+      }
+      input {
+        width: 70%;
+        background-color: #fdfdfd;
+        border-color: #ddd;
+      }
+      margin-bottom: 4rem;
+      .field_with_errors {
+        @extend .has-error;
+        .form-control {
+          color: #ff0e47;
+          border-color: #ff0e47;
+        }
+      }
+      .field_with_errors:nth-child(1) {
+        width: 25%;
+        label {
+          width: auto;
+        }
+      }
+      .field_with_errors:nth-child(2) {
+        width: 70%;
+        input {
+          width: 100%;
+        }
+      }
+    }
+    .row {
+      * {
+        margin-left: 2rem;
+        margin-bottom: 1rem;
+      }
+    }
+    .checkbox {
+      margin-bottom: 4rem;
+      span {
+        font-weight: normal;
+        font-size: 1.8rem;
+      }
+    }
+    .login-profile-logout{
+      margin-left: 2rem;
+    }
+
+
+  }
+}
+
+.register_title,#login_title,#login_profile_title {
+  & + .flash_tips {
+    margin: auto;
+    width: 100%;
+    font-size: 1.6rem;
+    @media (min-width: $sm-width) {
+      width: 50%;
+    }
+  }
+}
+
+#register_success_body{
+  background-color: #f1f1f1;
+  padding:3rem;
+  position:relative;
+  .flash_tips{
+    padding: 2rem;
+    font-size: 2rem;
+  }
+  .register_success_content{
+    width:90%;
+    padding-bottom:50%;
+    @media (min-width: $sm-width){
+      width:60%;
+      padding-bottom:35%;
+    }
+    margin: auto;
+    background-image: image_url("congratulation.png");
+    background-size: cover;
+  }
 }

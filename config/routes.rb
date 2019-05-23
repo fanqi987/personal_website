@@ -1,11 +1,33 @@
 Rails.application.routes.draw do
 
+  resources :users
+
   root 'static_pages#home'
-  get 'static_pages/home',to:'static_pages#home'
-  get 'static_pages/micropost', to: "static_pages#micropost"
-  get 'static_pages/diary', to: 'static_pages#diary'
-  get 'static_pages/hobby', to: 'static_pages#hobby'
-  get 'static_pages/profile', to: 'static_pages#profile'
-  get 'static_pages/messageboard', to: 'static_pages#messageboard'
-  get 'static_pages/material', to: 'static_pages#material'
+  get '/home', to: 'static_pages#home'
+  get '/diary', to: 'static_pages#diary'
+  get '/hobby', to: 'static_pages#hobby'
+  get '/profile', to: 'static_pages#profile'
+  get '/messageboard', to: 'static_pages#messageboard'
+  get '/material', to: 'static_pages#material'
+
+  get '/register', to: 'users#new'
+  post '/register', to: 'users#create'
+  get '/register/success', to: 'users#createSuccess'
+
+
+  get '/login/profile', to: 'sessions#edit'
+  get '/login/profile/info', to: 'sessions#edit'
+  get '/login/profile/pwd', to: 'sessions#edit'
+  patch '/login/profile/info', to: 'sessions#update_info'
+  patch '/login/profile/pwd', to: 'sessions#update_pwd'
+  delete '/login/profile', to: 'sessions#destroy'
+  get '/login', to: 'sessions#new'
+  post '/login', to: 'sessions#create'
+
+  get '/micropost', to: "static_pages#micropost"
+  post '/microposts',to:'microposts#create'
+  delete '/microposts',to:'microposts#destroy'
+  get '/microposts',to:'microposts#index'
+
+
 end

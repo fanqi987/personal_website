@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<body>
+<div id="register_success_body">
+  <div class="container">
+    <%= render 'shared/flash' %>
+    <div class="register_success_content"></div>
+  </div>
+</div>
+</body>
+<script>
+    onDocumentContentReadyNotMenu(-1);
+    onRegisterSuccessfully('<%= login_path+'#login_title' %>');
+</script>
+</html>
