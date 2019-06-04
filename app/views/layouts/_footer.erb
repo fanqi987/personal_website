@@ -10,11 +10,11 @@
     </div>
     <div class="row" id="footer_login_static_page">
       <% if logged_in? %>
-        <span><%= link_to current_user.name, login_profile_path+"#login_profile_title" %></span> |
+        <span><%= link_to current_user.name, login_profile_path + "#login_profile_title" %></span> |
       <% else %>
-        <span><%= link_to "用户登录", login_path+"#login_title" %></span> |
+        <span><%= link_to "用户登录", login_path + "#login_title" %></span> |
       <% end %>
-      <span><%= link_to "用户注册", register_path+"#register_title" %></span>
+      <span><%= link_to "用户注册", register_path + "#register_title" %></span>
 
     </div>
   </div>
@@ -22,10 +22,19 @@
 
 <footer id="micropost_footer" class="hidden-md hidden-lg">
   <div>
-    <div data-toggle="modal" data-target="#post_micropost_modal" onclick="return false">
-      <p class=" fas fa-blog"></p>
-      <p>写微博</p>
-    </div>
+    <% if logged_in? && current_user.admin? %>
+      <div data-toggle="modal" data-target="#post_micropost_modal" onclick="return false">
+        <p class=" fas fa-blog"></p>
+        <p>写微博</p>
+      </div>
+    <% else %>
+      <%= form_for :post_micropost, url: microposts_path, method: :post, remote: true do %>
+        <%= content_tag :button, type: :submit do %>
+          <p class=" fas fa-blog"></p>
+          <p>写微博</p>
+        <% end %>
+      <% end %>
+    <% end %>
     <div data-toggle="modal" data-target="#search_micropost_modal" onclick="return false">
       <p class="glyphicon glyphicon-search"></p>
       <p>搜索微博</p>

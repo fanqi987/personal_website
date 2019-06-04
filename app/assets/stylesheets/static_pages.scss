@@ -204,13 +204,13 @@ $sm-width: 768px;
   position: relative;
   right: 0;
   left: 0;
-  height:25rem;
+  height: 25rem;
   background-image: image_url("time.jpg");
   background-size: cover;
-  @media (min-width: $sm-width){
+  @media (min-width: $sm-width) {
     height: 30rem;
   }
-  @media (min-width: $md-width){
+  @media (min-width: $md-width) {
     height: 35rem;
   }
 }
@@ -535,13 +535,24 @@ $sm-width: 768px;
     width: 100%;
     height: 8rem;
     background-color: #eee;
+    button {
+      &:focus {
+        outline: none;
+      }
+      background: none;
+      border: none;
+      transform: translateY(20%);
+
+    }
     div {
+      transform: translateY(-30%);
+    }
+    div, button {
       float: left;
       display: inline-block;
       height: 100%;
       position: relative;
       top: 50%;
-      transform: translateY(-30%);
       width: 50%;
       p {
         font-size: 2rem;
@@ -557,6 +568,15 @@ $sm-width: 768px;
 
 #micropost_main, #material_main {
   margin-bottom: 5rem;
+
+}
+
+#micropost_main {
+  .micropost_main_title_flash {
+    .flash_tips {
+      margin-top: 2rem;
+    }
+  }
 }
 
 #micropost_main_title, #article_main_title, .main_title_messageboard, #material_main_title {
@@ -591,7 +611,7 @@ $sm-width: 768px;
 
 }
 
-#micropost_main_content, #micropost_main_comments {
+.micropost_main_content {
   border: 0.1rem solid #dfdfdf;
 }
 
@@ -599,15 +619,91 @@ $sm-width: 768px;
   border-bottom: 0.1rem dashed #aaa;
 }
 
-#micropost_main_content, #article_main_content {
+.micropost_main_content, #article_main_content {
   background-color: #fefefe;
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
 
-#micropost_main_comments {
-  background-color: #f6f6f6;
-  border-radius: 1rem;
+.micropost_main_comments_with_edit {
+  //border-radius: 1rem;
+  display: none;
+  margin-left: -15px;
+  margin-right: -15px;
+  .micropost_main_comments_edit_form {
+    position: relative;
+    //height:15rem;
+    padding: 2rem;
+    text-align: center;
+    background-color: #f6f6f6;
+    border: 0.3rem solid #fff;
+    border-radius: 1rem;
+    .micropost_main_comments_edit_form_text_area {
+      float: left;
+      //height: 100%;
+      height: 9rem;
+      width: 100%;
+      resize: none;
+      background-color: #fafafa;
+      margin-bottom: 1.5rem;
+      @media(min-width: $sm-width) {
+        width: 70%;
+        margin-bottom: 0;
+      }
+    }
+    .micropost_main_comments_edit_form_name_field {
+      display: inline-block;
+      width: 70%;
+      height: 3rem;
+      @media (min-width: $sm-width) {
+        width: 25%;
+        margin-bottom: 1.5rem;
+
+      }
+      input {
+        font-size: 1.5rem;
+        background-color: #fafafa;
+        width: 70%;
+        float: left;
+        height: 4rem;
+        margin-right: 1rem;
+        margin-top: 0;
+        @media(min-width: $sm-width) {
+          height: 3rem;
+        }
+      }
+    }
+    .btn {
+      width: 25%;
+      display: inline-block;
+      @media (min-width: $sm-width) {
+        width: 25%;
+      }
+    }
+  }
+  .micropost_comment_item_with_more {
+    > * {
+      background-color: #f6f6f6;
+      border: 0.3rem solid #fff;
+      border-radius: 1rem;
+    }
+    button{
+      background: none;
+      border:none;
+    }
+    a{
+      text-decoration: none;
+    }
+    .micropost_comments_more {
+      font-size: 1.6rem;
+      color: gray;
+      text-align: center;
+      margin-bottom: 0.8rem;
+      padding: 1.5rem;
+      display:block;
+      margin:auto;
+    }
+  }
 }
 
 //所有媒体的样式,微博和留言
@@ -623,12 +719,12 @@ $sm-width: 768px;
       background-image: url("avatar.jpg");
       background-size: cover;
     }
-    #micropost_content_avatar {
+    .micropost_content_avatar {
       border-radius: 0.5rem;
       height: 6rem;
       width: 6rem;
     }
-    #micropost_comments_avatar {
+    .micropost_comments_avatar {
       border-radius: 0.25rem;
       height: 3rem;
       width: 3rem;
@@ -651,7 +747,7 @@ $sm-width: 768px;
         float: right;
       }
     }
-    #micropost_content_username, #messageboard_username {
+    .micropost_content_username, #messageboard_username {
       font-size: 2rem;
       > span {
         float: right;
@@ -665,40 +761,50 @@ $sm-width: 768px;
         }
       }
     }
-    #micropost_comments_username {
+    .micropost_comments_username {
       font-size: 1.6rem;
     }
     #article_content {
       font-size: 2rem;
       color: #666;
     }
-    #micropost_content_content, #messageboard_content {
+    .micropost_content_content, #messageboard_content {
       font-size: 1.8rem;
       color: #666;
     }
-    #micropost_comments_content {
+    .micropost_comments_content {
       font-size: 1.6rem;
       color: #666;
     }
     .micropost_edit_items {
-      span {
+      span, button {
+        &:before {
+          margin-right: 0.2rem;
+        }
+        vertical-align: middle;
         color: #777;
         float: right;
         cursor: pointer;
+
+      }
+      button {
+        border: none;
+        background: none;
+        //padding:0;
       }
       .micropost_post_time {
         cursor: default;
       }
     }
-    #micropost_content_edit_items {
-      span {
+    .micropost_content_edit_items {
+      span, button {
         font-size: 1.5rem;
         margin: 1rem 1rem 0 1rem;
-        height: 2rem;
+        height: 1.7rem;
       }
     }
-    #micropost_comments_edit_items {
-      span {
+    .micropost_comments_edit_items {
+      span, button {
         font-size: 1.3rem;
         margin: 0.5rem 1rem 0 1rem;
         height: 1.5rem;
@@ -711,17 +817,16 @@ $sm-width: 768px;
   }
 }
 
-#micropost_comments_more {
-  font-size: 1.6rem;
-  color: gray;
-  text-align: center;
-  margin-bottom: 0.8rem;
-}
-
 #micropost_content_more {
   font-size: 2rem;
   color: gray;
   text-align: center;
+  background: none;
+  border: none;
+  display: block;
+  margin: auto;
+  margin-top: 2rem;
+
 }
 
 #micropost_empty, #article_empty {
@@ -1295,7 +1400,7 @@ $sm-width: 768px;
   margin-bottom: 4rem;
   form {
     margin: auto;
-    margin-top:2rem;
+    margin-top: 2rem;
     border-radius: 2rem;
     border: 1px solid #eee;
     padding: 4rem;
@@ -1306,7 +1411,7 @@ $sm-width: 768px;
     }
     .error_explanation {
       color: #ff0e47;
-      .alert{
+      .alert {
         font-size: 1.6rem;
       }
       ul {
@@ -1363,15 +1468,14 @@ $sm-width: 768px;
         font-size: 1.8rem;
       }
     }
-    .login-profile-logout{
+    .login-profile-logout {
       margin-left: 2rem;
     }
-
 
   }
 }
 
-.register_title,#login_title,#login_profile_title {
+.register_title, #login_title, #login_profile_title {
   & + .flash_tips {
     margin: auto;
     width: 100%;
@@ -1382,20 +1486,20 @@ $sm-width: 768px;
   }
 }
 
-#register_success_body{
+#register_success_body {
   background-color: #f1f1f1;
-  padding:3rem;
-  position:relative;
-  .flash_tips{
+  padding: 3rem;
+  position: relative;
+  .flash_tips {
     padding: 2rem;
     font-size: 2rem;
   }
-  .register_success_content{
-    width:90%;
-    padding-bottom:50%;
-    @media (min-width: $sm-width){
-      width:60%;
-      padding-bottom:35%;
+  .register_success_content {
+    width: 90%;
+    padding-bottom: 50%;
+    @media (min-width: $sm-width) {
+      width: 60%;
+      padding-bottom: 35%;
     }
     margin: auto;
     background-image: image_url("congratulation.png");

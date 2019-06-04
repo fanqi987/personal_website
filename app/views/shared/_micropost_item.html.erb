@@ -1,0 +1,49 @@
+<% object.each_with_index  do |micropost| %>
+  <section class="row micropost_main_content" id="micropost_main_content_<%= micropost.id %>">
+    <div class="media" id="micropost_content_media">
+      <div class="media-left">
+        <span class="media-object micropost_content_avatar" id="micropost_content_avatar_<%= micropost.id %>"></span>
+      </div>
+      <div class="media-body" id="micropost_content_body_<%= micropost.id %>">
+        <p class="media-heading micropost_content_username" id="micropost_content_username_<%= micropost.id %>">
+          <!--          这是名字-->
+          <%= micropost.user.name %>
+        </p>
+        <p class='micropost_content_content' id="micropost_content_content_<%= micropost.id %>">
+          <!--          这是内容这是内容这是内容这是内容这是内容这是内容这是内容-->
+          <%= micropost.content %>
+        </p>
+        <img class='micropost_content_img' style="display: none"/>
+        <video class='micropost_content_video' style="display: none">
+        </video>
+
+        <div class="micropost_edit_items micropost_content_edit_items" id="micropost_content_edit_items_<%= micropost.id %>">
+          <% if logged_in? && (current_user.admin? || current_user.id == micropost.user_id) %>
+            <%= form_for :delete, url: microposts_path, method: :delete do |f| %>
+              <!--              <span class="	glyphicon glyphicon-trash" id="micropost_delete_icon"></span>-->
+              <%= hidden_field_tag :micropost_id, micropost.id %>
+              <%= f.button "", type: "submit", class: "glyphicon glyphicon-trash", id: "micropost_delete_icon_#{micropost.id}", data: {confirm: "确定删除这条微博吗?"} %>
+            <% end %>
+          <% end %>
+          <span class="glyphicon micropost_post_time" id="micropost_content_post_time">
+<!--            2019年12月12日 12:12:12-->
+            <%= micropost.created_at.localtime.strftime("%Y-%m-%d %H:%M:%S") %>
+            </span>
+          <%= form_for(:like, url: microposts_like_path, id: "micropost_content_edit_form_#{micropost.id}", method: :post, remote: true) do |f| %>
+            <%= tag(:input, type: 'hidden', name: request_forgery_protection_token.to_s, value: form_authenticity_token) %>
+            <%= hidden_field_tag :micropost_id, micropost.id %>
+            <%= f.button micropost.like, type: "submit", class: "glyphicon glyphicon-thumbs-up", id: "micropost_likes_icon_#{micropost.id}", 'data-title': "今天已经点赞过了~!", "data-trigger": 'click' %>
+          <% end %>
+          <span class="glyphicon glyphicon-comment" id="micropost_comments_icon_<%= micropost.id %>" onclick="onClickMicropostComment(<%= micropost.id %>)"><%= micropost.micropost_records.length %></span>
+          <span class="glyphicon glyphicon-share" id="micropost_shared_icon_<%= micropost.id %>"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="micropost_main_comments_with_edit" id="micropost_main_comments_with_edit_<%= micropost.id %>">
+    <% p params %>
+    <%= render 'shared/micropost_comment_item_create_xhr', object: micropost %>
+  </div>
+
+<% end %>

@@ -33,6 +33,7 @@ class SessionsController < ApplicationController
   end
 
   def update_info
+    p params
     @patch_type = PATCH_TYPE_INFO
     @user = current_user
     if @user.update_attributes(user_params_infos)

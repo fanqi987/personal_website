@@ -1,0 +1,15 @@
+//如果是点赞过的人,并且点赞时间小于1天,则提示已经点赞过
+<%  if @tmp_updated_at && Time.now - @tmp_updated_at < 60 * 60 * 24 %>
+//弹出框
+$('#micropost_comments_likes_icon_<%=@micropost_record.id %>').tooltip('show');
+window.setTimeout(function () {
+    $('#micropost_comments_likes_icon_<%=@micropost_record.id %>').tooltip('hide');
+}, 1000);
+<% p "在js点击过里 "+@micropost_record.id.to_s %>
+//如果是从来没有点赞过的人,或者超过1天没点过的人,则更新点赞数据,点赞时间数据,再更新点赞ui
+<% else %>
+<%@micropost_record.update_attribute(:like, @micropost_record.like + 1) %>
+<%@like.update_attribute(:updated_at, Time.now) %>
+<% p "在js里" %>
+<% end %>
+$('#micropost_comments_likes_icon_<%= @micropost_record.id %>').html('<%= @micropost_record.like%>');

@@ -1,0 +1,7 @@
+$('#micropost_main_comments_with_edit_<%= params[:id] %>')
+    .html("<%= j render 'shared/micropost_comment_item_create_xhr',object: @micropost%>");
+console.log("111111111111111");
+$('#micropost_main_comments_with_edit_<%= params[:id] %> textarea')
+    .val("");
+$('#micropost_comments_icon_<%= @micropost_record.micropost.id%>').text("<%=@micropost_record.micropost.micropost_records.length %>");
+<%# p request.remote_ip%>

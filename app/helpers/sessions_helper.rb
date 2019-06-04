@@ -10,10 +10,13 @@ module SessionsHelper
   end
 
   def current_user
-    return User.find(session[:user_id]) if session[:user_id]
+    if session[:user_id]
+      @current_user = User.find(session[:user_id])
+      return @current_user
+    end
     if (cookies[:user_id])
-      user = User.find(cookies[:user_id])
-      return user if User.authenticate_digest(:remember, cookies[:remember_token])
+      @current_user = User.find(cookies[:user_id])
+      return @current_user if User.authenticate_digest(:remember, cookies[:remember_token])
     end
   end
 
@@ -29,7 +32,7 @@ module SessionsHelper
   end
 
   def forget
-    current_user.forget
+    current_user.forget if current_user
     cookies.delete(:remember_token)
     cookies.delete(:user_id)
   end

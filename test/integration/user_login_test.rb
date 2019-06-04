@@ -42,4 +42,6 @@ class UserLoginTest < ActionDispatch::IntegrationTest
     # assert_select "a:match('href',?)", /#{login_profile_path}/,text: @user.name
     # assert_select "a[href=?]", /#{login_profile_path}/ ,text: @user.name
   end
+
+
 end

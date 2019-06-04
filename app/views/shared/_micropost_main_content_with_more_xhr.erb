@@ -1,0 +1,13 @@
+<%= render 'shared/micropost_item', object: object %>
+<% if object.length > 1 %>
+  <% unless @load_micropost_complete %>
+    <%= form_for :more, url: microposts_more_path, method: :post, remote: true do |f| %>
+      <!--            <div id="micropost_content_more">查看更多</div>-->
+      <%= hidden_field_tag :page, @page + 1 %>
+      <%= hidden_field_tag :maxPage, @maxPage %>
+      <%= f.button "查看更多微博", type: :submit, id: "micropost_content_more" %>
+    <% end %>
+  <% else %>
+    <div id="micropost_content_more">没有更多微博了!</div>
+  <% end %>
+<% end %>

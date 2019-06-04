@@ -9,6 +9,6 @@ class CreateMicropostRecords < ActiveRecord::Migration[5.1]
 
       t.timestamps
     end
-    add_index :micropost_records,:micropost_id
+    # add_index :micropost_records,:micropost_id
   end
 end

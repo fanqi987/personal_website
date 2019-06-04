@@ -86,27 +86,17 @@
     </div>
   </div>
 
-  <!-- 微博显示区域-->
+  <!-- 微博项目显示区域-->
   <article class="col-md-9 col-sm-12" id="micropost_main">
     <div class="micropost_main_title_flash">
       <%= render 'shared/flash' %>
     </div>
     <section class="row" id="micropost_main_title">
-      <span class="fas fa-chevron-left" id="article_main_title_back"></span><span>微博 <span>
-<!--      123-->
-      <%= @user.microposts.length if @microposts %>
-    </span>
-    </span>
+      <span class="fas fa-chevron-left" id="article_main_title_back"></span><span>微博内容</span>
     </section>
-    <% if @microposts && !@microposts.empty? %>
-      <section class="micropost_main_content_with_more">
-        <%= render 'shared/micropost_main_content_with_more_xhr', object: @microposts %>
-      </section>
-    <% else %>
-      <section id="micropost_empty">
-      </section>
-      <p>没有微博！</p>
-    <% end %>
+    <section class="micropost_main_content_with_more">
+      <%= render 'shared/micropost_main_content_with_more_xhr', object: [@micropost] %>
+    </section>
   </article>
 
 </div>

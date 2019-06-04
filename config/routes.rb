@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
 
-  resources :users
-
   root 'static_pages#home'
   get '/home', to: 'static_pages#home'
   get '/diary', to: 'static_pages#diary'
@@ -24,10 +22,15 @@ Rails.application.routes.draw do
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
 
-  get '/micropost', to: "static_pages#micropost"
-  post '/microposts',to:'microposts#create'
-  delete '/microposts',to:'microposts#destroy'
-  get '/microposts',to:'microposts#index'
+  get '/micropost_home', to: "static_pages#micropost"
 
+  resources :microposts,only:[:create,:index,:show]
+  delete '/microposts',to: 'microposts#destroy'
+  post '/microposts/like', to: 'microposts#like'
+  post '/microposts/more', to: 'microposts#more'
+  post '/microposts/comment', to: 'microposts#create_comment'
+  post '/microposts/comment/like', to: 'microposts#comment_like'
+  post '/microposts/comment/more', to: 'microposts#more_comment'
+  delete '/microposts/comment', to: 'microposts#destroy_comment'
 
 end

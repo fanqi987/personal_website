@@ -1,6 +1,6 @@
 class User < ApplicationRecord
 
-  has_many :microposts
+  has_many :microposts,dependent: :destroy
   has_many :micropost_records
   #todo 邮箱的正确格式,其它属性的最小长度
   validates :email, presence: {message: '邮箱不能为空'},
@@ -8,7 +8,8 @@ class User < ApplicationRecord
             format: {with: /\w+@\w+/, message: '邮箱格式错误'},
             uniqueness: {case_sensitive: false, message: '注册邮箱已存在'}
   validates :name, presence: {message: '用户名不能为空'},
-            length: {maximum: 50, message: '用户名内容过长'}
+            length: {maximum: 50, message: '用户名内容过长'},
+            uniqueness: {message:'已经存在的用户名'}
 
 
   validates :password, presence: {message: '密码不能为空'},

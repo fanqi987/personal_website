@@ -1,0 +1,3 @@
+$("#micropost_main_comments_with_edit_<%= @micropost_record.micropost.id %>")
+    .html("<%= j render "shared/micropost_comment_item_create_xhr",object: @micropost_record.micropost%>");
+$("#micropost_comments_icon_<%=@micropost_record.micropost.id %>").text("<%=@micropost_record.micropost.micropost_records.count %>");
