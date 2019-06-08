@@ -5,7 +5,11 @@
       <!--            <div id="micropost_content_more">查看更多</div>-->
       <%= hidden_field_tag :page, @page + 1 %>
       <%= hidden_field_tag :maxPage, @maxPage %>
-      <%= f.button "查看更多微博", type: :submit, id: "micropost_content_more" %>
+      <%= hidden_field_tag :start_time,@search_start_time%>
+      <%= hidden_field_tag :end_time,@search_end_time%>
+      <%= hidden_field_tag :word,@search_word%>
+
+      <%= f.button "查看更多微博", type: :submit, id: "micropost_content_more", onclick: "onClickProgress('#micropost_content_more');" %>
     <% end %>
   <% else %>
     <div id="micropost_content_more">没有更多微博了!</div>

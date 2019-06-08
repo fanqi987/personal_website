@@ -9,17 +9,18 @@
       <%= hidden_field_tag :maxPage_comment, @maxPage_comment %>
       <%= hidden_field_tag :id, params[:id] %>
       <%#= hidden_field_tag :load_micropost_comments_complete, @load_micropost_comments_complete %>
-      <%= f.button "查看更多评论", type: :submit, class: "micropost_comments_more", id: "micropost_comments_more_#{params[:id]}" %>
+      <%= f.button "查看更多评论", type: :submit, class: "micropost_comments_more", id: "micropost_comments_more_#{params[:id]}",
+                   onclick: "onClickProgress('#micropost_comments_more_#{params[:id]}');" %>
     <% end %>
   <% else %>
-<!--    <div class="micropost_comments_more" id="micropost_comments_more_<%#= params[:id] %>">已无更多评论</div>-->
+    <!--    <div class="micropost_comments_more" id="micropost_comments_more_<%#= params[:id] %>">已无更多评论</div>-->
   <% end %>
 <% else %>
   <%= render 'shared/micropost_comment_item', object: object.micropost_records[0...MicropostsController::PAGINATE_NUM] %>
   <% if object.micropost_records.length <= MicropostsController::PAGINATE_NUM %>
-<!--    <div class="micropost_comments_more" id="micropost_comments_more_<%#= object.id %>">已无更多评论</div>-->
+    <!--    <div class="micropost_comments_more" id="micropost_comments_more_<%#= object.id %>">已无更多评论</div>-->
   <% else %>
-    <%= link_to "查看更多评论", micropost_path(object),class:"micropost_comments_more", id: "micropost_comments_more_#{object.id}" %>
+    <%= link_to "查看更多评论", micropost_path(object), class: "micropost_comments_more", id: "micropost_comments_more_#{object.id}" %>
   <% end %>
 <% end %>
 

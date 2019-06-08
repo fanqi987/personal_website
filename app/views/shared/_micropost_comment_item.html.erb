@@ -8,10 +8,7 @@
         <p class="media-heading micropost_comments_username" id="micropost_comments_username_<%= micropost_comment.id %>">
           <!--          这是名字:-->
           <%= getSecretIPName micropost_comment.user_name %>:
-          <span class='micropost_comments_content' id="micropost_comments_content_<%= micropost_comment.id %>">
-<!--            这是内容这是内容这是内容这是内容这是内容这是内容这是内容-->
-            <%= micropost_comment.content %>
-          </span>
+          <span class='micropost_comments_content' id="micropost_comments_content_<%= micropost_comment.id %>"><%= micropost_comment.content %></span>
         </p>
         </p>
         <div class="micropost_edit_items micropost_comments_edit_items" id="micropost_comments_edit_items_<%= micropost_comment.id %>">

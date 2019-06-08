@@ -64,6 +64,7 @@ function onDocumentContentReady(menuIndex) {
                 break;
             //微博
             case 1:
+                onDatePickChanged();
                 // onReadyAndResizeMicropostModal();
                 break;
             //日志

@@ -5,6 +5,6 @@ class MicropostsControllerTest < ActionDispatch::IntegrationTest
   #   assert true
   # end
   test 'get random name' do
-
+    p login_path("user":"asdf")
   end
 end

@@ -1,4 +1,4 @@
-<% object.each_with_index  do |micropost| %>
+<% object.each_with_index do |micropost| %>
   <section class="row micropost_main_content" id="micropost_main_content_<%= micropost.id %>">
     <div class="media" id="micropost_content_media">
       <div class="media-left">
@@ -9,10 +9,7 @@
           <!--          这是名字-->
           <%= micropost.user.name %>
         </p>
-        <p class='micropost_content_content' id="micropost_content_content_<%= micropost.id %>">
-          <!--          这是内容这是内容这是内容这是内容这是内容这是内容这是内容-->
-          <%= micropost.content %>
-        </p>
+        <p class='micropost_content_content' id="micropost_content_content_<%= micropost.id %>"><%= micropost.content %></p>
         <img class='micropost_content_img' style="display: none"/>
         <video class='micropost_content_video' style="display: none">
         </video>
@@ -43,6 +40,7 @@
 
   <div class="micropost_main_comments_with_edit" id="micropost_main_comments_with_edit_<%= micropost.id %>">
     <% p params %>
+    <%# p "show" + @page_comment %>
     <%= render 'shared/micropost_comment_item_create_xhr', object: micropost %>
   </div>
 

@@ -26,6 +26,7 @@ Rails.application.routes.draw do
 
   resources :microposts,only:[:create,:index,:show]
   delete '/microposts',to: 'microposts#destroy'
+  post '/microposts/search',to:'microposts#search'
   post '/microposts/like', to: 'microposts#like'
   post '/microposts/more', to: 'microposts#more'
   post '/microposts/comment', to: 'microposts#create_comment'

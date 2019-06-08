@@ -1,0 +1,13 @@
+<%= form_for :search, url: microposts_path, method: :get do |f| %>
+  <%= f.button "", type: :submit do %>
+    <i class="fa fa-times-circle"></i><%= object[object[3]] + object[4] %>
+  <% end %>
+  <% object[object[3]] = "" %>
+  <%#= hidden_field_tag :start_time, object[0] %>
+  <%#= hidden_field_tag :end_time, object[1] %>
+  <%#= hidden_field_tag :word, object[2] %>
+  <%= f.text_field :start_time, value: object[0], type: :hidden %>
+  <%= f.text_field :end_time, value: object[1], type: :hidden %>
+  <%= f.text_field :word, value: object[2], type: :hidden %>
+  <% p object %>
+<% end %>

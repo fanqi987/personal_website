@@ -1,1 +1,2 @@
 $(".micropost_comment_item_with_more").html("<%= j render "shared/micropost_comment_item_with_more_xhr",object: @micropost%>");
+$("#micropost_main_comments_edit_form_<%= @micropost.id %> #page_comment").attr("value", '<%= @page_comment%>');

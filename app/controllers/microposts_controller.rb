@@ -8,26 +8,23 @@ class MicropostsController < ApplicationController
   attr_accessor :page, :maxPage
 
   def create
-
     if (logged_in? && current_user.admin?)
       @micropost = current_user.microposts.build(micropost_params)
       if (@micropost.save)
         redirect_to action: :index
       else
-        render 'microposts/index'
+        p @micropost.errors.messages
+        redirect_to action: :index
       end
       return
     end
-
     if logged_in? && !current_user.admin?
-      flash.now[:danger] = "普通用户暂不能发表微博"
+      flash[:danger] = "普通用户只能评论"
     else
-      flash.now[:danger] = "登录后再发表微博哦~"
+      flash[:danger] = "登录后再发表微博哦~"
     end
-
-    respond_js
-    return
-
+    # respond_js
+    redirect_to microposts_path
   end
 
   def create_comment
@@ -43,25 +40,18 @@ class MicropostsController < ApplicationController
     else
       @micropost_record.user_name = request.remote_ip
     end
-
-
     if (@micropost_record.save)
       @micropost = Micropost.find_by(id: params[:id])
-
       change_comment_page
-
       respond_js
     else
-      render 'microposts/index'
+      redirect_to microposts_path
     end
-
   end
 
   def destroy
     @micropost = Micropost.find_by(id: params[:micropost_id])
-    # p Micropost.count
     @micropost.destroy
-    # p Micropost.count
     flash[:success] = "微博已成功删除!"
     redirect_to microposts_path + "#micropost_main"
   end
@@ -79,34 +69,35 @@ class MicropostsController < ApplicationController
   end
 
   def index
-    #初始化分页,显示最初的列表
+    # todo javascript 微博的展开和关闭效果
+    #记录当前微博页是索引还是子项目页
+    p params
     session[:microposts_page] = request.original_url
-    @page = 1
-    @load_micropost_complete = false
-    @maxPage = ((@user.microposts.length - 1) / (PAGINATE_NUM * @page)).floor + 1
-    if (@page >= @maxPage)
-      @load_micropost_complete = true
-      @microposts = @user.microposts[0...@user.microposts.length]
-    else
-      @microposts = @user.microposts[0...PAGINATE_NUM]
+    if params[:search]
+      t_start_time = params[:search][:start_time]
+      t_end_time = params[:search][:end_time]
+      t_word = params[:search][:word]
     end
+    change_micropost_page t_start_time,
+                          t_end_time,
+                          t_word,
+                          1
+
   end
 
   def show
+    #记录当前微博页是索引还是子项目页
     session[:microposts_page] = request.original_url
     @micropost = Micropost.find_by(id: params[:id])
     @page_comment = 1
     @load_micropost_comment_complete = false
     @maxPage_comment = ((@micropost.micropost_records.length - 1) / (PAGINATE_NUM * @page_comment)).floor + 1
-
-
     if (@page_comment >= @maxPage_comment)
       @load_micropost_comment_complete = true
       @micropost_records = @micropost.micropost_records[0...@micropost.micropost_records.length]
     else
       @micropost_records = @micropost.micropost_records[0...PAGINATE_NUM]
     end
-
   end
 
   def like
@@ -120,21 +111,15 @@ class MicropostsController < ApplicationController
   end
 
   def more
-    # @page += 1
-    @load_micropost_complete = false
-    @page = params[:page].to_i
-    @maxPage = params[:maxPage].to_i
-    if (@page >= @maxPage)
-      @load_micropost_complete = true
-      @microposts = @user.microposts
-    else
-      @microposts = @microposts[0...PAGINATE_NUM * @page]
-    end
-
+    change_micropost_page params[:start_time],
+                          params[:end_time],
+                          params[:word],
+                          params[:page].to_i
     respond_js
   end
 
   def more_comment
+
     @load_micropost_comment_complete = false
     @page_comment = params[:page_comment].to_i
     @maxPage_comment = params[:maxPage_comment].to_i
@@ -154,6 +139,7 @@ class MicropostsController < ApplicationController
 
   def post_init
     @post = {post_modal_id: 'post_micropost_modal', img_choose: true, modal_title: '发布新微博'}
+    @search_for = {search_modal_id: 'search_micropost_modal', modal_title: '搜索微博'}
     @user = User.find_by(id: ADMIN_ID)
     @microposts = @user.microposts if @user
     @micropost = Micropost.new
@@ -213,10 +199,50 @@ class MicropostsController < ApplicationController
         @micropost_records = @micropost.micropost_records[0...PAGINATE_NUM * @page_comment]
       end
     end
-    p @page_comment
-    p @maxPage_comment
-    p @load_micropost_comment_complete
-    p @micropost_records
+    # p @page_comment
+    # p @maxPage_comment
+    # p @load_micropost_comment_complete
+    # p @micropost_records
+  end
+
+  def change_micropost_page(start_time, end_time, search_word, page)
+    #带搜索的索引
+    p params
+    @search_start_time, t_start_time = start_time, start_time
+    @search_end_time, t_end_time = end_time, end_time
+    @search_word, t_word = search_word, search_word
+
+    # p @search_start_time
+    # p @search_end_time
+    # p @search_word
+
+    t_start_time = Time.local(1970, 1, 1).strftime("%Y-%m-%d") if (@search_start_time.nil? || @search_start_time.empty?)
+    t_end_time = (Time.now + 1.day).strftime("%Y-%m-%d") if (!@search_end_time || @search_end_time.empty?)
+    t_word = "" if (!@search_word || @search_word.empty?)
+
+    # p t_start_time
+    # p t_end_time
+    # p t_word
+
+    # todo 调整为当地时间
+    @microposts = @user.microposts.where(
+        # "'microposts'.'created_at' >= datetime(?,'localtime') AND 'microposts'.'created_at' <= datetime(?,'localtime') " +
+        #     "AND 'microposts'.'content' like ? ",
+        "'microposts'.'created_at' >= datetime(?) AND 'microposts'.'created_at' <= datetime(?) " +
+            "AND 'microposts'.'content' like ? ",
+        DateTime.parse(t_start_time) - 8.hours, DateTime.parse(t_end_time) - 8.hours, "%" + t_word + "%")
+    @microposts_length = @microposts.length
+    p @microposts
+    p @microposts.length
+    #初始化分页,显示列表
+    @page = page
+    @load_micropost_complete = false
+    @maxPage = ((@microposts.length - 1) / (PAGINATE_NUM)).floor + 1
+    if (@page >= @maxPage)
+      @load_micropost_complete = true
+    else
+      @microposts = @microposts[0...PAGINATE_NUM * @page]
+    end
   end
 
   def respond_js

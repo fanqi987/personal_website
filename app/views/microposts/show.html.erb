@@ -8,7 +8,7 @@
 <body>
 <%= provide :modal_post_path, microposts_path %>
 <div class="container">
-  <!--  手机版 -->
+  <!--  发表微博-->
   <aside class="col-md-3 hidden-sm hidden-xs" id="micropost_aside">
     <section id="post_micropost_section">
       <% if logged_in? && current_user.admin? %>
@@ -25,6 +25,7 @@
       <% end %>
     </section>
     <hr/>
+    <!--  搜索微博-->
     <section id="search_micropost_section">
       <p class="glyphicon glyphicon-search"> 搜索微博</p>
       <hr/>
@@ -56,35 +57,8 @@
   <% end %>
 
   <!-- 搜索模态  -->
-  <div class="modal fade" id="search_micropost_modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog">
-      <form>
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <p class="glyphicon glyphicon-search"> 搜索微博</p>
-          </div>
-          <div class="modal-body">
-            <div class="form-group">
-              <label><span class="glyphicon glyphicon-time"></span>
-                开始时间:</label><input class="form-control" id="select_search_micropost_date_start" type="date">
-            </div>
-            <div class="form-group">
-              <label><span class="glyphicon glyphicon-time"></span>
-                结束时间:</label><input class="form-control" id="select_search_micropost_date_end" type="date">
-            </div>
-            <div class="form-group">
-              <label><span class="glyphicon glyphicon-pencil"></span> 请输入关键字:</label>
-              <input class="form-control" id="select_search_micropost_key_word" type="text">
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button class="btn btn-success" type="submit">提交</button>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
+  <%= provide :modal_search_path, microposts_path %>
+  <%= render 'shared/search_modal', object: @search_for %>
 
   <!-- 微博项目显示区域-->
   <article class="col-md-9 col-sm-12" id="micropost_main">
@@ -92,9 +66,11 @@
       <%= render 'shared/flash' %>
     </div>
     <section class="row" id="micropost_main_title">
-      <span class="fas fa-chevron-left" id="article_main_title_back"></span><span>微博内容</span>
+      <span class="fas fa-chevron-left" id="article_main_title_back" style="display:inline-block" onclick='onClickGotoMicropostHome(this);'>
+      </span><span><%= link_to "微博内容", "#top" %></span>
     </section>
     <section class="micropost_main_content_with_more">
+      <%# p "show" + @page_comment %>
       <%= render 'shared/micropost_main_content_with_more_xhr', object: [@micropost] %>
     </section>
   </article>

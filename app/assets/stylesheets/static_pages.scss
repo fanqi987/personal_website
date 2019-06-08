@@ -41,6 +41,10 @@ $sm-width: 768px;
   box-sizing: border-box;
 }
 
+*:focus {
+  outline: none;
+}
+
 @media (min-width: $lg-width) {
   html {
     font-size: 10px;
@@ -501,6 +505,9 @@ $sm-width: 768px;
           border-radius: 2rem;
           font-size: 2rem;
           width: 20%;
+          span {
+            color: #fff;
+          }
         }
       }
     }
@@ -518,10 +525,8 @@ $sm-width: 768px;
     font-weight: bold;
   }
 
-  #select_search_micropost_form, #select_search_article_form, #select_search_material_form {
-    label {
-      color: #777;
-    }
+  label {
+    color: #777;
   }
 }
 
@@ -574,7 +579,7 @@ $sm-width: 768px;
 #micropost_main {
   .micropost_main_title_flash {
     .flash_tips {
-      margin-top: 2rem;
+      padding-top: 2rem;
     }
   }
 }
@@ -601,12 +606,53 @@ $sm-width: 768px;
   }
   > span:nth-child(2) {
     border-bottom: 0.1rem solid $bootstrap-pill-blue;
+    cursor: pointer;
     > span {
       vertical-align: middle;
       color: #539ad7;
       font-size: 1.8rem;
 
     }
+  }
+  .main_title_search_factors {
+    font-size: 1.2rem;
+    display: inline-block;
+    font-weight: 600;
+    color: #fff;
+    padding-bottom: 1rem;
+    form{
+      display:inline-block;
+    }
+    button {
+      //float:left;
+      //display:inline-block;
+      border: none;
+      background: #444;
+      border-radius: 2rem;
+      padding: 0.8rem;
+      //cursor: pointer;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      display: inline-block;
+      font-family: "微软雅黑";
+      line-height: 1.2rem;
+      i {
+        margin-right: 0.3rem;
+      }
+      //display:none;
+    }
+    button:nth-child(3) {
+      max-width: 30%;
+      @media (min-width: $sm-width) {
+        max-width: 60%;
+      }
+    }
+    button:hover {
+      background: tomato;
+      transition: all 0.15s ease-in-out;
+    }
+
   }
 
 }
@@ -666,10 +712,20 @@ $sm-width: 768px;
         width: 70%;
         float: left;
         height: 4rem;
-        margin-right: 1rem;
         margin-top: 0;
         @media(min-width: $sm-width) {
           height: 3rem;
+        }
+      }
+      button {
+        background: none;
+        border: none;
+        color: #666;
+        height: 4rem;
+        width: 4rem;
+        @media(min-width: $sm-width) {
+          height: 3rem;
+          width: 3rem;
         }
       }
     }
@@ -687,11 +743,11 @@ $sm-width: 768px;
       border: 0.3rem solid #fff;
       border-radius: 1rem;
     }
-    button{
+    button {
       background: none;
-      border:none;
+      border: none;
     }
-    a{
+    a {
       text-decoration: none;
     }
     .micropost_comments_more {
@@ -700,8 +756,8 @@ $sm-width: 768px;
       text-align: center;
       margin-bottom: 0.8rem;
       padding: 1.5rem;
-      display:block;
-      margin:auto;
+      display: block;
+      margin: auto;
     }
   }
 }
@@ -731,6 +787,7 @@ $sm-width: 768px;
     }
   }
   .media-body {
+    //width:100%;
     .media-heading {
       color: #333
     }
@@ -769,12 +826,17 @@ $sm-width: 768px;
       color: #666;
     }
     .micropost_content_content, #messageboard_content {
+      word-break: break-all;
+      //word-wrap: break-word;
+      white-space: pre-line;
       font-size: 1.8rem;
       color: #666;
     }
     .micropost_comments_content {
       font-size: 1.6rem;
       color: #666;
+      white-space: pre-line;
+      word-break: break-all;
     }
     .micropost_edit_items {
       span, button {
@@ -797,6 +859,9 @@ $sm-width: 768px;
       }
     }
     .micropost_content_edit_items {
+      button {
+        padding-bottom: 2px;
+      }
       span, button {
         font-size: 1.5rem;
         margin: 1rem 1rem 0 1rem;
