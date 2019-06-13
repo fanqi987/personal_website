@@ -36,6 +36,7 @@ Rails.application.routes.draw do
   get '/diary_home', to: "static_pages#diary"
 
   resources :diaries
+  delete '/diaries', to: 'diaries#destroy'
 
 
 end

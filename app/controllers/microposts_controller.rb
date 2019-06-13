@@ -8,6 +8,8 @@ class MicropostsController < ApplicationController
   attr_accessor :page, :maxPage
 
   def create
+    return if redirect_not_admin microposts_path,
+                                 "管理员才能发微博哦~"
     if (logged_in? && current_user.admin?)
       @micropost = current_user.microposts.build(micropost_params)
       if (@micropost.save)
@@ -16,15 +18,7 @@ class MicropostsController < ApplicationController
         p @micropost.errors.messages
         redirect_to action: :index
       end
-      return
     end
-    if logged_in? && !current_user.admin?
-      flash[:danger] = "普通用户只能评论"
-    else
-      flash[:danger] = "登录后再发表微博哦~"
-    end
-    # respond_js
-    redirect_to microposts_path
   end
 
   def create_comment
@@ -144,7 +138,7 @@ class MicropostsController < ApplicationController
   def post_init
     @post = {post_modal_id: 'post_micropost_modal', img_choose: true, modal_title: '发布新微博'}
     @search_section = {search_section_name: " 搜索微博"}
-    @search_modal = {search_modal_id:"search_micropost_modal",modal_title: '搜索微博'}
+    @search_modal = {search_modal_id: "search_micropost_modal", modal_title: '搜索微博'}
     @user = User.find_by(id: ADMIN_ID)
     @microposts = @user.microposts if @user
     @micropost = Micropost.new

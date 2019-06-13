@@ -47,6 +47,16 @@
       <p class=" fas fa-newspaper"></p>
       <p>写日志</p>
     </a>
+    <% if logged_in? && current_user.admin? %>
+      <%= form_for :draft, url: diaries_path, method: :get do |f| %>
+        <% val = "article" %>
+        <% val = "draft" if params[:button] != "draft" %>
+        <%= f.button "", value: val, type: "submit" do %>
+          <p class="fas fa-exchange-alt"></p>
+          <p>日志/草稿箱</p>
+        <% end %>
+      <% end %>
+    <% end %>
     <div data-toggle="modal" data-target="#search_diary_modal" onclick="return false">
       <p class="glyphicon glyphicon-search"></p>
       <p>搜索日志</p>

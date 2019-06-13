@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html>
 <script>
+    <% if logged_in? && current_user.admin? %>
+    onDocumentContentReady(2, 1);
+    <%else %>
     onDocumentContentReady(2);
+    <%end %>
 </script>
 <body>
 <%= provide :post_path, diaries_path %>
@@ -9,21 +13,17 @@
   <!--  侧边栏-->
   <aside class="col-md-3 hidden-sm hidden-xs" id="article_aside">
     <section id="post_article_section">
+      <a class="btn btn-primary btn-block btn-lg fas fa-edit" id="post_article_section_button" href="<%= new_diary_path %>">
+        发表新日志
+      </a>
       <% if logged_in? && current_user.admin? %>
-        <a class="btn btn-primary btn-block btn-lg fas fa-edit" id="post_article_section_button" href="<%= new_diary_path %>">
-          发表新日志
-        </a>
-      <% else %>
-        <%# p "进入没登录的地方了" %>
-        <%= form_for :post_diary, url: diaries_path, method: :post, remote: true do %>
-          <%= content_tag :button, content_tag(:strong, "发表新日志"),
-                          class: 'btn btn-primary btn-block btn-lg fas fa-edit', id: 'post_micropost_section_button',
-                          type: :submit %>
+        <%= form_for :draft, url: diaries_path, method: :get do |f| %>
+          <% if @draft %>
+            <%= f.button "查看日志", type: :submit, value: "article", class: "btn btn-primary btn-info btn-block btn-lg fas fa-book", id: "draft_article_section_button" %>
+          <% else %>
+            <%= f.button "查看草稿箱", type: :submit, value: "draft", class: "btn btn-primary btn-success  btn-block btn-lg fas fa-scroll", id: "draft_article_section_button" %>
+          <% end %>
         <% end %>
-      <% end %>
-      <%= form_for :draft, url: diaries_path, method: :get do |f| %>
-        <%= f.text_field :draft, value: true, type: :hidden %>
-        <%= f.button "查看草稿箱", type: :submit, class: "btn btn-primary btn-success btn-block btn-lg fas fa-scroll", id: "draft_article_section_button" %>
       <% end %>
     </section>
     <hr/>
@@ -41,15 +41,22 @@
       <%= render 'shared/flash' %>
     </div>
     <section class="row" id="article_main_title">
-      <span class="fas fa-chevron-left" id="main_title_back"></span><span>日志 <span><%= @diaries.count %></span></span>
+      <span class="fas fa-chevron-left" id="main_title_back"></span><span><% if @draft %>草稿箱<% else %>日志<% end %>
+      <span><%= @diaries.count %></span>
+        </span>
     </section>
     <% if @diaries && !@diaries.empty? %>
-      <%= render "shared/diary_item"%>
+      <%= render "shared/diary_item" %>
     <% else %>
       <section id="article_empty">
       </section>
-      <p>没有日志要！</p>
+      <% if @draft %>
+        <p>草稿箱为空！</p>
+      <% else %>
+        <p>没有日志要！</p>
+      <% end %>
     <% end %>
+    <%= will_paginate @diaries %>
   </article>
 </div>
 </body>

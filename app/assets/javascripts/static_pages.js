@@ -53,10 +53,7 @@ function onDocumentContentReady(menuIndex, subMenuIndex, func) {
     $(document).ready(function () {
         lightingMenuButtons(menuIndex);
         showFooter(menuIndex);
-        // console.log($("").froalaEditor);
-        // $("p").froalaEditor({
-        //     language: "zh_cn"
-        // });
+        paginationWord();
         switch (menuIndex) {
             //首页
             case 0:
@@ -70,10 +67,14 @@ function onDocumentContentReady(menuIndex, subMenuIndex, func) {
             //日志
             case 2:
                 switch (subMenuIndex) {
-                    //日志创建
+                    //日志创建,草稿编辑
                     case 0:
-                        showArticleWritePage();
-                        func();
+                        showArticleEditorPage(func);
+                        break;
+                    //日志展示
+                    case 1:
+                        splitFooter();
+                        stopPopTrash();
                         break;
                 }
                 break;
@@ -107,4 +108,19 @@ function onRegisterSuccessfully(url) {
     window.setTimeout(function () {
         window.location.href = url;
     }, 3000);
+}
+
+function getDecodeHtml(html, content_id) {
+    return $("#empty_div").html(html).text();
+}
+
+function paginationWord() {
+    $(".pagination a:first").text("← 上一页");
+    $(".pagination a:last").text("下一页 →");
+    $(".pagination:has(.pagination)").css({
+        // "margin-left": "auto",
+        // "margin-right": "auto",
+        "text-align": "center",
+        "display": "block"
+    });
 }

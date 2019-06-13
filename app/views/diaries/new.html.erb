@@ -2,33 +2,18 @@
 <html>
 <script>
     onDocumentContentReady(2, 0, function () {
-        //复原提交失败时的文章保存
-        <% if @diary %>
-        <% p "javascript "+@diary.content%>
-<!--        $(".fr-view p").html("<%= @diary.content%>");-->
-        console.log($(".fr-view p").html());
-        <%end %>
+        return '<%= @diary.content%>';
     });
-
-    function onClickGotoDiaryHome() {
-        var b = confirm('确定返回吗?没有保存的将会丢失!');
-        if (b)
-            location.href = '<%= diaries_path%>';
-    }
-
-    function getDiaryContent() {
-        return "<%= @diary.content%>";
-    }
-
 </script>
 <body>
 <div class="container">
   <article class="col-xs-12" id="article_main">
     <section class="row" id="article_main_title">
-      <span class="fas fa-chevron-left" id="main_title_back" style="display:inline-block" onclick="onClickGotoDiaryHome()">
+      <span class="fas fa-chevron-left" id="main_title_back" style="display:inline-block" onclick="onClickGotoDiaryHome('<%= diaries_path%>')">
       </span><span>发表新日志 </span>
     </section>
     <article id="article_write_div">
+      <div style="display:none;"></div>
       <div style="margin-top: 2rem;"></div>
       <%= render 'shared/flash', object: @diary %>
       <%= form_for :diary, url: diaries_path, method: :post, class: "form-inline", remote: true do |f| %>

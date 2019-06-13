@@ -1,27 +1,38 @@
 <% @diaries.each do |diary| %>
-  <section class="row" id="article_main_content">
+  <% path = diary_path diary %>
+  <% path = edit_diary_path diary if @draft %>
+  <section class="row article_main_content" id="article_main_content_<%= diary.id %>"
+           onclick="location.href='<%= path %>'">
     <div class="media" id="article_content_media">
       <div class="media-body">
-        <p class="media-heading" id="article_title">
+        <div class="media-heading article_title" id="article_title_<%= diary.id %>">
           <%= diary.title %>
           <span><%= diary.created_at.localtime.strftime("%Y-%m-%d %H:%M:%S") %></span>
-        </p>
+          <% if diary.draft? %>
+            <%= form_for :delete, url: diaries_path, method: :delete do |f| %>
+              <%= hidden_field_tag :diary_id, diary.id %>
+              <%= f.button "", type: :submit, class: "glyphicon glyphicon-trash" %>
+            <% end %>
+          <% end %>
+        </div>
         <div class="clearfix"></div>
-        <p id="article_content">
-          <% t_diary = diary.content %>
-          <% t_diary.gsub!(/<br\s*\/*>/, " ") %>
-          <% t_diary.gsub!(/<.+?>/, "") %>
-          <%= t_diary[0...200] %>
+        <p class="article_content" id="article_content_<%= diary.id %>">
+          <% t_content = diary.content %>
+          <%# p "CONTENT " + t_diary %>
+          <% t_content.gsub!(/<br\s*\/*>/, " ") %>
+          <% t_content.gsub!(/<.+?>/, "") %>
+          <% t_content = CGI.unescapeHTML(t_content) %>
+          <%= t_content[0...100] %><%= "..." if t_content.length > 100 %>
         </p>
       </div>
     </div>
   </section>
 <% end %>
-<div id="article_paginate">
-  <span id="article_paginate_first_page">首页</span>
-  <span id="article_paginate_prev_page">上一页 </span>
-  <span id="article_paginate_number">[1] [2] [3] ... [100] </span>
-  <span id="article_paginate_next_page">下一页 </span>
-  <span id="article_paginate_end_page">末页 </span>
-  <span id="article_paginate_skip">跳转:<input id="article_paginate_skip_page" type="text"></span>
-</div>
+<!--<div id="article_paginate">-->
+<!--  <span id="article_paginate_first_page">首页</span>-->
+<!--  <span id="article_paginate_prev_page">上一页 </span>-->
+<!--  <span id="article_paginate_number">[1] [2] [3] ... [100] </span>-->
+<!--  <span id="article_paginate_next_page">下一页 </span>-->
+<!--  <span id="article_paginate_end_page">末页 </span>-->
+<!--  <span id="article_paginate_skip">跳转:<input id="article_paginate_skip_page" type="text"></span>-->
+<!--</div>-->

@@ -25,10 +25,14 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def modify_user_model_errors user
-    # p "asdsfasdfasfsasdf"
-    # user.errors.delete(:password)
-    # user.errors.add(:password,:blank_cn,message:"密码不能为空")
+  def redirect_not_admin path, tips
+    if (logged_in? && current_user.admin?)
+      return false
+    else
+      flash[:danger] = tips
+      redirect_to path
+      return true
+    end
   end
 
 end
