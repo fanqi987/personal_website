@@ -1,0 +1,28 @@
+<section class="search_section">
+  <p class="glyphicon glyphicon-search"><%= object[:search_section_name] %></p>
+  <hr/>
+  <% p params %>
+  <%= form_for(:search, url: yield(:post_path), method: :get) do |f| %>
+    <div class="form-group">
+      <%= f.label :start_time do %>
+        <span class='glyphicon glyphicon-time'></span> 开始时间:
+      <% end %>
+      <%= f.date_field :start_time, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :end_time do %>
+        <span class="glyphicon glyphicon-time"></span> 结束时间:
+      <% end %>
+      <%= f.date_field :end_time, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :word do %>
+        <span class="	glyphicon glyphicon-pencil"></span> 请输入关键字:
+      <% end %>
+      <%= f.text_field :word, class: "form-control" %>
+    </div>
+    <hr>
+    <%= f.button "提交", type: :submit, class: "btn btn-success btn-block" %>
+  <% end %>
+  <button class="btn btn-success btn-block" data-toggle="modal" data-target="#search_micropost_modal" onclick="return false" style="margin-top: 1rem;">查看搜索模态</button>
+</section>

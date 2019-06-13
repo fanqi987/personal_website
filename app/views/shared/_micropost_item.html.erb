@@ -31,7 +31,7 @@
             <%= hidden_field_tag :micropost_id, micropost.id %>
             <%= f.button micropost.like, type: "submit", class: "glyphicon glyphicon-thumbs-up", id: "micropost_likes_icon_#{micropost.id}", 'data-title': "今天已经点赞过了~!", "data-trigger": 'click' %>
           <% end %>
-          <span class="glyphicon glyphicon-comment" id="micropost_comments_icon_<%= micropost.id %>" onclick="onClickMicropostComment(<%= micropost.id %>)"><%= micropost.micropost_records.length %></span>
+          <span class="glyphicon glyphicon-comment" id="micropost_comments_icon_<%= micropost.id %>" onclick="onClickMicropostComment(<%= micropost.id %>)"><%= micropost.comments.length %></span>
           <span class="glyphicon glyphicon-share" id="micropost_shared_icon_<%= micropost.id %>"></span>
         </div>
       </div>

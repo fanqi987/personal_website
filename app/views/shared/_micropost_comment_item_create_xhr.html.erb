@@ -19,9 +19,7 @@
   <div class="clearfix"></div>
   <!--      <hr/>-->
 </div>
-<%# if @micropost_record.content || @micropost_records[object[1]].length > 0 %>
 <div class="micropost_comment_item_with_more">
   <% p object %>
   <%= render 'shared/micropost_comment_item_with_more_xhr', object: object %>
 </div>
-<%# end %>

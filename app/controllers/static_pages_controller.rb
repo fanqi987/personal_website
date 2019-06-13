@@ -10,6 +10,7 @@ class StaticPagesController < ApplicationController
   end
 
   def diary
+    redirect_to diaries_path
   end
 
   def hobby

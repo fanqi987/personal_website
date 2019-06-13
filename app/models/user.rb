@@ -1,7 +1,8 @@
 class User < ApplicationRecord
 
-  has_many :microposts,dependent: :destroy
-  has_many :micropost_records
+  has_many :diaries, dependent: :destroy
+  has_many :microposts, dependent: :destroy
+  has_many :comments, as: :commentable, dependent: :destroy
   #todo 邮箱的正确格式,其它属性的最小长度
   validates :email, presence: {message: '邮箱不能为空'},
             length: {maximum: 255, message: '邮箱内容过长'},
@@ -9,7 +10,7 @@ class User < ApplicationRecord
             uniqueness: {case_sensitive: false, message: '注册邮箱已存在'}
   validates :name, presence: {message: '用户名不能为空'},
             length: {maximum: 50, message: '用户名内容过长'},
-            uniqueness: {message:'已经存在的用户名'}
+            uniqueness: {message: '已经存在的用户名'}
 
 
   validates :password, presence: {message: '密码不能为空'},
@@ -52,7 +53,7 @@ class User < ApplicationRecord
     # 修改信息的情况,覆盖掉密码验证,当输入密码为空时,修改密码应当失败(默认allow_nil,可以为空密码)
     # 注册信息的情况,覆盖掉安全密码验证,当输入密码为空时,应当使用密码验证的提示(默认被安全密码验证信息覆盖了,现在重新覆盖下)
     return true if !pwd.empty?
-    errors.add(:password,'请填写正确的密码')
+    errors.add(:password, '请填写正确的密码')
     return false
   end
   # def User.authenticate user

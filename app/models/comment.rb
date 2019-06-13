@@ -1,6 +1,6 @@
-class MicropostRecord < ApplicationRecord
-  belongs_to :micropost
-  has_many :likes, as: :likeable,dependent: :destroy
+class Comment < ApplicationRecord
+  belongs_to :commentable, polymorphic: true
+  has_many :likes, as: :likeable, dependent: :destroy
   # belongs_to :user
   default_scope {order(created_at: :desc)}
 

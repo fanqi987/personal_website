@@ -17,7 +17,6 @@
               <!--              <span class="	glyphicon glyphicon-trash" id="micropost_comments_delete_icon"></span>-->
               <%= hidden_field_tag :micropost_comment_id, micropost_comment.id %>
               <%= hidden_field_tag :page_comment,@page_comment%>
-              <%#= hidden_field_tag :micropost_records, @micropost_records %>
               <%= f.button "", type: "submit", class: 'glyphicon glyphicon-trash', id: "micropost_comments_delete_icon_#{micropost_comment.id}", data: {confirm: "确定删除这条评论吗?"} %>
             <% end %>
           <% end %>

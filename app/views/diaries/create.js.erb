@@ -1,0 +1,13 @@
+var save_time = $("#article_write_submits p");
+<% if @diary.errors.empty? %>
+save_time.html("在<%= @diary.modified_time.localtime.strftime("%Y-%m-%d %H:%M:%S") %>时保存成功");
+save_time.css({"color": "#888"});
+<%else %>
+save_time.html("在<%= @diary.modified_time.localtime.strftime("%Y-%m-%d %H:%M:%S") %>时保存失败了");
+save_time.css({"color": "orangered"});
+<%end %>
+save_time.show();
+save_time.css({"opacity": 1});
+window.setTimeout(function () {
+    save_time.css({"opacity": 0.2});
+}, 3000);

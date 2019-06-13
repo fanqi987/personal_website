@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<script>
+    onDocumentContentReady(2, 0, function () {
+        //复原提交失败时的文章保存
+        <% if @diary %>
+        <% p "javascript "+@diary.content%>
+<!--        $(".fr-view p").html("<%= @diary.content%>");-->
+        console.log($(".fr-view p").html());
+        <%end %>
+    });
+
+    function onClickGotoDiaryHome() {
+        var b = confirm('确定返回吗?没有保存的将会丢失!');
+        if (b)
+            location.href = '<%= diaries_path%>';
+    }
+
+    function getDiaryContent() {
+        return "<%= @diary.content%>";
+    }
+
+</script>
+<body>
+<div class="container">
+  <article class="col-xs-12" id="article_main">
+    <section class="row" id="article_main_title">
+      <span class="fas fa-chevron-left" id="main_title_back" style="display:inline-block" onclick="onClickGotoDiaryHome()">
+      </span><span>发表新日志 </span>
+    </section>
+    <article id="article_write_div">
+      <div style="margin-top: 2rem;"></div>
+      <%= render 'shared/flash', object: @diary %>
+      <%= form_for :diary, url: diaries_path, method: :post, class: "form-inline", remote: true do |f| %>
+        <!--        <form class="form-inline">-->
+        <div class="row" id="article_write_title">
+          <!--          <input class="form-control" type="text" placeholder="请在这里输入标题">-->
+          <%= f.text_field :title, class: "form-control", placeholder: "请在这里输入标题" %>
+        </div>
+        <div class="row" id="article_write_editor">
+          <div id="article_editor">
+            <div class="fr-view"></div>
+          </div>
+        </div>
+        <div class="row" id="article_write_submits">
+          <%= f.text_field :content, type: "hidden", required: true %>
+          <%= f.button "发表文章", value: "article", type: :submit, class: "btn btn-primary", onclick: "onClickSubmitArticle();" %>
+          <%= f.button "保存草稿", value: "draft", type: :submit, class: "btn btn-info", onclick: "onClickSubmitArticle();" %>
+          <p style="display:none">在2019-12-12 12:12:12时保存成功</p>
+        </div>
+        <!--        </form>-->
+      <% end %>
+    </article>
+  </article>
+</div>
+</body>
+</html>

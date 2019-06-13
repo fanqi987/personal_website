@@ -46,7 +46,7 @@ function onDocumentHeaderReady() {
     progressMenus();
 }
 
-function onDocumentContentReady(menuIndex) {
+function onDocumentContentReady(menuIndex, subMenuIndex, func) {
     //如果是第1次进来,就会是loading状态,其它时候都是complete
     if (document.readyState == 'complete')
         document_first_loading = false;
@@ -69,18 +69,25 @@ function onDocumentContentReady(menuIndex) {
                 break;
             //日志
             case 2:
+                switch (subMenuIndex) {
+                    //日志创建
+                    case 0:
+                        showArticleWritePage();
+                        func();
+                        break;
+                }
                 break;
             //娱乐
             case 3:
                 initScrollboxHobby();
                 break;
-
             //信息
             case 4:
                 break;
             // 留言
             case 5:
                 break;
+
         }
     });
 }

@@ -6,7 +6,8 @@
   </script>
 </head>
 <body>
-<%= provide :modal_post_path, microposts_path %>
+<!--  提交路径 -->
+<%= provide :post_path, microposts_path %>
 <div class="container">
   <!--  发表微博-->
   <aside class="col-md-3 hidden-sm hidden-xs" id="micropost_aside">
@@ -26,27 +27,7 @@
     </section>
     <hr/>
     <!--  搜索微博-->
-    <section id="search_micropost_section">
-      <p class="glyphicon glyphicon-search"> 搜索微博</p>
-      <hr/>
-      <form id="select_search_micropost_form">
-        <div class="form-group">
-          <label><span class="glyphicon glyphicon-time"></span>
-            开始时间:</label><input class="form-control" id="select_search_micropost_date_start" type="date">
-        </div>
-        <div class="form-group">
-          <label><span class="glyphicon glyphicon-time"></span>
-            结束时间:</label><input class="form-control" id="select_search_micropost_date_end" type="date">
-        </div>
-        <div class="form-group">
-          <label><span class="	glyphicon glyphicon-pencil"></span> 请输入关键字:</label>
-          <input class="form-control" id="select_search_micropost_key_word" type="text">
-        </div>
-        <hr>
-        <button class="btn btn-success btn-block" type="submit">提交</button>
-      </form>
-      <button class="btn btn-success btn-block" data-toggle="modal" data-target="#search_micropost_modal" onclick="return false" style="margin-top: 1rem;">查看搜索模态</button>
-    </section>
+    <%= render 'shared/search_section', object: @search_section %>
   </aside>
 
   <!-- 发布模态 -->
@@ -58,15 +39,15 @@
 
   <!-- 搜索模态  -->
   <%= provide :modal_search_path, microposts_path %>
-  <%= render 'shared/search_modal', object: @search_for %>
+  <%= render 'shared/search_modal', object: @search_modal %>
 
   <!-- 微博项目显示区域-->
   <article class="col-md-9 col-sm-12" id="micropost_main">
-    <div class="micropost_main_title_flash">
+    <div class="main_title_flash">
       <%= render 'shared/flash' %>
     </div>
     <section class="row" id="micropost_main_title">
-      <span class="fas fa-chevron-left" id="article_main_title_back" style="display:inline-block" onclick='onClickGotoMicropostHome(this);'>
+      <span class="fas fa-chevron-left" id="main_title_back" style="display:inline-block" onclick='onClickGotoMicropostHome();'>
       </span><span><%= link_to "微博内容", "#top" %></span>
     </section>
     <section class="micropost_main_content_with_more">
@@ -74,7 +55,6 @@
       <%= render 'shared/micropost_main_content_with_more_xhr', object: [@micropost] %>
     </section>
   </article>
-
 </div>
 </body>
 </html>

@@ -1,0 +1,27 @@
+<% @diaries.each do |diary| %>
+  <section class="row" id="article_main_content">
+    <div class="media" id="article_content_media">
+      <div class="media-body">
+        <p class="media-heading" id="article_title">
+          <%= diary.title %>
+          <span><%= diary.created_at.localtime.strftime("%Y-%m-%d %H:%M:%S") %></span>
+        </p>
+        <div class="clearfix"></div>
+        <p id="article_content">
+          <% t_diary = diary.content %>
+          <% t_diary.gsub!(/<br\s*\/*>/, " ") %>
+          <% t_diary.gsub!(/<.+?>/, "") %>
+          <%= t_diary[0...200] %>
+        </p>
+      </div>
+    </div>
+  </section>
+<% end %>
+<div id="article_paginate">
+  <span id="article_paginate_first_page">首页</span>
+  <span id="article_paginate_prev_page">上一页 </span>
+  <span id="article_paginate_number">[1] [2] [3] ... [100] </span>
+  <span id="article_paginate_next_page">下一页 </span>
+  <span id="article_paginate_end_page">末页 </span>
+  <span id="article_paginate_skip">跳转:<input id="article_paginate_skip_page" type="text"></span>
+</div>

@@ -447,9 +447,9 @@ $sm-width: 768px;
     padding: 2rem 1rem;
     border-radius: 1rem;
     border: 1px solid lightgray;
-  }
-  #article_main_div {
-    margin-bottom: 5rem;
+    *:nth-child(2) {
+      margin-top: 2rem;
+    }
   }
 }
 
@@ -514,7 +514,7 @@ $sm-width: 768px;
   }
 }
 
-#search_micropost_section, #search_article_section, #search_material_section {
+.search_section {
   border: 1px solid lightgray;
   border-radius: 1rem;
   padding: 1rem 1rem 3rem 1rem;
@@ -549,10 +549,13 @@ $sm-width: 768px;
       transform: translateY(20%);
 
     }
-    div {
+    a {
+      text-decoration: none;
+    }
+    div, a {
       transform: translateY(-30%);
     }
-    div, button {
+    div, button, a {
       float: left;
       display: inline-block;
       height: 100%;
@@ -571,13 +574,12 @@ $sm-width: 768px;
 
 //微博正文,日志,素材列表样式
 
-#micropost_main, #material_main {
+#micropost_main, #material_main, #article_main {
   margin-bottom: 5rem;
-
 }
 
-#micropost_main {
-  .micropost_main_title_flash {
+#micropost_main, #article_main {
+  .main_title_flash {
     .flash_tips {
       padding-top: 2rem;
     }
@@ -593,7 +595,7 @@ $sm-width: 768px;
   z-index: 8;
   top: -1px;
   background-color: white;
-  #article_main_title_back {
+  #main_title_back {
     cursor: pointer;
   }
   > span {
@@ -620,8 +622,8 @@ $sm-width: 768px;
     font-weight: 600;
     color: #fff;
     padding-bottom: 1rem;
-    form{
-      display:inline-block;
+    form {
+      display: inline-block;
     }
     button {
       //float:left;
@@ -798,9 +800,6 @@ $sm-width: 768px;
         color: #999;
       }
       span:first-child {
-        margin-left: 1rem;
-      }
-      span:nth-child(2) {
         float: right;
       }
     }
@@ -925,8 +924,8 @@ $sm-width: 768px;
 
 //写日志页面
 #article_write_div {
-  display: none;
-  section:first-child {
+  //display: none;
+  #article_write_title {
     padding-top: 2rem;
     padding-bottom: 2rem;
     //position:sticky;
@@ -946,11 +945,11 @@ $sm-width: 768px;
       height: 5rem;
     }
   }
-  section:nth-child(2) {
+  #article_write_editor {
     min-height: 30rem;
 
   }
-  section:nth-child(3) {
+  #article_write_submits {
     margin-top: 2rem;
     button, p {
       float: right;
@@ -958,7 +957,8 @@ $sm-width: 768px;
     }
     p {
       font-size: 1.5rem;
-      color: #888;
+      color: red;
+      font-weight: bold;
       line-height: 4rem;
     }
   }

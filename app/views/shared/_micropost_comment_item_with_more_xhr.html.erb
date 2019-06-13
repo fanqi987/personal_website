@@ -1,5 +1,5 @@
 <% if session[:microposts_page].include?(micropost_path(object.id)) %>
-  <%= render 'shared/micropost_comment_item', object: @micropost_records %>
+  <%= render 'shared/micropost_comment_item', object: @micropost_comments %>
   <% unless @load_micropost_comment_complete %>
     <% p "111111111111111" %>
     <%= form_for :more, url: microposts_comment_more_path, method: :post, remote: true do |f| %>
@@ -16,13 +16,12 @@
     <!--    <div class="micropost_comments_more" id="micropost_comments_more_<%#= params[:id] %>">已无更多评论</div>-->
   <% end %>
 <% else %>
-  <%= render 'shared/micropost_comment_item', object: object.micropost_records[0...MicropostsController::PAGINATE_NUM] %>
-  <% if object.micropost_records.length <= MicropostsController::PAGINATE_NUM %>
+  <%= render 'shared/micropost_comment_item', object: object.comments[0...MicropostsController::PAGINATE_NUM] %>
+  <% if object.comments.length <= MicropostsController::PAGINATE_NUM %>
     <!--    <div class="micropost_comments_more" id="micropost_comments_more_<%#= object.id %>">已无更多评论</div>-->
   <% else %>
     <%= link_to "查看更多评论", micropost_path(object), class: "micropost_comments_more", id: "micropost_comments_more_#{object.id}" %>
   <% end %>
 <% end %>
 
-<%# p @micropost_records %>
 <!-- 如果是从微博单独展示页面来的,或者是通过请求包含了 -->

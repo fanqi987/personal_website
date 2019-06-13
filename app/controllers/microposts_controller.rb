@@ -29,17 +29,20 @@ class MicropostsController < ApplicationController
 
   def create_comment
     p params
-    @micropost_record = MicropostRecord.new(micropost_comment_params)
-    @micropost_record.micropost_id = params[:id]
+    @micropost_record = Micropost.find_by(id: params[:id]).comments.new(micropost_comment_params)
     if (logged_in?)
       @micropost_record.user_id = current_user.id
       @micropost_record.user_name = current_user.name
-    elsif !params[:micropost_record][:user_name].empty?
-      @micropost_record.user_name = params[:micropost_record][:user_name]
-      session[:user_name] = params[:micropost_record][:user_name]
+    elsif !params[:comment][:user_name].empty?
+      @micropost_record.user_name = params[:comment][:user_name]
+      session[:user_name] = params[:comment][:user_name]
     else
       @micropost_record.user_name = request.remote_ip
     end
+    # p @micropost_record
+    # p @micropost_record.valid?
+    # p @micropost_record.errors.messages
+    # p Micropost.find_by(id:params[:id])
     if (@micropost_record.save)
       @micropost = Micropost.find_by(id: params[:id])
       change_comment_page
@@ -58,9 +61,10 @@ class MicropostsController < ApplicationController
 
   def destroy_comment
 
-    # @micropost_records = MicropostRecord.new(params[:micropost_records])
-    @micropost_record = MicropostRecord.find_by(id: params[:micropost_comment_id])
-    @micropost = @micropost_record.micropost
+    @micropost_record = Comment.find_by(id: params[:micropost_comment_id])
+    # p @micropost_record
+    @micropost = @micropost_record.commentable
+    # p @micropost
     @micropost_record.destroy
 
     change_comment_page
@@ -91,12 +95,12 @@ class MicropostsController < ApplicationController
     @micropost = Micropost.find_by(id: params[:id])
     @page_comment = 1
     @load_micropost_comment_complete = false
-    @maxPage_comment = ((@micropost.micropost_records.length - 1) / (PAGINATE_NUM * @page_comment)).floor + 1
+    @maxPage_comment = ((@micropost.comments.length - 1) / (PAGINATE_NUM * @page_comment)).floor + 1
     if (@page_comment >= @maxPage_comment)
       @load_micropost_comment_complete = true
-      @micropost_records = @micropost.micropost_records[0...@micropost.micropost_records.length]
+      @micropost_comments = @micropost.comments[0...@micropost.comments.length]
     else
-      @micropost_records = @micropost.micropost_records[0...PAGINATE_NUM]
+      @micropost_comments = @micropost.comments[0...PAGINATE_NUM]
     end
   end
 
@@ -106,7 +110,7 @@ class MicropostsController < ApplicationController
   end
 
   def comment_like
-    @micropost_record = MicropostRecord.find_by(id: params[:micropost_comment_id])
+    @micropost_record = Comment.find_by(id: params[:micropost_comment_id])
     like_common @micropost_record
   end
 
@@ -128,9 +132,9 @@ class MicropostsController < ApplicationController
     @page_comment += 1
     if (@page_comment >= @maxPage_comment)
       @load_micropost_comment_complete = true
-      @micropost_records = @micropost.micropost_records
+      @micropost_comments = @micropost.comments
     else
-      @micropost_records = @micropost.micropost_records[0...PAGINATE_NUM * @page_comment]
+      @micropost_comments = @micropost.comments[0...PAGINATE_NUM * @page_comment]
     end
     respond_js
   end
@@ -139,11 +143,12 @@ class MicropostsController < ApplicationController
 
   def post_init
     @post = {post_modal_id: 'post_micropost_modal', img_choose: true, modal_title: '发布新微博'}
-    @search_for = {search_modal_id: 'search_micropost_modal', modal_title: '搜索微博'}
+    @search_section = {search_section_name: " 搜索微博"}
+    @search_modal = {search_modal_id:"search_micropost_modal",modal_title: '搜索微博'}
     @user = User.find_by(id: ADMIN_ID)
     @microposts = @user.microposts if @user
     @micropost = Micropost.new
-    @micropost_record = MicropostRecord.new
+    @micropost_record = Comment.new
     @like = Like.new
     # p @microposts
   end
@@ -153,7 +158,7 @@ class MicropostsController < ApplicationController
   end
 
   def micropost_comment_params
-    params.require(:micropost_record).permit(:content, :user_name)
+    params.require(:comment).permit(:content, :user_name)
   end
 
   def like_common object
@@ -187,22 +192,24 @@ class MicropostsController < ApplicationController
   end
 
   def change_comment_page
+    p params
+    # p @microposts
     @page_comment = params[:page_comment].to_i
-    @micropost_records = @micropost.micropost_records[0...PAGINATE_NUM]
+    @micropost_comments = @micropost.comments[0...PAGINATE_NUM]
     if (@page_comment > 0)
       @load_micropost_comment_complete = false
-      @maxPage_comment = ((@micropost.micropost_records.length - 1) / (PAGINATE_NUM * @page_comment)).floor + 1
+      @maxPage_comment = ((@micropost.comments.length - 1) / (PAGINATE_NUM * @page_comment)).floor + 1
       if (@page_comment >= @maxPage_comment)
         @load_micropost_comment_complete = true
-        @micropost_records = @micropost.micropost_records[0...@micropost.micropost_records.length]
+        @micropost_comments = @micropost.comments[0...@micropost.comments.length]
       else
-        @micropost_records = @micropost.micropost_records[0...PAGINATE_NUM * @page_comment]
+        @micropost_comments = @micropost.comments[0...PAGINATE_NUM * @page_comment]
       end
     end
     # p @page_comment
     # p @maxPage_comment
     # p @load_micropost_comment_complete
-    # p @micropost_records
+    # p @micropost_comments
   end
 
   def change_micropost_page(start_time, end_time, search_word, page)

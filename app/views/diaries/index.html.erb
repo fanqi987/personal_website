@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<script>
+    onDocumentContentReady(2);
+</script>
+<body>
+<%= provide :post_path, diaries_path %>
+<div class="container">
+  <!--  侧边栏-->
+  <aside class="col-md-3 hidden-sm hidden-xs" id="article_aside">
+    <section id="post_article_section">
+      <% if logged_in? && current_user.admin? %>
+        <a class="btn btn-primary btn-block btn-lg fas fa-edit" id="post_article_section_button" href="<%= new_diary_path %>">
+          发表新日志
+        </a>
+      <% else %>
+        <%# p "进入没登录的地方了" %>
+        <%= form_for :post_diary, url: diaries_path, method: :post, remote: true do %>
+          <%= content_tag :button, content_tag(:strong, "发表新日志"),
+                          class: 'btn btn-primary btn-block btn-lg fas fa-edit', id: 'post_micropost_section_button',
+                          type: :submit %>
+        <% end %>
+      <% end %>
+      <%= form_for :draft, url: diaries_path, method: :get do |f| %>
+        <%= f.text_field :draft, value: true, type: :hidden %>
+        <%= f.button "查看草稿箱", type: :submit, class: "btn btn-primary btn-success btn-block btn-lg fas fa-scroll", id: "draft_article_section_button" %>
+      <% end %>
+    </section>
+    <hr/>
+    <!--  搜索日志-->
+    <%= render 'shared/search_section', object: @search_section %>
+  </aside>
+
+  <!--  搜索模态-->
+  <%= provide :modal_search_path, diaries_path %>
+  <%= render "shared/search_modal", object: @search_modal %>
+
+  <!--  日志列表 -->
+  <article class="col-md-9 col-sm-12" id="article_main">
+    <div class="row main_title_flash">
+      <%= render 'shared/flash' %>
+    </div>
+    <section class="row" id="article_main_title">
+      <span class="fas fa-chevron-left" id="main_title_back"></span><span>日志 <span><%= @diaries.count %></span></span>
+    </section>
+    <% if @diaries && !@diaries.empty? %>
+      <%= render "shared/diary_item"%>
+    <% else %>
+      <section id="article_empty">
+      </section>
+      <p>没有日志要！</p>
+    <% end %>
+  </article>
+</div>
+</body>
+</html>

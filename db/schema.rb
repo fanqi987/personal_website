@@ -10,7 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190527053432) do
+ActiveRecord::Schema.define(version: 20190608133003) do
+
+  create_table "comments", force: :cascade do |t|
+    t.string "commentable_type"
+    t.integer "commentable_id"
+    t.string "user_name", null: false
+    t.integer "user_id"
+    t.text "content", null: false
+    t.integer "like", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id"
+  end
+
+  create_table "diaries", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "title", null: false
+    t.string "content", null: false
+    t.integer "like", default: 0
+    t.boolean "draft", default: true
+    t.datetime "modified_time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_diaries_on_user_id"
+  end
 
   create_table "likes", force: :cascade do |t|
     t.string "likeable_type"
@@ -20,17 +44,6 @@ ActiveRecord::Schema.define(version: 20190527053432) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["likeable_type", "likeable_id"], name: "index_likes_on_likeable_type_and_likeable_id"
-  end
-
-  create_table "micropost_records", force: :cascade do |t|
-    t.integer "micropost_id"
-    t.string "user_name", null: false
-    t.integer "user_id"
-    t.text "content", null: false
-    t.integer "like", default: 0
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["micropost_id"], name: "index_micropost_records_on_micropost_id"
   end
 
   create_table "microposts", force: :cascade do |t|

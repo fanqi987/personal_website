@@ -54,7 +54,7 @@ function onClickRandomName(id) {
     $("#micropost_main_comments_edit_form_" + id + " .micropost_main_comments_edit_form_name_field input").val(RANDOM_NAMES[num]);
 }
 
-function onClickGotoMicropostHome(button) {
+function onClickGotoMicropostHome() {
     // console.log(window.history);
     window.history.back();
 }

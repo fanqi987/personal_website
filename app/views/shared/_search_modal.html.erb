@@ -1,7 +1,7 @@
 <!-- 搜索模态  -->
 <div class="modal fade" id="<%= object[:search_modal_id] %>" tabindex="-1" role="dialog">
   <div class="modal-dialog">
-    <%= form_for :search, url: yield(:modal_post_path), method: :get do |f| %>
+    <%= form_for :search, url: yield(:post_path), method: :get do |f| %>
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
