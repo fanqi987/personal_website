@@ -24,7 +24,7 @@
           <% end %>
           <span class="glyphicon micropost_post_time" id="micropost_content_post_time">
 <!--            2019年12月12日 12:12:12-->
-            <%= micropost.created_at.localtime.strftime("%Y-%m-%d %H:%M:%S") %>
+            <%= getCurrentCorrectTime micropost.created_at %>
             </span>
           <%= form_for(:like, url: microposts_like_path, id: "micropost_content_edit_form_#{micropost.id}", method: :post, remote: true) do |f| %>
             <%= tag(:input, type: 'hidden', name: request_forgery_protection_token.to_s, value: form_authenticity_token) %>
@@ -38,7 +38,7 @@
     </div>
   </section>
 
-  <div class="micropost_main_comments_with_edit" id="micropost_main_comments_with_edit_<%= micropost.id %>">
+  <div class="row micropost_main_comments_with_edit" id="micropost_main_comments_with_edit_<%= micropost.id %>">
     <% p params %>
     <%# p "show" + @page_comment %>
     <%= render 'shared/micropost_comment_item_create_xhr', object: micropost %>

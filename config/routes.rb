@@ -11,7 +11,6 @@ Rails.application.routes.draw do
   post '/register', to: 'users#create'
   get '/register/success', to: 'users#createSuccess'
 
-
   get '/login/profile', to: 'sessions#edit'
   get '/login/profile/info', to: 'sessions#edit'
   get '/login/profile/pwd', to: 'sessions#edit'
@@ -35,7 +34,15 @@ Rails.application.routes.draw do
 
   get '/diary_home', to: "static_pages#diary"
 
-  resources :diaries
+  resources :diaries do
+    post :like,to:'diaries#like'
+    member do
+      get :comments,to:'diaries#show'
+      post :comments,to: 'diaries#create_comment'
+      delete :comments,to: 'diaries#destroy_comment'
+      # post :comment_like,to:'diaries#like_comment'
+    end
+  end
   delete '/diaries', to: 'diaries#destroy'
 
 

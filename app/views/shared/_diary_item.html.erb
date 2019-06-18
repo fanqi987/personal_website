@@ -7,7 +7,7 @@
       <div class="media-body">
         <div class="media-heading article_title" id="article_title_<%= diary.id %>">
           <%= diary.title %>
-          <span><%= diary.created_at.localtime.strftime("%Y-%m-%d %H:%M:%S") %></span>
+          <span><%= getCurrentCorrectTime diary.created_at %></span>
           <% if diary.draft? %>
             <%= form_for :delete, url: diaries_path, method: :delete do |f| %>
               <%= hidden_field_tag :diary_id, diary.id %>

@@ -36,6 +36,7 @@
   <%= render "shared/search_modal", object: @search_modal %>
 
   <!--  日志列表 -->
+  <% provide :search_path, diaries_path %>
   <article class="col-md-9 col-sm-12" id="article_main">
     <div class="row main_title_flash">
       <%= render 'shared/flash' %>
@@ -44,6 +45,20 @@
       <span class="fas fa-chevron-left" id="main_title_back"></span><span><% if @draft %>草稿箱<% else %>日志<% end %>
       <span><%= @diaries.count %></span>
         </span>
+      <div class="main_title_search_factors">
+
+        <% if @search_start_time && !@search_start_time.empty? %>
+          <%= render 'shared/search_item', object: [@search_start_time, @search_end_time, @search_word, 0, "起"] %>
+          <!--          <span><i class="fa fa-times-circle"></i><%#= @search_start_time %>起</span>-->
+        <% end %>
+        <% if @search_end_time && !@search_end_time.empty? %>
+          <%= render 'shared/search_item', object: [@search_start_time, @search_end_time, @search_word, 1, "止"] %>
+          <!--          <span><i class="fa fa-times-circle"></i><%#= @search_end_time %>止</span>-->
+        <% end %>
+        <% if @search_word && !@search_word.empty? %>
+          <%= render 'shared/search_item', object: [@search_start_time, @search_end_time, @search_word, 2, ""] %>
+          <!--          <span><i class="fa fa-times-circle"></i>"<%#= @search_word %>"</span>-->
+        <% end %></div>
     </section>
     <% if @diaries && !@diaries.empty? %>
       <%= render "shared/diary_item" %>
@@ -56,7 +71,7 @@
         <p>没有日志要！</p>
       <% end %>
     <% end %>
-    <%= will_paginate @diaries %>
+    <%= will_paginate @diaries, getWillPaginateOptions %>
   </article>
 </div>
 </body>

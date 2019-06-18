@@ -36,4 +36,10 @@ module SessionsHelper
     cookies.delete(:remember_token)
     cookies.delete(:user_id)
   end
+
+  def check_show_delete comment
+    return logged_in? &&
+        (current_user.admin? || current_user.id ==
+            comment.user_id)
+  end
 end

@@ -43,6 +43,7 @@
   <%= render 'shared/search_modal', object: @search_modal %>
 
   <!-- 微博显示区域-->
+  <% provide :search_path, microposts_path %>
   <article class="col-md-9 col-sm-12" id="micropost_main">
     <div class="row main_title_flash">
       <%= render 'shared/flash' %>

@@ -51,7 +51,7 @@ function onClickMicropostComment(id) {
 function onClickRandomName(id) {
     console.log(name);
     var num = Math.floor(Math.random() * (RANDOM_NAMES.length));
-    $("#micropost_main_comments_edit_form_" + id + " .micropost_main_comments_edit_form_name_field input").val(RANDOM_NAMES[num]);
+    $("#comments_edit_form_" + id + " .comments_edit_form_name_field input").val(RANDOM_NAMES[num]);
 }
 
 function onClickGotoMicropostHome() {
@@ -62,5 +62,8 @@ function onClickGotoMicropostHome() {
 
 function onClickProgress(id) {
     $(id).html("<span class='fa fa-circle-notch fa-spin'></span>");
+    setTimeout(function(){
+        $(id).html("提交");
+    },5000);
 }
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190608133003) do
+ActiveRecord::Schema.define(version: 20190615102855) do
 
   create_table "comments", force: :cascade do |t|
     t.string "commentable_type"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20190608133003) do
     t.integer "like", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "avatar"
     t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id"
   end
 
@@ -33,6 +34,7 @@ ActiveRecord::Schema.define(version: 20190608133003) do
     t.datetime "modified_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "read", default: 0
     t.index ["user_id"], name: "index_diaries_on_user_id"
   end
 

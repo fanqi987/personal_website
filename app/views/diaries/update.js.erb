@@ -1,9 +1,9 @@
 var save_time = $("#article_write_submits p");
 <% if @diary.errors.empty? %>
-save_time.html("在<%= @diary.modified_time.localtime.strftime("%Y-%m-%d %H:%M:%S") %>时保存成功");
+save_time.html("在<%= getCurrentCorrectTime @diary.modified_time %>时保存成功");
 save_time.css({"color": "#888"});
 <%else %>
-save_time.html("在<%= @diary.modified_time.localtime.strftime("%Y-%m-%d %H:%M:%S")+"时保存失败了"+
+save_time.html("在<%= getCurrentCorrectTime(@diary.modified_time)+"时保存失败了"+
 @diary.errors.messages.collect{|k,v| v[0]}.to_s %>");
 save_time.css({"color": "orangered"});
 <%end %>

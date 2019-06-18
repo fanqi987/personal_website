@@ -1,23 +1,54 @@
 class DiariesController < ApplicationController
 
   before_action :init_post
+  before_action :store_current_url, only: [:show, :index]
+
 
   def show
-
+    @diary = Diary.find_by(id: params[:id])
+    if @diary.draft
+      if logged_in? && current_user.admin?
+        redirect_to edit_diary_path @diary
+      else
+        flash[:warning] = "管理员才能编辑日志哦~"
+        redirect_to diaries_path
+      end
+      return
+    end
+    @diary.update_attribute(:read, @diary.read + 1)
+    @diaries = @diary.user.diaries
+    getObjectIndex @diary, @diaries
+    @diary_comments = @diary.comments
+    @diary_comments = @diary_comments.reverse_order
+    @diary_comments = @diary_comments.paginate(page: params[:page], per_page: COMMENT_PAGE_NUM)
   end
 
   def index
+
     p @diaries
     p @diaries.count
     p params
     @draft = false
     @draft = true if params[:button] == "draft"
     @diaries = @user.diaries.where("'diaries'.'draft' == ? ", @draft)
-    @diaries = @diaries.paginate(page: params[:page], per_page: 10)
+    @diaries = @diaries.paginate(page: params[:page], per_page: COMMENT_PAGE_NUM)
+
+    if params[:search]
+      t_start_time = params[:search][:start_time]
+      t_end_time = params[:search][:end_time]
+      t_word = params[:search][:word]
+
+      @diaries = get_search_result @diaries,
+                                   t_start_time,
+                                   t_end_time,
+                                   t_word,
+                                   "diaries"
+    end
+
   end
 
   def edit
-    return if redirect_not_admin diaries_path,
+    return if redirect_not_admin session[:current_url],
                                  "管理员才能写日志哦~"
     @diary = Diary.find_by(id: params[:id])
   end
@@ -25,18 +56,14 @@ class DiariesController < ApplicationController
   def create
     p params
     @diary = @user.diaries.build(diaries_params)
-    @diary.title = Time.now.localtime.strftime("%Y-%m-%d %H:%M:%S") if !params[:diary][:title] || params[:diary][:title].empty?
+    @diary.title = getCurrentCorrectTime Time.now if !params[:diary][:title] || params[:diary][:title].empty?
     @diary.modified_time = Time.now
     p "rails " + @diary.content
-    # session[:tmp_diary_content] = @diary.content
-    # session[:tmp_diary_title] = @diary.title
 
     if params[:button] == "article"
       @diary.draft = false
       if @diary.save
         flash[:success] = "日志发表成功"
-        # session.delete :tmp_diary_title
-        # session.delete :tmp_diary_content
         session.delete :tmp_diary_id
         redirect_to diaries_path
         return
@@ -72,13 +99,24 @@ class DiariesController < ApplicationController
     # redirect_to new_diary_path
   end
 
+  def create_comment
+    p params
+    @diary = Diary.find_by(id: params[:id])
+    @diary_comment = @diary.comments.build(diaries_comments_params)
+    set_comment_user_attr @diary_comment
+    if (@diary_comment && @diary_comment.save)
+      respond_js
+    else
+      flash[:danger] = "评论失败" + @diary_comment.errors.collect {|k, v| v[0]}.to_s
+      redirect_to diary_path @diary
+    end
+
+  end
+
   def new
     return if redirect_not_admin diaries_path,
                                  "管理员才能写日志哦~"
     @diary = Diary.new
-    # @diary.content = session[:tmp_diary_content]
-    # @diary.title = session[:tmp_diary_title]
-    # @diary.id = session[:tmp_diary_id]
     session.delete :tmp_diary_id
   end
 
@@ -88,7 +126,7 @@ class DiariesController < ApplicationController
     p params
     @diary = @user.diaries.build(diaries_params)
     @diary.id = params[:id].to_i
-    @diary.title = Time.now.localtime.strftime("%Y-%m-%d %H:%M:%S") if !params[:diary][:title] || params[:diary][:title].empty?
+    @diary.title = getCurrentCorrectTime Time.now if !params[:diary][:title] || params[:diary][:title].empty?
     @diary.modified_time = Time.now
     if params[:button] == "article"
       @diary.draft = false
@@ -105,9 +143,6 @@ class DiariesController < ApplicationController
       @diary = t_diary
       if !@diary.draft
         flash[:success] = "日志发表成功"
-        # session.delete :tmp_diary_title
-        # session.delete :tmp_diary_content
-        # session.delete :tmp_diary_id
         redirect_to diaries_path
         return
       end
@@ -127,6 +162,26 @@ class DiariesController < ApplicationController
     redirect_to diaries_path + "?button=draft#article_main_title"
   end
 
+
+  def destroy_comment
+    p params
+    @diary = Diary.find_by(id: params[:id])
+    @diary_comment = @diary.comments.find_by(id: params[:comment_id])
+    @diary_comment.destroy
+    # if @diary_comment && @diary_comment.destroy
+    respond_js
+  end
+
+  def like
+    p params
+    @diary = Diary.find_by(id: params[:diary_id])
+    like_common @diary
+  end
+
+  # def like_comment
+  #   @diary_comment=
+  # end
+
   private
 
   def init_post
@@ -140,6 +195,10 @@ class DiariesController < ApplicationController
 
   def diaries_params
     params.require(:diary).permit(:title, :content)
+  end
+
+  def diaries_comments_params
+    params.require(:comment).permit(:content, :user_name)
   end
 
 end

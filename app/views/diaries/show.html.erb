@@ -1,14 +1,52 @@
 <!DOCTYPE html>
 <html>
 <script>
-    onDocumentContentReady(2);
+    onDocumentContentReady(2, 2, function () {
+        setDecodeHtml(".article_show_content_content", getDecodeHtml("<%= @diary.content%>"));
+        setPagesHref();
+        copyUrl();
+    });
 </script>
 <body>
 <div class="container">
   <article class="col-xs-12" id="article_main">
+
     <section class="row" id="article_main_title">
-      <span class="fas fa-chevron-left" id="main_title_back" style="display:inline-block" onclick="onClickGotoDiaryHome('<%= diaries_path%>')">
+      <span class="fas fa-chevron-left" id="main_title_back" style="display:inline-block" onclick="location.href='<%= diaries_path%>'">
       </span><span>查看日志 </span>
+      <!--      <span class="fa-1x article_show_edits_page_change">-->
+      <!--        <span class="fa-stack article_show_edits_page_prev">-->
+      <!--          <i class="fas fa-file fa-stack-2x"></i>-->
+      <!--          <i class="fas fa-arrow-left fa-inverse fa-stack-1x"></i>-->
+      <!--        </span>-->
+      <!--        <span class="fa-stack article_show_edits_page_next">-->
+      <!--          <i class="fas fa-file fa-stack-2x"></i>-->
+      <!--          <i class="fas fa-arrow-right fa-inverse fa-stack-1x"></i>-->
+      <!--        </span>-->
+      <!--      </span>-->
+    </section>
+    <div style="margin-top: 2rem;"></div>
+    <%= render 'shared/flash' %>
+    <section class="row  article_show_title_div">
+      <span id="article_show_title"><%= @diary.title %>&nbsp;&nbsp;</span>
+      <span id="article_show_created_time"><%= getCurrentCorrectTime @diary.created_at %>&nbsp;</span>
+      <span id="article_show_reads">阅读(<%= @diary.read %>)</span>
+    </section>
+    <%= render 'diaries/article_edits' %>
+    <section class="row article_show_content">
+      <div class="article_show_content_title">
+        <%= @diary.title %>
+      </div>
+      <div class="article_show_content_content"></div>
+      <div class="article_show_modified_time">
+        最后修改时间&nbsp;&nbsp;&nbsp;<%= getCurrentCorrectTime @diary.modified_time %>
+      </div>
+    </section>
+    <%= render 'diaries/article_edits' %>
+    <hr class="row"/>
+    <section class="row article_show_comments" id="article_show_comments">日志评论</section>
+    <section class="row comment_contents_div">
+      <%= render "shared/comment_item", object: @diary_comments %>
     </section>
   </article>
 </div>

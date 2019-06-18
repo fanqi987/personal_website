@@ -2,16 +2,14 @@ function showArticleEditorPage(func) {
     $("#article_editor").empty();
     $("#article_editor").removeClass();
     $("#article_editor").froalaEditor({
-        autofocus: true,
         heightMin: 300,
         language: "zh_cn",
-        autofocus: true,
         fontSizeDefaultSelection: '30',
         toolbarButtons: ["undo", "redo", "bold", 'italic', 'underline', 'fontSize', 'align', 'color'],
         toolbarButtonsMD: ["undo", "redo", "bold", 'italic', 'underline', 'fontSize', 'align', 'color'],
         toolbarButtonsSM: ["undo", "redo", "bold", 'italic', 'underline', 'fontSize', 'align', 'color'],
         toolbarButtonsXS: ["undo", "redo", "bold", 'italic', 'underline', 'fontSize', 'align', 'color'],
-        placeholderText: null
+        placeholderText: "输入正文"
     });
     //转义从rails来的html
     var content = getDecodeHtml(func());
@@ -59,6 +57,24 @@ function stopPopTrash() {
             event.stopPropagation();
         } else {
             return false;
+        }
+    });
+}
+
+function setPagesHref() {
+    $("#pagination a").each(function () {
+        if ($(this).attr("href") != "#") {
+            $(this).attr("href", $(this).attr("href") + "#article_show_comments");
+        } else {
+            $(this).attr("href", "javascript:void(0)");
+        }
+    });
+}
+
+function copyUrl() {
+    var clipboard = new Clipboard('.article_show_edits_copy', {
+        text: function () {
+            return location.href;
         }
     });
 }

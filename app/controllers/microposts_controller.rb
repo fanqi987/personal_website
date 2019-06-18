@@ -24,15 +24,7 @@ class MicropostsController < ApplicationController
   def create_comment
     p params
     @micropost_record = Micropost.find_by(id: params[:id]).comments.new(micropost_comment_params)
-    if (logged_in?)
-      @micropost_record.user_id = current_user.id
-      @micropost_record.user_name = current_user.name
-    elsif !params[:comment][:user_name].empty?
-      @micropost_record.user_name = params[:comment][:user_name]
-      session[:user_name] = params[:comment][:user_name]
-    else
-      @micropost_record.user_name = request.remote_ip
-    end
+    set_comment_user_attr @micropost_record
     # p @micropost_record
     # p @micropost_record.valid?
     # p @micropost_record.errors.messages
@@ -69,6 +61,7 @@ class MicropostsController < ApplicationController
   def index
     # todo javascript 微博的展开和关闭效果
     #记录当前微博页是索引还是子项目页
+
     p params
     session[:microposts_page] = request.original_url
     if params[:search]
@@ -76,10 +69,11 @@ class MicropostsController < ApplicationController
       t_end_time = params[:search][:end_time]
       t_word = params[:search][:word]
     end
-    change_micropost_page t_start_time,
-                          t_end_time,
-                          t_word,
-                          1
+    @microposts = change_micropost_page @user.microposts,
+                                        t_start_time,
+                                        t_end_time,
+                                        t_word,
+                                        1
 
   end
 
@@ -109,10 +103,12 @@ class MicropostsController < ApplicationController
   end
 
   def more
-    change_micropost_page params[:start_time],
-                          params[:end_time],
-                          params[:word],
-                          params[:page].to_i
+    @microposts = @user.microposts
+    @microposts = change_micropost_page @microposts,
+                                        params[:start_time],
+                                        params[:end_time],
+                                        params[:word],
+                                        params[:page].to_i
     respond_js
   end
 
@@ -155,35 +151,35 @@ class MicropostsController < ApplicationController
     params.require(:comment).permit(:content, :user_name)
   end
 
-  def like_common object
-    p object
-    if logged_in?
-      @like = object.likes.find_by(user_name: current_user.name)
-    else
-      @like = object.likes.find_by(user_name: request.remote_ip)
-    end
-
-    #创建没有点赞过的人
-    if !@like
-      @like = object.likes.build
-      if logged_in?
-        @like.user_name = current_user.name
-        @like.user_id = current_user.id
-      else
-        @like.user_name = request.remote_ip
-      end
-    end
-
-    #保存之前点赞时间的备份
-    @tmp_updated_at = @like.updated_at
-
-    #保存新的点赞数据,并且更新ui,在更新ui前,才更新数据.
-    if (@like.save)
-      p "在rails里"
-      respond_js
-      return
-    end
-  end
+  # def like_common object
+  #   p object
+  #   if logged_in?
+  #     @like = object.likes.find_by(user_name: current_user.name)
+  #   else
+  #     @like = object.likes.find_by(user_name: request.remote_ip)
+  #   end
+  #
+  #   #创建没有点赞过的人
+  #   if !@like
+  #     @like = object.likes.build
+  #     if logged_in?
+  #       @like.user_name = current_user.name
+  #       @like.user_id = current_user.id
+  #     else
+  #       @like.user_name = request.remote_ip
+  #     end
+  #   end
+  #
+  #   #保存之前点赞时间的备份
+  #   @tmp_updated_at = @like.updated_at
+  #
+  #   #保存新的点赞数据,并且更新ui,在更新ui前,才更新数据.
+  #   if (@like.save)
+  #     p "在rails里"
+  #     respond_js
+  #     return
+  #   end
+  # end
 
   def change_comment_page
     p params
@@ -206,50 +202,52 @@ class MicropostsController < ApplicationController
     # p @micropost_comments
   end
 
-  def change_micropost_page(start_time, end_time, search_word, page)
-    #带搜索的索引
-    p params
-    @search_start_time, t_start_time = start_time, start_time
-    @search_end_time, t_end_time = end_time, end_time
-    @search_word, t_word = search_word, search_word
+  def change_micropost_page(objects, start_time, end_time, search_word, page)
 
-    # p @search_start_time
-    # p @search_end_time
-    # p @search_word
-
-    t_start_time = Time.local(1970, 1, 1).strftime("%Y-%m-%d") if (@search_start_time.nil? || @search_start_time.empty?)
-    t_end_time = (Time.now + 1.day).strftime("%Y-%m-%d") if (!@search_end_time || @search_end_time.empty?)
-    t_word = "" if (!@search_word || @search_word.empty?)
-
-    # p t_start_time
-    # p t_end_time
-    # p t_word
-
-    # todo 调整为当地时间
-    @microposts = @user.microposts.where(
-        # "'microposts'.'created_at' >= datetime(?,'localtime') AND 'microposts'.'created_at' <= datetime(?,'localtime') " +
-        #     "AND 'microposts'.'content' like ? ",
-        "'microposts'.'created_at' >= datetime(?) AND 'microposts'.'created_at' <= datetime(?) " +
-            "AND 'microposts'.'content' like ? ",
-        DateTime.parse(t_start_time) - 8.hours, DateTime.parse(t_end_time) - 8.hours, "%" + t_word + "%")
-    @microposts_length = @microposts.length
-    p @microposts
-    p @microposts.length
+    objects = get_search_result objects,
+                                start_time,
+                                end_time,
+                                search_word,
+                                "microposts"
+    # #带搜索的索引
+    # p params
+    # @search_start_time, t_start_time = start_time, start_time
+    # @search_end_time, t_end_time = end_time, end_time
+    # @search_word, t_word = search_word, search_word
+    #
+    # # p @search_start_time
+    # # p @search_end_time
+    # # p @search_word
+    #
+    # t_start_time = Time.local(1970, 1, 1).strftime("%Y-%m-%d") if (@search_start_time.nil? || @search_start_time.empty?)
+    # t_end_time = (Time.now + 1.day).strftime("%Y-%m-%d") if (!@search_end_time || @search_end_time.empty?)
+    # t_word = "" if (!@search_word || @search_word.empty?)
+    #
+    # # p t_start_time
+    # # p t_end_time
+    # # p t_word
+    #
+    # # todo 调整为当地时间
+    # objects = objects.where(
+    #     # "'microposts'.'created_at' >= datetime(?,'localtime') AND 'microposts'.'created_at' <= datetime(?,'localtime') " +
+    #     #     "AND 'microposts'.'content' like ? ",
+    #     "'microposts'.'created_at' >= datetime(?) AND 'microposts'.'created_at' <= datetime(?) " +
+    #         "AND 'microposts'.'content' like ? ",
+    #     DateTime.parse(t_start_time) - 8.hours, DateTime.parse(t_end_time) - 8.hours, "%" + t_word + "%")
+    @microposts_length = objects.length
+    p objects
+    p objects.length
     #初始化分页,显示列表
     @page = page
     @load_micropost_complete = false
-    @maxPage = ((@microposts.length - 1) / (PAGINATE_NUM)).floor + 1
+    @maxPage = ((objects.length - 1) / (PAGINATE_NUM)).floor + 1
     if (@page >= @maxPage)
       @load_micropost_complete = true
     else
-      @microposts = @microposts[0...PAGINATE_NUM * @page]
+      objects = objects[0...PAGINATE_NUM * @page]
     end
+    return objects
   end
 
-  def respond_js
-    respond_to do |format|
-      format.html {redirect_to microposts_path}
-      format.js
-    end
-  end
+
 end

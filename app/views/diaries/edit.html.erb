@@ -9,11 +9,10 @@
 <div class="container">
   <article class="col-xs-12" id="article_main">
     <section class="row" id="article_main_title">
-      <span class="fas fa-chevron-left" id="main_title_back" style="display:inline-block" onclick="onClickGotoDiaryHome('<%= diaries_path%>')">
+      <span class="fas fa-chevron-left" id="main_title_back" style="display:inline-block" onclick="onClickGotoDiaryHome('<%=  diaries_path%>')">
       </span><span>编辑日志 </span>
     </section>
     <article id="article_write_div">
-      <div style="display:none;"></div>
       <div style="margin-top: 2rem;"></div>
       <%= render 'shared/flash', object: @diary %>
       <%= form_for @diary, url: diary_path(@diary), method: :patch, class: "form-inline", remote: true do |f| %>

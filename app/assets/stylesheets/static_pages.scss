@@ -83,11 +83,10 @@ $sm-width: 768px;
   html {
     font-size: 7px;
   }
-}
-
-//分页
-.pagination {
-  //margin:auto;
+  //.container{
+  //  padding-left:1rem;
+  //  padding-right:1rem;
+  //}
 }
 
 //头尾样式
@@ -95,6 +94,17 @@ $sm-width: 768px;
   margin-top: 4.5rem;
   margin-bottom: 4.5rem;
   cursor: pointer;
+}
+
+//弹出提示样式
+.tooltip {
+  .tooltip-inner {
+    background-color: #444;
+  }
+  .tooltip-arrow {
+    border-top-color: #444 !important;
+  }
+
 }
 
 #logo_static_pages {
@@ -631,7 +641,7 @@ $sm-width: 768px;
     display: inline-block;
     font-weight: 600;
     color: #fff;
-    padding-bottom: 1rem;
+    //padding-bottom: 1rem;
     form {
       display: inline-block;
     }
@@ -685,23 +695,25 @@ $sm-width: 768px;
 }
 
 .micropost_main_comments_with_edit {
-  //border-radius: 1rem;
   display: none;
-  margin-left: -15px;
-  margin-right: -15px;
-  .micropost_main_comments_edit_form {
-    position: relative;
-    //height:15rem;
+  background-color: #fff;
+}
+
+.diary_comment_editor_div {
+  display: block;
+}
+
+.micropost_main_comments_with_edit, .diary_comment_editor_div {
+  .comments_edit_form_div {
+    display: block;
     padding: 2rem;
+    background-color: #fafafa;
     text-align: center;
-    background-color: #f6f6f6;
-    border: 0.3rem solid #fff;
     border-radius: 1rem;
-    .micropost_main_comments_edit_form_text_area {
+    .comments_edit_form_text_area {
       float: left;
-      //height: 100%;
       height: 9rem;
-      width: 100%;
+      width: 95%;
       resize: none;
       background-color: #fafafa;
       margin-bottom: 1.5rem;
@@ -710,7 +722,7 @@ $sm-width: 768px;
         margin-bottom: 0;
       }
     }
-    .micropost_main_comments_edit_form_name_field {
+    .comments_edit_form_name_field {
       display: inline-block;
       width: 70%;
       height: 3rem;
@@ -802,7 +814,12 @@ $sm-width: 768px;
   .media-body {
     //width:100%;
     .media-heading {
-      color: #333
+      color: #333;
+      span {
+        > * {
+          display: inline;
+        }
+      }
     }
     .article_title {
       font-size: 2.5rem;
@@ -819,13 +836,16 @@ $sm-width: 768px;
         background: none;
       }
     }
-    .micropost_content_username, #messageboard_username {
+    .micropost_content_username, #comment_username {
       font-size: 2rem;
       > span {
         float: right;
         color: #666;
         font-size: 1.6rem;
-        .delete_content_messageboard {
+        .comment_delete {
+          display: inline;
+          border: none;
+          background: none;
           cursor: pointer;
           &:hover {
             color: $bootstrap-pill-blue;
@@ -840,7 +860,7 @@ $sm-width: 768px;
       font-size: 1.7rem;
       color: #666;
     }
-    .micropost_content_content, #messageboard_content {
+    .micropost_content_content, #comment_content {
       word-break: break-all;
       //word-wrap: break-word;
       white-space: pre-line;
@@ -978,6 +998,107 @@ $sm-width: 768px;
       line-height: 4rem;
     }
   }
+}
+
+//日志项目显示
+.article_show_title_div {
+  margin-top: 3rem;
+  margin-bottom: 1.5rem;
+
+  #article_show_title {
+    font-size: 3.5rem;
+    //color: #555;
+    color: #677;
+  }
+  #article_show_created_time, #article_show_reads {
+    font-size: 1.4rem;
+    color: #788;
+  }
+}
+
+.article_show_edits_page_change {
+  display: inline-block;
+  color: #ddd;
+  > span {
+    font-size: 1.8rem;
+    color: #cca;
+    margin-left: 2rem;
+  }
+}
+
+.article_show_edits {
+  color: #ddd;
+  line-height: 2rem;
+  height: 2rem;
+  letter-spacing: 0;
+  * {
+    display: inline-block;
+  }
+  button {
+    background: none;
+    border: none;
+  }
+  span, a, button {
+    cursor: pointer;
+    box-sizing: content-box;
+    color: #9aa;
+    font-size: 2rem;
+    margin: 0;
+    border-left: solid 1px #ccc;
+    padding: 0 1.5rem;
+    vertical-align: top;
+  }
+  .article_show_edits_page_next, .article_show_edits_page_prev {
+    color: #788;
+    float: right;
+    padding: 0 0.8rem;
+  }
+
+}
+
+.article_show_content {
+  position: relative;
+  border-radius: 2rem;
+  background-color: #fafaf8;
+  padding: 3rem 2rem;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  @media (min-width: $sm-width) {
+    padding: 4rem 3rem;
+  }
+  .article_show_content_title {
+    font-size: 3rem;
+    text-align: center;
+    display: none;
+    color: #666;
+    @media (min-width: $sm-width) {
+      margin-top: 2rem;
+      margin-bottom: 4rem;
+      display: block;
+    }
+  }
+  .article_show_content_content {
+    min-height: 50rem;
+    word-break: break-all;
+  }
+  .article_show_modified_time {
+    margin: 1rem;
+    display: inline-block;
+    float: right;
+    font-size: 1.6rem;
+    color: #aaa;
+    @media(min-width: $sm-width) {
+      margin: 3rem;
+    }
+  }
+}
+
+.article_show_comments {
+  font-size: 2rem;
+  background-color: #9aa;
+  border-radius: 1rem;
+  padding: 2rem;
+  color: #fff;
 }
 
 //froala编辑器
@@ -1316,10 +1437,13 @@ $sm-width: 768px;
   }
 }
 
-.main_content_messageboard {
-  .hr_content_messageboard {
-    border-top: 1px solid #eee;
-  }
+.comment_item_div {
+  background-color: #fafafa;
+  border-radius: 2rem;
+  margin-top: 1rem;
+  //.comment_hr {
+  //  border-top: 1px solid #eee;
+  //}
   .media {
     padding-top: 3rem;
     padding-bottom: 3rem;

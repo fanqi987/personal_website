@@ -1,4 +1,4 @@
-<%= form_for :search, url: microposts_path, method: :get do |f| %>
+<%= form_for :search, url: yield(:search_path), method: :get do |f| %>
   <%= f.button "", type: :submit do %>
     <i class="fa fa-times-circle"></i><%= object[object[3]] + object[4] %>
   <% end %>

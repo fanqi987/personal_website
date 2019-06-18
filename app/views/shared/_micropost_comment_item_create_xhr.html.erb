@@ -1,20 +1,20 @@
-<div class="micropost_main_comments_edit_form" id="micropost_main_comments_edit_form_<%= object.id %>">
+<div class="comments_edit_form_div" id="comments_edit_form_<%= object.id %>">
   <%= form_for @micropost_record, url: microposts_comment_path, method: :post, remote: true do |f| %>
     <%= render 'shared/errors', object: @micropost_record %>
-    <%= f.text_area :content, placeholder: "发表评论...", class: 'form-control micropost_main_comments_edit_form_text_area', required: true %>
+    <%= f.text_area :content, placeholder: "发表评论...", class: 'form-control comments_edit_form_text_area', required: true %>
     <%= hidden_field_tag :id, object.id %>
     <%# p "这里是评论页数~~" + @page_comment.to_s %>
     <%= hidden_field_tag :page_comment, @page_comment %>
     <%#= hidden_field_tag :maxPage_comment, @maxPage_comment %>
     <% if !logged_in? %>
-      <div class="micropost_main_comments_edit_form_name_field">
+      <div class="comments_edit_form_name_field">
         <%= f.text_field :user_name, placeholder: "(可选)用户名", class: 'form-control', value: session[:user_name] %>
         <button type="button" class="fas fa-dice fa-lg" onclick="onClickRandomName('<%= object.id %>')"></button>
       </div>
     <% else %>
     <% end %>
     <%= f.button "提交", type: :submit, class: "btn btn-primary btn-sm",
-                 onclick: "onClickProgress(\"#micropost_main_comments_edit_form_#{object.id} button[type='submit']\");" %>
+                 onclick: "onClickProgress(\"#comments_edit_form_#{object.id} button[type='submit']\");" %>
   <% end %>
   <div class="clearfix"></div>
   <!--      <hr/>-->

@@ -12,15 +12,16 @@
         </p>
         </p>
         <div class="micropost_edit_items micropost_comments_edit_items" id="micropost_comments_edit_items_<%= micropost_comment.id %>">
-          <% if logged_in? && (current_user.admin? || current_user.id == micropost_comment.user_id) %>
+          <%# if logged_in? && (current_user.admin? || current_user.id == micropost_comment.user_id) %>
+          <% if check_show_delete micropost_comment %>
             <%= form_for :delete, url: microposts_comment_path, method: :delete, remote: true do |f| %>
               <!--              <span class="	glyphicon glyphicon-trash" id="micropost_comments_delete_icon"></span>-->
               <%= hidden_field_tag :micropost_comment_id, micropost_comment.id %>
-              <%= hidden_field_tag :page_comment,@page_comment%>
+              <%= hidden_field_tag :page_comment, @page_comment %>
               <%= f.button "", type: "submit", class: 'glyphicon glyphicon-trash', id: "micropost_comments_delete_icon_#{micropost_comment.id}", data: {confirm: "确定删除这条评论吗?"} %>
             <% end %>
           <% end %>
-          <span class="glyphicon" id="micropost_comments_post_time"><%= micropost_comment.created_at.localtime.strftime("%Y-%m-%d %H:%M:%S") %></span>
+          <span class="glyphicon" id="micropost_comments_post_time"><%= getCurrentCorrectTime micropost_comment.created_at %></span>
           <%= form_for :like, url: microposts_comment_like_path, method: :post, remote: true do |f| %>
             <%= tag :input, type: "hidden", name: request_forgery_protection_token.to_s, value: form_authenticity_token %>
             <%= hidden_field_tag :micropost_comment_id, micropost_comment.id %>
