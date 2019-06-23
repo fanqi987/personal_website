@@ -87,6 +87,12 @@ function onDocumentContentReady(menuIndex, subMenuIndex, func) {
             //娱乐
             case 3:
                 initScrollboxHobby();
+                switch (subMenuIndex) {
+                    //创建娱乐
+                    case 0:
+                        func();
+                        break;
+                }
                 break;
             //信息
             case 4:

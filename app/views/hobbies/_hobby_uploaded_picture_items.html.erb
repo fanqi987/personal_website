@@ -1,0 +1,11 @@
+<% items.each do |item| %>
+  <div class="hobby_uploaded_picture_item" name="<%= item.id %>">
+    <%= image_tag item.image.url %>
+    <span class="hobby_selected_picture_item_name"><%= item.title %></span>
+    <%= form_for :delete_image, url: hobby_images_path, method: :delete, remote: true do |f| %>
+      <%= f.text_field :image_id, value: item.id, type: :hidden %>
+      <%= f.button "", type: :submit, class: "hobby_selected_picture_item_close fas fa-times close",
+                   data: {confirm: "确定删除这个图片吗?"} %>
+    <% end %>
+  </div>
+<% end %>

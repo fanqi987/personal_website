@@ -5,6 +5,7 @@ class DiariesController < ApplicationController
 
 
   def show
+    # todo 404 page
     @diary = Diary.find_by(id: params[:id])
     if @diary.draft
       if logged_in? && current_user.admin?
@@ -16,7 +17,8 @@ class DiariesController < ApplicationController
       return
     end
     @diary.update_attribute(:read, @diary.read + 1)
-    @diaries = @diary.user.diaries
+    @diaries = @diary.user.diaries.where("'diaries'.'draft' = ?", false)
+    p @diaries
     getObjectIndex @diary, @diaries
     @diary_comments = @diary.comments
     @diary_comments = @diary_comments.reverse_order

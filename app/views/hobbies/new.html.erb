@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<body>
+<div class="container">
+  <hr class="row hobby_title_hr"/>
+
+  <section class="col-sm-3 col-xs-12">
+    <div class="hobby_gallery_info">
+      <div class="hobby_gallery_title ">
+        <div>
+          创建画廊信息
+        </div>
+      </div>
+      <div class="hobby_flash">
+        <%= render 'shared/flash' %>
+      </div>
+      <%= form_for :hobby, url: hobbies_path, method: :post, remote: true do |f| %>
+        <div class="hobby_gallery_title_edits">
+          <div>
+            <%= f.label :title, "标题" %>
+            <%= f.text_field :title, class: "hobby_gallery_title_input form-control", placeholder: "输入画廊标题", maxlength: 20, required: true %>
+          </div>
+          <div>
+            <%= f.label :content, "介绍" %>
+            <%= f.text_area :content, class: "hobby_gallery_content_input form-control", placeholder: "输入画廊介绍", maxlength: 50 %>
+          </div>
+          <%= f.button "保存", type: "submit", class: "btn btn-primary btn-xs" %>
+          <div class="clearfix"></div>
+        </div>
+      <% end %>
+    </div>
+    <div class="hobby_gallery_tips">
+      <p>在右边上传图片哦&rarr;</p>
+      <!--        <p>在下面上传图片哦&darr;</p>-->
+    </div>
+  </section>
+  <!--      <div class="hobby_uploaded_tips alert alert-info">正在上传请稍侯</div>-->
+  <div class="col-sm-9 col-xs-12">
+    <div class="hobby_selected_pictures_flash">
+      <%= render 'shared/flash' %>
+    </div>
+    <div class="hobby_selected_pictures_title">
+      <span>创建新画廊-已选中的图片</span>
+      <hr/>
+    </div>
+  </div>
+  <section class="col-sm-9 col-xs-12">
+    <div class="hobby_selected">
+    </div>
+  </section>
+  <div class="clearfix"></div>
+  <hr/>
+  <section class="row hobby_edits">
+    <%= form_for :upload, url: hobby_upload_path, method: :post, remote: true do |f| %>
+      <a href="<%= hobbies_path %>" class="hobby_edits_back btn btn-warning btn-sm">返回</a>
+      <%= tag(:input, type: 'hidden', name: request_forgery_protection_token.to_s, value: form_authenticity_token) %>
+      <!--      <button class="hobby_edits_back btn btn-danger btn-sm" disabled>停止上传</button>-->
+      <%#= f.button "提交上传", type: :submit, class: "hobby_edits_post btn btn-info btn-sm", value: "upload", onclick: "return false;" %>
+      <a href="javascript:;" class="btn btn-info btn-sm hobby_uploader">选择文件
+        <%= f.file_field :files, accept: "image/png,image/jpeg,image/gif", multiple: true, id: "hobby_chooser" %>
+      </a>
+      <%= f.button "上传", type: :submit, class: "hobby_edits_post btn btn-primary btn-sm", onclick: "return false;", disabled: true %>
+    <% end %>
+  </section>
+</div>
+</body>
+<script>
+    //设置一些其它参数
+    //上传图片的大小<1mb
+    //预览图不缩放
+    // var delete_select_image_indexes = [];
+
+    onDocumentContentReady(3, 0, function () {
+        initFileUploader('<%= hobby_upload_path%>');
+
+        bindFileUploadAdd();
+
+        bindFileUploadProcessAlways('<%= j render 'hobbies/hobby_selected_picture_item'%>');
+
+        bindFileUploadStart();
+
+        bindFileUploadProgress();
+
+        bindFileUploadDone(function () {
+            <% flash.now[:success] = '上传成功!' %>
+        }, "<%= j render 'shared/flash' %>");
+
+        bindFileUploadFail(function () {
+            <% flash.now[:danger]="上传失败了,请刷新后重试" %>
+        }, "<%= j render 'shared/flash' %>");
+    });
+</script>
+</html>

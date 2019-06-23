@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190615102855) do
+ActiveRecord::Schema.define(version: 20190618133159) do
 
   create_table "comments", force: :cascade do |t|
     t.string "commentable_type"
@@ -36,6 +36,27 @@ ActiveRecord::Schema.define(version: 20190615102855) do
     t.datetime "updated_at", null: false
     t.integer "read", default: 0
     t.index ["user_id"], name: "index_diaries_on_user_id"
+  end
+
+  create_table "hobbies", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "title", null: false
+    t.string "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_hobbies_on_user_id"
+  end
+
+  create_table "hobby_items", force: :cascade do |t|
+    t.integer "hobby_id"
+    t.string "title", null: false
+    t.string "content"
+    t.string "image", null: false
+    t.boolean "cover", default: false
+    t.integer "like", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["hobby_id"], name: "index_hobby_items_on_hobby_id"
   end
 
   create_table "likes", force: :cascade do |t|

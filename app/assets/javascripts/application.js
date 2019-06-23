@@ -17,4 +17,6 @@
 //= require bootstrap
 //= require owl.carousel
 //= require clipboard
+//= require jquery-fileupload/basic-plus
+//= require swiper
 //= require_tree .

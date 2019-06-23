@@ -1,0 +1,21 @@
+<div class="hobby_group_sub_item">
+  <div>
+    <% if hobby.hobby_items.length > 0 %>
+      <% url = hobby.hobby_items[0].image.url %>
+    <% else %>
+      <% url = 'assets/empty_gallery' %>
+    <% end %>
+    <div class="item_img" style="background-image: url('<%= url %>')" onclick="location.href='<%= hobby_path(hobby)%>'">
+    </div>
+    <div class="item_texts">
+      <div class="hobby_item_title"><span><%= hobby.title %></span></div>
+      <% if logged_in? && current_user.admin? %>
+        <div class="hobby_item_edits">
+          <%= link_to "", edit_hobby_path(hobby), class: "fas fa-edit hobby_item_edits_edit" %>
+          <%= link_to "", hobby_path(hobby), class: "fas fa-times hobby_item_edits_delete",
+                      method: :delete, data: {confirm: "确定要删除这个画廊吗?图片也会一并删除!"} %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<body>
+<div class="container">
+  <hr class="row hobby_title_hr"/>
+
+  <section class="col-sm-3 col-xs-12">
+    <div class="hobby_gallery_info">
+      <div class="hobby_gallery_title ">
+        <div>
+          修改画廊信息
+        </div>
+      </div>
+      <div class="hobby_flash">
+        <%= render 'shared/flash' %>
+      </div>
+      <%= form_for :hobby, url: hobby_path(@hobby), method: :patch, remote: true do |f| %>
+        <div class="hobby_gallery_title_edits">
+          <div>
+            <%= f.label :title, "标题" %>
+            <%= f.text_field :title, class: "hobby_gallery_title_input form-control", placeholder: "输入画廊标题", maxlength: 20, required: true, value: @hobby.title %>
+          </div>
+          <div>
+            <%= f.label :content, "介绍" %>
+            <%= f.text_area :content, class: "hobby_gallery_content_input form-control", placeholder: "输入画廊介绍", maxlength: 50, value: @hobby.content %>
+          </div>
+          <%= f.button "修改", type: "submit", class: "btn btn-primary btn-xs" %>
+          <div class="clearfix"></div>
+        </div>
+      <% end %>
+    </div>
+    <div class="hobby_gallery_tips">
+      <p>在右边上传图片哦&rarr;</p>
+    </div>
+  </section>
+  <div class="col-sm-9 col-xs-12">
+    <div class="hobby_selected_pictures_flash">
+      <%= render 'shared/flash' %>
+    </div>
+    <div class="hobby_selected_pictures_title">
+      <span>修改图片-已保存的图片</span>
+      <%= form_for :refresh, url: hobby_refresh_path, method: :post, remote: true do |f| %>
+        <!--        <span class="hobby_selected_pictures_refresh fas fa-sync-alt"></span>-->
+        <%= hidden_field_tag :hobby_id, params[:id] %>
+        <div class="hobby_selected_pictures_refresh">
+          <%= f.button "", type: "submit", class: "fas fa-sync-alt", onclick: "onRefreshImages(this);" %>
+        </div>
+      <% end %>
+      <hr/>
+    </div>
+  </div>
+  <section class="col-sm-9 col-xs-12">
+    <div class="hobby_selected">
+      <%= render 'hobby_uploaded_picture_items', items: @hobby.hobby_items %>
+    </div>
+  </section>
+  <div class="clearfix"></div>
+  <hr/>
+  <section class="row hobby_edits">
+    <%= form_for :upload, url: hobby_edit_upload_path, method: :post, remote: true do |f| %>
+      <a href="<%= hobbies_path %>" class="hobby_edits_back btn btn-warning btn-sm">返回</a>
+      <%= tag(:input, type: 'hidden', name: request_forgery_protection_token.to_s, value: form_authenticity_token) %>
+      <!--      <button class="hobby_edits_back btn btn-danger btn-sm" disabled>停止上传</button>-->
+      <%#= f.button "提交上传", type: :submit, class: "hobby_edits_post btn btn-info btn-sm", value: "upload", onclick: "return false;" %>
+      <a href="javascript:;" class="btn btn-info btn-sm hobby_uploader">选择文件
+        <%= f.text_field :hobby_id, value:params[:id], type: :hidden %>
+        <%= f.file_field :files, accept: "image/png,image/jpeg,image/gif", multiple: true, id: "hobby_chooser" %>
+      </a>
+      <%= f.button "上传", type: :submit, class: "hobby_edits_post btn btn-primary btn-sm", onclick: "return false;", disabled: true %>
+    <% end %>
+  </section>
+</div>
+</body>
+<script>
+    onDocumentContentReady(3, 0, function () {
+        initFileUploader('<%= hobby_edit_upload_path%>');
+
+        bindFileUploadAdd();
+
+        bindFileUploadProcessAlways('<%= j render 'hobbies/hobby_selected_picture_item'%>');
+
+        bindFileUploadStart();
+
+        bindFileUploadProgress();
+
+        bindFileUploadDone(function () {
+            <% flash.now[:success] = '上传成功!' %>
+        }, "<%= j render 'shared/flash' %>");
+
+        bindFileUploadFail(function () {
+            <% flash.now[:danger]="上传失败了,请刷新后重试" %>
+        }, "<%= j render 'shared/flash' %>");
+    });
+</script>
+</html>

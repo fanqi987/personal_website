@@ -8,18 +8,22 @@ gem 'coffee-rails', '~> 4.2'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'bcrypt', '~> 3.1.7'
-gem 'jquery-rails','4.3.3'
+gem 'jquery-rails', '4.3.3'
 gem 'wysiwyg-rails', '2.9.5'
-gem 'font-awesome-sass','5.8.1'
-gem 'bootstrap-sass','3.4.1'
-gem 'bootstrap-will_paginate','1.0.0'
-gem 'owlcarousel-rails','2.2.3.5'
-gem 'clipboard-rails','1.7.1'
+gem 'font-awesome-sass', '5.8.1'
+gem 'bootstrap-sass', '3.4.1'
+gem 'bootstrap-will_paginate', '1.0.0'
+gem 'owlcarousel-rails', '2.2.3.5'
+gem 'clipboard-rails', '1.7.1'
+gem 'jquery-fileupload-rails', '1.0.0'
+gem 'mini_magick', '4.9.3'
+gem 'carrierwave', '1.3.1'
+gem 'swiper-rails','1.0.4'
 # gem 'ffi', :platforms => [:mswin, :mingw] # Required by Clipboard on Windows
 
 
 group :development, :test do
-  gem 'sqlite3', '1.3.13'
+  # gem 'sqlite3', '1.3.13'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri]
   # Adds support for Capybara system testing and selenium driver

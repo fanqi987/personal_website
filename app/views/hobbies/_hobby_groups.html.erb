@@ -1,0 +1,77 @@
+<% @group_hobbies.each_with_index do |group| %>
+  <div class="item hobby_group_items">
+    <% group.each do |hobby| %>
+      <%= render 'hobby_group_sub_item', hobby: hobby %>
+    <% end %>
+    <% if  logged_in? && current_user.admin? && group.length < HobbiesController::HOBBY_GROUP_NUM   %>
+      <%= render 'hobby_group_empty_item' %>
+    <% end %>
+  </div>
+<% end %>
+<%# if (@group_hobbies.length == 0) || @group_hobbies[@group_hobbies.length - 1].length == HobbiesController::HOBBY_GROUP_NUM %>
+<% if @group_hobbies.length > 0 && @group_hobbies[@group_hobbies.length - 1].length == HobbiesController::HOBBY_GROUP_NUM %>
+  <div class="item hobby_group_items">
+    <%= render 'hobby_group_empty_item' %>
+  </div>
+<% elsif (@group_hobbies.length == 0) && logged_in? && current_user.admin? %>
+  <div class="item hobby_group_items">
+    <%= render 'hobby_group_empty_item' %>
+  </div>
+<% elsif @group_hobbies.length == 0 %>
+  <div class="item hobby_group_items">
+    <div class="hobby_group_empty">
+      <%= image_tag "empty_bottle.gif" %>
+      <p>画廊竟然是空的!</p>
+    </div>
+  </div>
+<% end %>
+<%# end %>
+
+
+<!--<div class="item hobby_main_item">-->
+<!--  <div class="hobby_main_sub_item">-->
+<!--    <div>-->
+<!--      <div class="item_img"></div>-->
+<!--      <div class="item_texts">-->
+<!--        <div class="hobby_item_title"><span>这是栏目介绍1</span></div>-->
+<!--        <div class="hobby_item_edits"><span class="fas fa-edit hobby_item_edits_edit">-->
+<!--            </span><span class="fas fa-times hobby_item_edits_delete"></span></div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  <div class="hobby_main_sub_item">-->
+<!--    <div>-->
+<!--      <div class="item_img"></div>-->
+<!--      <div>-->
+<!--        <span>这是栏目介绍1</span>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  <div class="hobby_main_sub_item">-->
+<!--    <div>-->
+<!--      <div class="item_img"></div>-->
+<!--      <div>-->
+<!--        <span>这是栏目介绍1</span>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  <div class="hobby_main_sub_item">-->
+<!--    <div>-->
+<!--      <div class="item_img"></div>-->
+<!--      <div>-->
+<!--        <span>这是栏目介绍1</span>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  <div class="hobby_main_sub_item">-->
+<!--    <div>-->
+<!--      <div class="item_img"></div>-->
+<!--      <div>-->
+<!--        <span>这是栏目介绍1</span>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  <div id="hobby_empty_item">-->
+<!--    <div><p class="fas fa-plus"></p></div>-->
+<!--  </div>-->
+<!--</div>-->

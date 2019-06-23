@@ -3,6 +3,7 @@ class StaticPagesController < ApplicationController
   after_action :store_current_url
 
   def home
+    p cookies[:user_id]
   end
 
   def micropost
@@ -14,6 +15,7 @@ class StaticPagesController < ApplicationController
   end
 
   def hobby
+    redirect_to hobbies_path
   end
 
   def profile

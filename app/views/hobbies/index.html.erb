@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<script>
+    onDocumentContentReady(3);
+</script>
+<body>
+<div class="container">
+  <section class="row">
+    <div id="hobby_banner">看书速度慢？了解下休闲内容吧^.^</div>
+  </section>
+  <hr class="row hobby_title_hr"/>
+  <%= render 'shared/flash' %>
+  <section class="owl-carousel owl-theme" id="hobby_group">
+    <%= render 'hobby_groups' %>
+  </section>
+</div>
+</body>
+
+</html>

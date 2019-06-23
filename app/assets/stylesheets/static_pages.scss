@@ -929,11 +929,30 @@ $sm-width: 768px;
 
 }
 
+.hobby_group_empty {
+  text-align: center;
+  margin-top: 5rem;
+  img {
+    width: 80% !important;
+    margin: auto;
+    @media(min-width: $sm-width) {
+      width: 50% !important;
+    }
+  }
+  p {
+    color: #664;
+    font-size: 3rem;
+    text-align: center;
+    margin: 5rem 0;
+  }
+}
+
 #micropost_empty, #article_empty {
-  margin-top: 10rem;
   background-image: url("empty_box2.jpg");
+  //background-image: url("empty_box2.jpg");
   background-size: cover;
   width: 70%;
+  margin-top: 10rem;
   text-align: center;
   margin-right: auto;
   margin-left: auto;
@@ -1126,10 +1145,10 @@ $sm-width: 768px;
 }
 
 //娱乐版块
-#banner_hobby {
-
-  font-size: 2rem;
-  font-weight: bold;
+#hobby_banner, #hobby_new_banner {
+  font-size: 2.5rem;
+  font-family: "黑体";
+  font-weight: 900;
   color: transparent;
   text-align: center;
   -webkit-text-fill-color: transparent;
@@ -1137,14 +1156,19 @@ $sm-width: 768px;
   background: -o-linear-gradient(transparent, transparent);
   -webkit-background-clip: text;
   background-position: center center;
-  margin-top: 2rem;
+  margin-top: 3rem;
+  //padding-bottom: ;
 }
 
-#main_hobby {
+#hobby_group {
   margin-bottom: 5rem;
 }
 
-#empty_item_of_hobby, .item_of_hobby {
+.hobby_group_items {
+  min-height: 50rem;
+}
+
+#hobby_empty_item, .hobby_group_sub_item {
   display: inline-block;
   float: left;
   width: 33.3333%;
@@ -1161,65 +1185,467 @@ $sm-width: 768px;
     right: 0;
     bottom: 0;
     text-align: center;
-
+    margin: 0.8rem;
+    @media(min-width: $sm-width) {
+      margin: 1.5rem;
+    }
   }
 }
 
-.item_of_hobby {
-  > div {
-    margin: 1.5rem;
+.hobby_group_sub_item {
 
+  > div {
+    border: solid 1px #ddd;
     &:hover {
       box-shadow: 0 0 8px gray;
     }
-    .gallery_delete_of_hobby {
-      position: absolute;
-      color: $bootstrap-pill-blue;
-      top: 1rem;
-      right: 1rem;
-      display: inline-block;
-      font-size: 4rem;
-      float: right;
-    }
     .item_img {
-      background-image: url("test_game.jpg");
+      background-image: url("empty_gallery.png");
       background-size: cover;
       height: 80%;
       width: 100%;
     }
-    div {
+    .item_texts {
       height: 20%;
       width: 100%;
       position: relative;
-      display: table;
-      span {
-        display: table-cell;
+      display: block;
+      > div {
+        height: 100%;
         color: gray;
-        font-size: 1.8rem;
-        vertical-align: middle;
+        display: inline-block;
+        span, a {
+          position: relative;
+          display: inline-block;
+          top: 50%;
+          transform: translateY(-50%);
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+        }
+      }
+      .hobby_item_title {
+        span {
+          font-size: 1.8rem;
+          width: 12rem;
+          @media(min-width: $sm-width) {
+            width: 24rem;
+          }
+        }
+      }
+      .hobby_item_edits {
+        float: right;
+        span, a {
+          font-size: 1.5rem;
+          height: 1.5rem;
+          vertical-align: top;
+          //font-family: "微软雅黑";
+          padding-right: 0.8rem;
+          opacity: 0.5;
+          &:hover {
+            opacity: 1;
+          }
+        }
+        a {
+          text-decoration: none;
+        }
       }
     }
   }
 }
 
-#empty_item_of_hobby {
+#hobby_empty_item {
   > div {
-    margin: 1.7rem;
     border: 0.3rem dashed lightgrey;
-    &:hover {
-      border: 0.3rem dashed #aaa;
+    .hobby_empty_item_texts {
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+      color: lightgrey;
+      p:first-child {
+        font-size: 3rem;
+      }
+      p:nth-child(2) {
+        font-size: 2rem;
+      }
+    }
+  }
+  > div:hover {
+    border-color: #aaa;
+    .hobby_empty_item_texts {
       p {
         color: #aaa;
       }
     }
-    p {
-      position: relative;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 6rem;
-      color: lightgrey;
+  }
+}
+
+.hobby_gallery_info, .hobby_gallery_tips {
+  margin: 2rem 0;
+  border: solid 1px #ddd;
+  border-radius: 1rem;
+  padding: 2rem;
+  background-color: #fcfcfc;
+  @media(min-width: $sm-width) {
+    padding: 2rem 1rem;
+  }
+}
+
+.hobby_gallery_tips {
+  position: relative;
+  height: auto;
+  display: none;
+  @media(min-width: $sm-width) {
+    display: block;
+    height: 20rem;
+  }
+  p {
+    position: relative;
+    font-size: 2rem;
+    height: 2rem;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, 50%);
+    -moz-transform: translate(-50%, -50%);
+    color: #888;
+  }
+}
+
+.hobby_gallery_info {
+  .hobby_gallery_title {
+    padding: 0 0.5rem;
+    > div {
+      padding-bottom: 1rem;
+      font-size: 2.5rem;
+      color: #444;
+      border-radius: 1rem;
+      margin: 1rem 0;
+      text-align: center;
+      font-weight: bold;
     }
   }
+  .hobby_gallery_title_edits {
+    position: relative;
+    > div:first-child {
+      width: 100%;
+    }
+    > div:nth-child(2) {
+      width: 100%;
+      > textarea {
+        resize: none;
+        width: 100%;
+        height: 10rem;
+      }
+    }
+    > div {
+      display: block;
+      > label {
+        color: #555;
+      }
+      > input {
+        margin: 0.5rem 0;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        background: none;
+        &:focus {
+          border-top: none;
+          border-left: none;
+          border-right: none;
+        }
+      }
+    }
+    button {
+      margin-top: 1rem;
+      float: right;
+    }
+  }
+}
+
+.hobby_selected_pictures_title {
+  padding: 1rem;
+  font-size: 1.8rem;
+  color: white;
+  margin-bottom: 1rem;
+  text-align: center;
+  position: relative;
+  span, .hobby_selected_pictures_refresh {
+    color: #f88;
+    z-index: 1;
+    background-color: white;
+    position: absolute;
+    padding: 1.5rem;
+    top: 50%;
+    left: 50%;
+    tansform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+  }
+  .hobby_selected_pictures_refresh {
+    left: 100%;
+    cursor: pointer;
+    padding-left: 2rem;
+    background: white;
+    button {
+      padding: 0;
+      border: none;
+      background: white;
+      font-size: 2rem;
+    }
+  }
+
+  > hr {
+    border-color: #f88;
+  }
+}
+
+.hobby_selected {
+  margin: 0 -3rem;
+  height: 60rem;
+  position: relative;
+  overflow-y: scroll;
+  background-color: #fffafa;
+  border-radius: 2rem;
+  @media(min-width: $sm-width) {
+    margin: 0 -1rem;
+  }
+
+  .hobby_selected_picture_item, .hobby_uploaded_picture_item {
+    position: relative;
+    float: left;
+    width: 44%;
+    margin: 1.2rem;
+    border: solid 1px #eee;
+    border-radius: 1rem;
+    &:hover {
+      background-color: #eee;
+    }
+    @media(min-width: $sm-width) {
+      width: 29%;
+    }
+    img {
+      width: 100%;
+      height: 21rem;
+      padding: 1rem;
+      @media(min-width: $sm-width) {
+        height: 23rem;
+      }
+    }
+    .hobby_selected_picture_item_name {
+      padding: 0 0.2rem;
+      display: inline-block;
+      width: 85%;
+      overflow: hidden;
+      white-space: nowrap;
+      word-break: keep-all;
+      text-overflow: ellipsis;
+      font-size: 1.6rem;
+      color: #666;
+    }
+    form {
+      display: inline-block;
+      float: right;
+      .hobby_selected_picture_item_close {
+        height: 1.6rem;
+        font-size: 1.6rem;
+        padding-right: 0.5rem;
+        background: none;
+        border: none;
+      }
+    }
+    .hobby_selected_picture_bar {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      tansform: translate(-50%, -50%);
+      -moz-transform: translate(-50%, -50%);
+      -webkit-transform: translate(-50%, -50%);
+      .hobby_selected_picture_bar_progress_bg {
+        position: absolute;
+        top: 50%;
+        tansform: translateY(-50%);
+        -moz-transform: translateY(-50%);
+        -webkit-transform: translateY(-50%);
+        height: 5rem;
+        width: 100%;
+        //background-color: #888888cc;
+        background-color: #888888;
+        opacity: 0.75;
+        z-index: 10;
+        .hobby_selected_picture_bar_progress {
+          height: 5rem;
+          width: 0%;
+          //background-color: #44ff4466;
+          background-color: #44ff44;
+          opacity: 0.375;
+          z-index: 11;
+        }
+        .hobby_selected_picture_bar_tips {
+          position: absolute;
+          display: inline-block;
+          font-size: 2.5rem;
+          //color: #ffffffaa;
+          color: #ffffff;
+          opacity: 0.625;
+          z-index: 12;
+          left: 50%;
+          top: 50%;
+          tansform: translate(-50%, -50%);
+          -moz-transform: translate(-50%, -50%);
+          -webkit-transform: translate(-50%, -50%);
+        }
+      }
+
+    }
+  }
+}
+
+.hobby_edits {
+  margin: 3rem 0;
+  float: right;
+  * {
+    margin-left: 1rem;
+  }
+  .hobby_uploader {
+    position: relative;
+    #hobby_chooser {
+      position: absolute;
+      left: 0;
+      top: 0;
+      opacity: 0;
+      height: 100%;
+      margin-left: -0.04rem;
+      width: 6rem;
+    }
+  }
+}
+
+.hobby_gallery_show_body {
+  z-index: 100;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #333;
+  width: 100%;
+  > div {
+    position: relative;
+    box-shadow: 0 0 20px #000;
+  }
+  > div:first-child {
+    height: 10%;
+  }
+  .hobby_gallery {
+    height: 70%;
+    box-shadow: none;
+  }
+  .hobby_gallery_show_picture_infos {
+    height: 20%;
+  }
+}
+
+.hobby_gallery_show_top_container {
+  background-color: #333;
+  z-index: 110;
+  .hobby_gallery_show_top {
+    position: relative;
+    height: 100%;
+    .hobby_gallery_show_back, .hobby_show_gallery_title, .hobby_gallery_show_title_icon {
+      color: white;
+      font-size: 3rem;
+      line-height: 3rem;
+      display: inline-block;
+      position: relative;
+      margin-left: 1rem;
+      top: 50%;
+      tansform: translateY(-50%);
+      -moz-transform: translateY(-50%);
+      -webkit-transform: translateY(-50%);
+    }
+    .hobby_gallery_show_title_icon {
+      float: right;
+      margin-right: 2rem;
+      position: relative;
+    }
+  }
+}
+
+.hobby_show_gallery_info {
+  position: fixed;
+  height: 0;
+  top: -11%;
+  left: 0;
+  display: block;
+  opacity: 0;
+  z-index: 109;
+  padding: 0;
+  > div {
+    box-shadow: 0 0 20px #000;
+    background-color: #333;
+  }
+  * {
+    color: white;
+  }
+  .hobby_show_gallery_info_title {
+    font-size: 2rem;
+    padding: 2rem 3rem 1rem;
+
+  }
+  .hobby_show_gallery_info_content {
+    font-size: 1.6rem;
+    padding: 1rem 3rem 2rem;
+  }
+}
+
+.hobby_gallery {
+  padding: 1.5rem 0;
+  * {
+    height: 100%;
+  }
+  .hobby_gallery_item {
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    > div {
+      display: none;
+    }
+  }
+  .hobby_picture_empty {
+    display: inline-block;
+    color: white;
+    font-size: 4rem;
+    position: absolute;
+    height: auto;
+    top: 50%;
+    left: 50%;
+    tansform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+  }
+}
+
+.hobby_picture_title {
+  color: white;
+  font-size: 2.5rem;
+  margin: 1.5rem;
+  .hobby_picture_edits {
+    color: white;
+    font-size: 2.5rem;
+    margin-left: 4rem;
+    float: right;
+    &:before{
+      padding-right: 1rem;
+    }
+  }
+}
+
+.hobby_picture_content {
+  color: white;
+  font-size: 1.8rem;
+  margin: 1.5rem;
+
 }
 
 //个人信息样式
@@ -1680,7 +2106,7 @@ $sm-width: 768px;
   }
 }
 
-.register_title, #login_title, #login_profile_title {
+.register_title, #login_title, #login_profile_title, #hobby_title_hr {
   & + .flash_tips {
     margin: auto;
     width: 100%;

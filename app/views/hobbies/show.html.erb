@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<script>
+    $(document).ready(function () {
+        $(".hobby_gallery_show_body").css({
+            "height": document.documentElement.clientHeight.toString() + "px"
+        });
+        initSwiper();
+    });
+</script>
+<body>
+<div class="hobby_gallery_show_body">
+  <div class="container hobby_gallery_show_top_container">
+    <div class="hobby_gallery_show_top">
+      <div class="hobby_gallery_show_back fas fa-arrow-left" onclick="location.href='<%= hobbies_path%>'">
+      </div>
+      <div class="hobby_show_gallery_title"><%= @hobby.title %>
+      </div>
+      <div class="hobby_gallery_show_title_icon fas fa-info" onclick="onShowGalleryInfo();">
+      </div>
+    </div>
+  </div>
+  <div class="container hobby_show_gallery_info">
+    <div>
+      <div class="hobby_show_gallery_info_title">画廊信息</div>
+      <div class="hobby_show_gallery_info_content"><%= @hobby.content %></div>
+    </div>
+  </div>
+  <div class="swiper-container hobby_gallery ">
+    <div class="swiper-wrapper">
+      <% if @hobby.hobby_items.length > 0 %>
+        <% @hobby.hobby_items.each do |item| %>
+          <%= render 'hobby_gallery_item', item: item %>
+        <% end %>
+      <% else %>
+        <div class="hobby_picture_empty">
+          这个画廊里什么也没有哦~
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="hobby_gallery_show_picture_infos container">
+    <% if @hobby.hobby_items.length > 0 %>
+      <div class="hobby_picture_title">
+        <span></span>
+        <div class="hobby_picture_edits fas fa-thumbs-up">0</div>
+      </div>
+      <div class="hobby_picture_content">
+        这是图片的内容
+      </div>
+    <% end %>
+  </div>
+</div>
+</body>
+</html>
