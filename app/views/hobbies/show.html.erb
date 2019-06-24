@@ -2,8 +2,11 @@
 <html>
 <script>
     $(document).ready(function () {
+        $("header").hide();
+        $(".main_banner").hide();
+        $("footer").hide();
         $(".hobby_gallery_show_body").css({
-            "height": document.documentElement.clientHeight.toString() + "px"
+            "height": $(window).outerHeight().toString() + "px"
         });
         initSwiper();
     });
@@ -12,7 +15,7 @@
 <div class="hobby_gallery_show_body">
   <div class="container hobby_gallery_show_top_container">
     <div class="hobby_gallery_show_top">
-      <div class="hobby_gallery_show_back fas fa-arrow-left" onclick="location.href='<%= hobbies_path%>'">
+      <div class="hobby_gallery_show_back fas fa-arrow-left" onclick="history.back();">
       </div>
       <div class="hobby_show_gallery_title"><%= @hobby.title %>
       </div>
@@ -23,7 +26,27 @@
   <div class="container hobby_show_gallery_info">
     <div>
       <div class="hobby_show_gallery_info_title">画廊信息</div>
-      <div class="hobby_show_gallery_info_content"><%= @hobby.content %></div>
+      <div class="hobby_show_gallery_info_content">
+        <%= (@hobby.content && !@hobby.content.empty?) ? @hobby.content : "没有介绍..." %>
+      </div>
+      <% if logged_in? && current_user.admin? %>
+        <div class="hobby_picture_edits_top">
+          <%= form_for :get, url: edit_hobby_path(@hobby), method: :get do |f| %>
+            <%= f.button "", type: :submit, class: "hobby_picture_edits_edit fas fa-edit" %>
+          <% end %>
+          <% if @hobby.hobby_items.length > 0 %>
+            <%= form_for :picture, url: hobby_images_path, method: :patch, remote: true do |f| %>
+              <%= f.text_field :id, value: "", type: :hidden, class: "picture_id" %>
+              <%= f.button "设为封面", value: :cover, type: :submit, class: "hobby_picture_edits_cover far fa-square" %>
+            <% end %>
+            <%= form_for :delete_image, url: hobby_images_path, method: :delete, remote: true do |f| %>
+              <%= f.text_field :image_id, value: "", type: :hidden, class: "picture_id" %>
+              <%= f.button "", value: :show_delete, type: :submit, class: "hobby_picture_edits_delete fas fa-trash-alt",
+                           data: {confirm: "确定删除这张图片吗?"} %>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
     </div>
   </div>
   <div class="swiper-container hobby_gallery ">
@@ -42,11 +65,37 @@
   <div class="hobby_gallery_show_picture_infos container">
     <% if @hobby.hobby_items.length > 0 %>
       <div class="hobby_picture_title">
-        <span></span>
-        <div class="hobby_picture_edits fas fa-thumbs-up">0</div>
+        <% if logged_in? && current_user.admin? %>
+          <span class="hobby_picture_name" onclick="setPictureName(this);"></span>
+        <% else %>
+          <span class="hobby_picture_name"></span>
+        <% end %>
+        <div class="hobby_picture_name_editor">
+          <%= form_for :picture, url: hobby_images_path, method: :patch, remote: true do |f| %>
+            <%= f.text_field :id, value: "", type: :hidden, class: "picture_id" %>
+            <%= f.text_field :title, value: "", class: "form-control", placeholder: "输入图片名称", required: true, maxlength: 20 %>
+            <%= f.button "确定", value: :title, type: :submit, class: "btn btn-primary btn-xs" %>
+          <% end %>
+        </div>
+        <span class="hobby_picture_time"></span>
+        <div class="hobby_picture_edits">
+          <%= form_for :picture, url: hobby_images_path, method: :patch, remote: true do |f| %>
+            <%= f.text_field :id, value: "", type: :hidden, class: "picture_id" %>
+            <%= f.button "", value: :like, type: :submit, class: "hobby_picture_edits_like fas fa-thumbs-up" %>
+          <% end %>
+        </div>
       </div>
-      <div class="hobby_picture_content">
-        这是图片的内容
+      <% if logged_in? && current_user.admin? %>
+        <div class="hobby_picture_content" onclick="setPictureContent(this);"></div>
+      <% else %>
+        <div class="hobby_picture_content"></div>
+      <% end %>
+      <div class="hobby_picture_content_editor">
+        <%= form_for :picture, url: hobby_images_path, method: :patch, remote: true do |f| %>
+          <%= f.text_field :id, value: "", type: :hidden, class: "picture_id" %>
+          <%= f.text_area :content, value: "", class: "form-control", placeholder: "请输入图片的信息", maxlength: 100 %>
+          <%= f.button "确定", value: :content, type: :submit, class: "btn btn-primary btn-xs" %>
+        <% end %>
       </div>
     <% end %>
   </div>

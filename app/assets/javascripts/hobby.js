@@ -37,44 +37,87 @@ function initSwiper() {
             modifier: 1,
             slideShadows: true
         },
+        preloadImages: false,
+        // Enable lazy loading
+        lazyLoading: true,
+        lazyLoadingInPrevNext: true,
         onInit: function (swiper) {
+            var image_id = $(".swiper-slide-active").attr("name");
             var image_title = $(".swiper-slide-active .hobby_gallery_item_title").text();
             var image_content = $(".swiper-slide-active .hobby_gallery_item_content").text();
+            var image_created_time = $(".swiper-slide-active .hobby_gallery_item_time").text();
+            var image_like = $(".swiper-slide-active .hobby_gallery_item_like").text();
+            var image_cover = $(".swiper-slide-active .hobby_gallery_item_cover").text();
+            $(".picture_id").each(function () {
+                $(this).val(image_id);
+                console.log($(this));
+            });
+            $(".hobby_picture_name").text(image_title);
             $(".hobby_picture_content").text(image_content);
-            $(".hobby_picture_title>span").text(image_title);
+            $(".hobby_picture_time").text(image_created_time);
+            $(".hobby_picture_edits_like").text(image_like);
+            $(".hobby_picture_edits_cover").removeClass("fa-square fa-check-square");
+            if (image_cover == "true") {
+                $(".hobby_picture_edits_cover").addClass("fa-check-square");
+            } else {
+                $(".hobby_picture_edits_cover").addClass("fa-square");
+            }
         },
         onTransitionEnd: function (swiper) {
+            var image_id = $(".swiper-slide-active").attr("name");
             var image_title = $(".swiper-slide-active .hobby_gallery_item_title").text();
             var image_content = $(".swiper-slide-active .hobby_gallery_item_content").text();
+            var image_created_time = $(".swiper-slide-active .hobby_gallery_item_time").text();
+            var image_like = $(".swiper-slide-active .hobby_gallery_item_like").text();
+            var image_cover = $(".swiper-slide-active .hobby_gallery_item_cover").text();
+            $(".picture_id").each(function () {
+                $(this).val(image_id);
+                console.log($(this));
+            });
+            $(".hobby_picture_name").animate({
+                opacity: 0
+            }, 10, function () {
+                $(".hobby_picture_name").text(image_title);
+            });
             $(".hobby_picture_content").animate({
                 opacity: 0
-            }, "fast", function () {
+            }, 10, function () {
                 $(".hobby_picture_content").text(image_content);
             });
-            $(".hobby_picture_title>span").animate({
+            $(".hobby_picture_time").animate({
                 opacity: 0
-            }, "fast", function () {
-                $(".hobby_picture_title>span").text(image_title);
+            }, 10, function () {
+                $(".hobby_picture_time").text(image_created_time);
             });
-            $(".hobby_picture_content").animate({
+            $(".hobby_picture_edits_like").animate({
+                opacity: 0
+            }, 10, function () {
+                $(".hobby_picture_edits_like").text(image_like);
+            });
+            $(".hobby_picture_edits_cover").animate({
+                opacity: 0
+            }, 10, function () {
+                $(".hobby_picture_edits_cover").removeClass("fa-square fa-check-square");
+                if (image_cover == "true") {
+                    $(".hobby_picture_edits_cover").addClass("fa-check-square");
+                } else {
+                    $(".hobby_picture_edits_cover").addClass("fa-square");
+                }
+            });
+            $(".hobby_picture_name," +
+                ".hobby_picture_content," +
+                ".hobby_picture_time," +
+                ".hobby_picture_edits_like," +
+                ".hobby_picture_edits_cover").animate({
                 opacity: 1
             });
-            $(".hobby_picture_title>span").animate({
-                opacity: 1
-            });
+            $(".hobby_picture_content_editor").hide();
+            $(".hobby_picture_content").show();
+            $(".hobby_picture_name_editor").hide();
+            $(".hobby_picture_name").show();
         }
     });
 }
-
-
-// function onDeleteSelectImage(node) {
-//     var b = confirm("确定删除这个图片吗?");
-//     if (b) {
-//         $(node).parent().parent().remove();
-//         return true;
-//     } else
-//         return false;
-// }
 
 function onRefreshImages(node) {
     $(node).addClass("fa-spin");
@@ -85,14 +128,16 @@ function onRefreshImages(node) {
 }
 
 var selectd_image_index = 0;
+var maxImageFileSize = 100000;
 
 function initFileUploader(path) {
     $('#hobby_chooser').fileupload({
         url: path,
         type: 'post',
         dataType: 'html',
-        previewMaxWidth: 512,
+        previewMaxWidth: 720,
         previewMaxHeight: 100000,
+        loadImageMaxFileSize: 10000000,
         autoUpload: false
     });
 }
@@ -124,6 +169,11 @@ function bindFileUploadProcessAlways(selected_view) {
         console.log(data);
         var index = data.index;
         var preview = data.files[index].preview;
+        if (!preview) {
+            $(".hobby_edits_post").attr('disabled', true);
+            showToast("文件限制为" + maxImageFileSize * 1.0 / 1000 / 1000 + "MB,请重新选择");
+            return;
+        }
         // console.log(index);
         // console.log(preview);
         // console.log(preview.getContext("2d"));
@@ -228,4 +278,20 @@ function onClickShowPictureEdits(node) {
             opacity: 0
         });
     }
+}
+
+function setPictureName(node) {
+    $(node).hide();
+    $(".hobby_picture_content_editor").hide();
+    $(".hobby_picture_content").show();
+    $(".hobby_picture_name_editor").css("display", "inline-block");
+    $("#picture_title").val($(node).text());
+}
+
+function setPictureContent(node) {
+    $(node).hide();
+    $(".hobby_picture_name_editor").hide();
+    $(".hobby_picture_name").show();
+    $(".hobby_picture_content_editor").show();
+    $("#picture_content").val($(node).text());
 }

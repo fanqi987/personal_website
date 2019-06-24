@@ -1,4 +1,9 @@
-<div class="swiper-slide hobby_gallery_item" style="background-image: url('<%= item.image.url%>')">
+<!--<div class="swiper-slide hobby_gallery_item" name="<%#= item.id %>" style="background-image: url('<%#= item.image.url%>')">-->
+<div class="swiper-slide swiper-lazy hobby_gallery_item" name="<%= item.id %>" data-background="<%= item.image.url %>">
+  <div class="swiper-lazy-preloader"></div>
   <div class="hobby_gallery_item_title"><%= item.title %></div>
-  <div class="hobby_gallery_item_content"><%= item.content %></div>
+  <div class="hobby_gallery_item_like"><%= item.like %></div>
+  <div class="hobby_gallery_item_time"><%= getCurrentCorrectTime item.created_at %></div>
+  <div class="hobby_gallery_item_cover"><%= item.cover %></div>
+  <div class="hobby_gallery_item_content"><%= (item.content && !item.content.empty?) ? item.content : "请输入图片信息..." %></div>
 </div>

@@ -58,12 +58,12 @@
   <hr/>
   <section class="row hobby_edits">
     <%= form_for :upload, url: hobby_edit_upload_path, method: :post, remote: true do |f| %>
-      <a href="<%= hobbies_path %>" class="hobby_edits_back btn btn-warning btn-sm">返回</a>
+      <button class="hobby_edits_back btn btn-warning btn-sm" onclick="history.back();">返回</button>
       <%= tag(:input, type: 'hidden', name: request_forgery_protection_token.to_s, value: form_authenticity_token) %>
       <!--      <button class="hobby_edits_back btn btn-danger btn-sm" disabled>停止上传</button>-->
       <%#= f.button "提交上传", type: :submit, class: "hobby_edits_post btn btn-info btn-sm", value: "upload", onclick: "return false;" %>
       <a href="javascript:;" class="btn btn-info btn-sm hobby_uploader">选择文件
-        <%= f.text_field :hobby_id, value:params[:id], type: :hidden %>
+        <%= f.text_field :hobby_id, value: params[:id], type: :hidden %>
         <%= f.file_field :files, accept: "image/png,image/jpeg,image/gif", multiple: true, id: "hobby_chooser" %>
       </a>
       <%= f.button "上传", type: :submit, class: "hobby_edits_post btn btn-primary btn-sm", onclick: "return false;", disabled: true %>
@@ -84,11 +84,11 @@
         bindFileUploadProgress();
 
         bindFileUploadDone(function () {
-            <% flash.now[:success] = '上传成功!' %>
+            <% flash.now[:success] = '上传成功啦!' %>
         }, "<%= j render 'shared/flash' %>");
 
         bindFileUploadFail(function () {
-            <% flash.now[:danger]="上传失败了,请刷新后重试" %>
+            <% flash.now[:danger]="上传失败了,请刷新后重试哦!" %>
         }, "<%= j render 'shared/flash' %>");
     });
 </script>

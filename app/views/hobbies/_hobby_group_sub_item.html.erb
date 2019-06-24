@@ -1,6 +1,9 @@
 <div class="hobby_group_sub_item">
   <div>
-    <% if hobby.hobby_items.length > 0 %>
+    <% cover_item = hobby.hobby_items.find_by(cover: true) %>
+    <% if cover_item %>
+      <% url = cover_item.image.url %>
+    <% elsif hobby.hobby_items.length > 0 %>
       <% url = hobby.hobby_items[0].image.url %>
     <% else %>
       <% url = 'assets/empty_gallery' %>

@@ -30,7 +30,26 @@ class HobbiesController < ApplicationController
   end
 
   def update_image
-
+    @hobby_item = HobbyItem.find_by(id: params[:picture][:id])
+    case (params[:button])
+    when "title"
+      @hobby_item.update_attribute(:title, params[:picture][:title])
+    when "content"
+      @hobby_item.update_attribute(:content, params[:picture][:content])
+    when "like"
+      like_common @hobby_item
+      return
+    when "cover"
+      @tmp_hobby_item = @hobby_item.hobby.hobby_items.find_by(cover: true)
+      if @tmp_hobby_item && (@tmp_hobby_item.id == @hobby_item.id)
+        respond_js
+        return
+      elsif @tmp_hobby_item
+        @tmp_hobby_item.update_attribute(:cover, false)
+      end
+      @hobby_item.update_attribute(:cover, true)
+    end
+    respond_js
   end
 
   def create
@@ -70,6 +89,8 @@ class HobbiesController < ApplicationController
       else
         #   flash[:danger] = "上传图片时创建画廊失败" + getObjectErrors(@hobby)
         #   #应在全部上传后进行提示
+        p @hobby
+        p @hobby.errors.messages
         return
       end
     end
@@ -79,6 +100,9 @@ class HobbiesController < ApplicationController
         @hobby_item.title = file.original_filename
         @hobby_item.image = file
         @hobby_item.save
+        p @hobby_item
+        p @hobby_item.errors.messages
+
         # flash.now[:success] = "上传成功了!"
         # p @hobby_item
         # else
@@ -112,8 +136,6 @@ class HobbiesController < ApplicationController
     @hobby = @user.hobbies.find_by(id: params[:id])
   end
 
-  def like_image
-  end
 
   def refresh
     p params[:hobby_id]
@@ -131,8 +153,13 @@ class HobbiesController < ApplicationController
   def destroy_image
     @destroy_image_id = params[:delete_image][:image_id]
     @hobby_item = HobbyItem.find_by(id: params[:delete_image][:image_id])
+    @hobby = @hobby_item.hobby
     if (@hobby_item.destroy)
       @hobby_item = nil
+    end
+    if (params[:button] == "show_delete")
+      redirect_to hobby_path @hobby
+      return
     end
     respond_js
   end

@@ -52,7 +52,7 @@
   <hr/>
   <section class="row hobby_edits">
     <%= form_for :upload, url: hobby_upload_path, method: :post, remote: true do |f| %>
-      <a href="<%= hobbies_path %>" class="hobby_edits_back btn btn-warning btn-sm">返回</a>
+      <button class="hobby_edits_back btn btn-warning btn-sm" onclick="history.back();">返回</button>
       <%= tag(:input, type: 'hidden', name: request_forgery_protection_token.to_s, value: form_authenticity_token) %>
       <!--      <button class="hobby_edits_back btn btn-danger btn-sm" disabled>停止上传</button>-->
       <%#= f.button "提交上传", type: :submit, class: "hobby_edits_post btn btn-info btn-sm", value: "upload", onclick: "return false;" %>

@@ -53,7 +53,6 @@ function onDocumentContentReady(menuIndex, subMenuIndex, func) {
     $(document).ready(function () {
         lightingMenuButtons(menuIndex);
         showFooter(menuIndex);
-        // paginationWord();
         switch (menuIndex) {
             //首页
             case 0:

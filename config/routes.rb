@@ -50,7 +50,6 @@ Rails.application.routes.draw do
   post '/hobby/upload', to: 'hobbies#upload'
   post '/hobby/edit_upload', to: 'hobbies#edit_upload'
   post '/hobby/refresh', to: 'hobbies#refresh'
-  post '/hobby/images/like', to: 'hobbies#like_image'
   delete '/hobby/images', to: 'hobbies#destroy_image'
   patch '/hobby/images', to: 'hobbies#update_image'
 end
