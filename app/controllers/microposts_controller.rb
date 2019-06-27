@@ -132,7 +132,7 @@ class MicropostsController < ApplicationController
   private
 
   def post_init
-    @post = {post_modal_id: 'post_micropost_modal', img_choose: true, modal_title: '发布新微博'}
+    @post = {post_modal_id: 'post_micropost_modal', micropost: true, modal_title: '发布新微博'}
     @search_section = {search_section_name: " 搜索微博"}
     @search_modal = {search_modal_id: "search_micropost_modal", modal_title: '搜索微博'}
     @user = User.find_by(id: ADMIN_ID)
@@ -151,36 +151,6 @@ class MicropostsController < ApplicationController
     params.require(:comment).permit(:content, :user_name)
   end
 
-  # def like_common object
-  #   p object
-  #   if logged_in?
-  #     @like = object.likes.find_by(user_name: current_user.name)
-  #   else
-  #     @like = object.likes.find_by(user_name: request.remote_ip)
-  #   end
-  #
-  #   #创建没有点赞过的人
-  #   if !@like
-  #     @like = object.likes.build
-  #     if logged_in?
-  #       @like.user_name = current_user.name
-  #       @like.user_id = current_user.id
-  #     else
-  #       @like.user_name = request.remote_ip
-  #     end
-  #   end
-  #
-  #   #保存之前点赞时间的备份
-  #   @tmp_updated_at = @like.updated_at
-  #
-  #   #保存新的点赞数据,并且更新ui,在更新ui前,才更新数据.
-  #   if (@like.save)
-  #     p "在rails里"
-  #     respond_js
-  #     return
-  #   end
-  # end
-
   def change_comment_page
     p params
     # p @microposts
@@ -196,10 +166,7 @@ class MicropostsController < ApplicationController
         @micropost_comments = @micropost.comments[0...PAGINATE_NUM * @page_comment]
       end
     end
-    # p @page_comment
-    # p @maxPage_comment
-    # p @load_micropost_comment_complete
-    # p @micropost_comments
+
   end
 
   def change_micropost_page(objects, start_time, end_time, search_word, page)
@@ -208,32 +175,9 @@ class MicropostsController < ApplicationController
                                 start_time,
                                 end_time,
                                 search_word,
-                                "microposts"
-    # #带搜索的索引
-    # p params
-    # @search_start_time, t_start_time = start_time, start_time
-    # @search_end_time, t_end_time = end_time, end_time
-    # @search_word, t_word = search_word, search_word
-    #
-    # # p @search_start_time
-    # # p @search_end_time
-    # # p @search_word
-    #
-    # t_start_time = Time.local(1970, 1, 1).strftime("%Y-%m-%d") if (@search_start_time.nil? || @search_start_time.empty?)
-    # t_end_time = (Time.now + 1.day).strftime("%Y-%m-%d") if (!@search_end_time || @search_end_time.empty?)
-    # t_word = "" if (!@search_word || @search_word.empty?)
-    #
-    # # p t_start_time
-    # # p t_end_time
-    # # p t_word
-    #
-    # # todo 调整为当地时间
-    # objects = objects.where(
-    #     # "'microposts'.'created_at' >= datetime(?,'localtime') AND 'microposts'.'created_at' <= datetime(?,'localtime') " +
-    #     #     "AND 'microposts'.'content' like ? ",
-    #     "'microposts'.'created_at' >= datetime(?) AND 'microposts'.'created_at' <= datetime(?) " +
-    #         "AND 'microposts'.'content' like ? ",
-    #     DateTime.parse(t_start_time) - 8.hours, DateTime.parse(t_end_time) - 8.hours, "%" + t_word + "%")
+                                "microposts",
+                                nil
+
     @microposts_length = objects.length
     p objects
     p objects.length

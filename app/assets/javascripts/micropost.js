@@ -19,6 +19,7 @@ function onDatePickChanged() {
     e.change(function () {
         cal(e, s);
     });
+
     function cal(v1, v2) {
         var date_split = v1.val().split("-");
         // console.log(date_split);
@@ -38,6 +39,7 @@ function onDatePickChanged() {
             v2.attr("max", year + "-" + month + "-" + day);
     }
 }
+
 function onClickMicropostComment(id) {
 
     console.log("我是评论#micropost_main_comments_with_edit_" + id);
@@ -54,6 +56,12 @@ function onClickRandomName(id) {
     $("#comments_edit_form_" + id + " .comments_edit_form_name_field input").val(RANDOM_NAMES[num]);
 }
 
+function onClickRandomName() {
+    console.log(name);
+    var num = Math.floor(Math.random() * (RANDOM_NAMES.length));
+    $("#comment_user_name").val(RANDOM_NAMES[num]);
+}
+
 function onClickGotoMicropostHome() {
     // console.log(window.history);
     window.history.back();
@@ -62,8 +70,8 @@ function onClickGotoMicropostHome() {
 
 function onClickProgress(id) {
     $(id).html("<span class='fa fa-circle-notch fa-spin'></span>");
-    setTimeout(function(){
+    setTimeout(function () {
         $(id).html("提交");
-    },5000);
+    }, 5000);
 }
 

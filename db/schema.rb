@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190618133159) do
+ActiveRecord::Schema.define(version: 20190626135503) do
 
   create_table "comments", force: :cascade do |t|
     t.string "commentable_type"
@@ -19,9 +19,10 @@ ActiveRecord::Schema.define(version: 20190618133159) do
     t.integer "user_id"
     t.text "content", null: false
     t.integer "like", default: 0
+    t.string "avatar"
+    t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "avatar"
     t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id"
   end
 
@@ -30,11 +31,11 @@ ActiveRecord::Schema.define(version: 20190618133159) do
     t.string "title", null: false
     t.string "content", null: false
     t.integer "like", default: 0
+    t.integer "read", default: 0
     t.boolean "draft", default: true
     t.datetime "modified_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "read", default: 0
     t.index ["user_id"], name: "index_diaries_on_user_id"
   end
 
@@ -67,6 +68,24 @@ ActiveRecord::Schema.define(version: 20190618133159) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["likeable_type", "likeable_id"], name: "index_likes_on_likeable_type_and_likeable_id"
+  end
+
+  create_table "materials", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "title", null: false
+    t.string "content", null: false
+    t.string "material_type", null: false
+    t.string "href", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_materials_on_user_id"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
   create_table "microposts", force: :cascade do |t|

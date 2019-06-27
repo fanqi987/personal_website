@@ -22,7 +22,10 @@
       <%= f.text_field :word, class: "form-control" %>
     </div>
     <hr>
+    <% if object[:material] %>
+      <%= hidden_field_tag :type, params[:type] %>
+    <% end %>
     <%= f.button "提交", type: :submit, class: "btn btn-success btn-block" %>
   <% end %>
-  <button class="btn btn-success btn-block" data-toggle="modal" data-target="#search_micropost_modal" onclick="return false" style="margin-top: 1rem;">查看搜索模态</button>
+  <!--  <button class="btn btn-success btn-block" data-toggle="modal" data-target="#search_micropost_modal" onclick="return false" style="margin-top: 1rem;">查看搜索模态</button>-->
 </section>

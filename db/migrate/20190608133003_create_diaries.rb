@@ -5,6 +5,7 @@ class CreateDiaries < ActiveRecord::Migration[5.1]
       t.string :title, null: false
       t.string :content, null: false
       t.integer :like, default: 0
+      t.integer :read,default:0
       t.boolean :draft, default: true
       t.datetime :modified_time
       t.timestamps

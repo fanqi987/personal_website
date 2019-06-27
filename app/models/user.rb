@@ -4,6 +4,8 @@ class User < ApplicationRecord
   has_many :microposts, dependent: :destroy
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :hobbies, dependent: :destroy
+  has_one :message, dependent: :destroy
+  has_many :materials, dependent: :destroy
   #todo 邮箱的正确格式,其它属性的最小长度
   validates :email, presence: {message: '邮箱不能为空'},
             length: {maximum: 255, message: '邮箱内容过长'},

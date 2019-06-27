@@ -44,7 +44,8 @@ class DiariesController < ApplicationController
                                    t_start_time,
                                    t_end_time,
                                    t_word,
-                                   "diaries"
+                                   "diaries",
+                                   nil
     end
 
   end
@@ -109,7 +110,7 @@ class DiariesController < ApplicationController
     if (@diary_comment && @diary_comment.save)
       respond_js
     else
-      flash[:danger] = "评论失败" + @diary_comment.errors.collect {|k, v| v[0]}.to_s
+      flash[:danger] = "评论失败" + getObjectErrors(@diary_comment)
       redirect_to diary_path @diary
     end
 

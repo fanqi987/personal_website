@@ -3,9 +3,21 @@ class ApplicationController < ActionController::Base
 
   include SessionsHelper
   include ApplicationHelper
+  include MaterialsHelper
 
   ADMIN_ID = 1
   COMMENT_PAGE_NUM = 10
+
+  # attr_accessor :mutex
+
+  # def getMutex
+  #   if session[:mutex] && !session[:mutex].empty?
+  #     return session[:mutex]
+  #   else
+  #     session[:mutex] = Mutex.new
+  #     return session[:mutex]
+  #   end
+  # end
 
   def store_current_url
     session[:current_url] = request.original_url if request.get?

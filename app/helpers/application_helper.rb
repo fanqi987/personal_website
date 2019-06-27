@@ -12,7 +12,7 @@ module ApplicationHelper
     time.localtime.strftime("%Y-%m-%d %H:%M:%S")
   end
 
-  def get_search_result(objects, start_time, end_time, search_word, table_name)
+  def get_search_result(objects, start_time, end_time, search_word, table_name, material_type)
     #带搜索的索引
     p params
     @search_start_time, t_start_time = start_time, start_time
@@ -34,10 +34,14 @@ module ApplicationHelper
     # todo 调整为当地时间
     sql = ":table_name.'created_at' >= datetime(:start_time) AND :table_name.'created_at' <= datetime(:end_time) " +
         "AND "
-    if table_name != "microposts"
+    if (table_name != "microposts")
       sql += "(:table_name.'content' like :word OR :table_name.'title' like :word)"
     else
       sql += ":table_name.'content' like :word"
+    end
+
+    if material_type && !material_type.empty?
+      sql += " AND :table_name.'material_type' = " + "'#{material_type}'"
     end
 
     objects = objects.where(

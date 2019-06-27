@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<script>
+    onDocumentContentReady(6, 0, function () {
+        setMaterialItemColor();
+        setMaterialTypeSelected("<%= params[:type]%>");
+        setPagesHref("#material_choose_section");
+    });
+</script>
+<body>
+
+<div class="container">
+  <%= provide :post_path, materials_path %>
+  <%= provide :post_object, :material %>
+  <section classs="row material_choose_section" id="material_choose_section">
+    <div>
+      <a name="" href="<%= materials_path %>">
+        <p class="far fa-square">&nbsp;全部<span class=""></span>
+        </p>
+      </a>
+    </div>
+<!--    <div>-->
+<!--      <a name="<%#= getType("编程") %>" href="<%#= materials_path + '?type=' + getType("编程") %>">-->
+<!--        <p class="fas fa-code">&nbsp;编程 <span class=""></span></p></a>-->
+<!--    </div>-->
+<!--    <div>-->
+<!--      <a name="<%#= getType("英语") %>" href="<%#= materials_path + '?type=' + getType("英语") %>">-->
+<!--        <p class="fas fa-dollar-sign">&nbsp;英语 <span class=""></span></p></a>-->
+<!--    </div>-->
+<!--    <div>-->
+<!--      <a name="<%#= getType("英语") %>" href="<%#= materials_path + '?type=' + getType("英语") %>">-->
+<!--        <p class="fas fa-book">&nbsp;读书 <span class=""></span></p></a>-->
+<!--    </div>-->
+<!--    <div>-->
+<!--      <a name="<%#= getType("音乐") %>" href="<%#= materials_path + '?type=' + getType("音乐") %>">-->
+<!--        <p class="fas fa-music">&nbsp;音乐 <span class=""></span></p></a>-->
+<!--    </div>-->
+<!--    <div>-->
+<!--      <a name="<%#= getType("植物") %>" href="<%#= materials_path + '?type=' + getType("植物") %>">-->
+<!--        <p class="fas fa-leaf">&nbsp;植物 <span class=""></span></p></a>-->
+<!--    </div>-->
+<!--    <div>-->
+<!--      <a name="<%#= getType("画画") %>" href="<%#= materials_path + '?type=' + getType("画画") %>">-->
+<!--        <p class="fas fa-paint-brush">&nbsp;画画 <span class=""></span></p></a>-->
+<!--    </div>-->
+<!--    <div>-->
+<!--      <a name="<%#= getType("健身") %>" href="<%#= materials_path + '?type=' + getType("健身") %>">-->
+<!--        <p class="fas fa-dumbbell">&nbsp;健身 <span class=""></span></p></a>-->
+<!--    </div>-->
+<!--    <div>-->
+<!--      <a name="<%#= getType("游戏") %>" href="<%#= materials_path + '?type=' + getType("游戏") %>">-->
+<!--        <p class="fas fa-dice">&nbsp;游戏 <span class=""></span></p></a>-->
+<!--    </div>-->
+  </section>
+  <aside class="col-md-3 hidden-sm hidden-xs" id="material_aside">
+    <section id="material_post_section">
+      <button class="btn btn-primary btn-block btn-lg fas fa-edit" id="post_material_section_button" data-toggle="modal"
+              data-target="#material_post_modal" onclick="return false">
+        发布素材
+      </button>
+    </section>
+    <hr/>
+    <%= render 'shared/search_section', object: @search_section %>
+  </aside>
+  <%= render 'shared/post_modal', object: @post %>
+
+  <article class="col-md-9 col-sm-12" id="material_main">
+    <section class="row" id="material_main_title">
+      <span class="fas fa-chevron-left" id="material_main_title_back"></span><span>素材 <span class="main_title_num"><%= @meterials_count %></span></span>
+    </section>
+    <section class="row" id="material_main_content_section">
+      <%= render 'shared/flash' %>
+      <%= render 'material_item', object: @materials %>
+    </section>
+  </article>
+
+</div>
+</body>
+</html>

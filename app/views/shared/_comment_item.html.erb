@@ -10,10 +10,15 @@
           <%= getSecretIPName comment.user_name %>
           <span>
             <%# comment.commentable.comments.count + 1 %>
+            <% if yield(:floor_order) == 'asc' %>
             <span class="comment_floor"><%= (index + 1) + (params[:page].to_i - 1) * ApplicationController::COMMENT_PAGE_NUM %>
               楼&nbsp;</span>
+            <% elsif (yield(:floor_order) == 'desc') %>
+              <span class="comment_floor"><%= (comment.commentable.comments.count + 1) - (index + 1) -
+                                                  (params[:page].to_i - 1) * ApplicationController::COMMENT_PAGE_NUM %>楼&nbsp;</span>
+            <% end %>
             <% if check_show_delete comment %>
-            <%= form_for :delete, url: comments_diary_path, method: :delete, remote: true do |f| %>
+            <%= form_for :delete, url: yield(:delete_path), method: :delete, remote: true do |f| %>
               <%= hidden_field_tag :comment_id, comment.id %>
                 <%= hidden_field_tag :page, params[:page] %>
                 <%= f.button "删除", type: :submit, class: "comment_delete" %>
@@ -28,24 +33,4 @@
   </section>
 <% end %>
 <%= will_paginate object, getWillPaginateOptions %>
-<!--<div>这是分页</div>-->
-<section class="diary_comment_editor_div " style="margin-top: 1rem;">
-  <div class="comments_edit_form_div" id="comments_edit_form_<%= @diary.id %>">
-    <%= form_for :comment, url: comments_diary_path, method: :post, remote: true do |f| %>
-      <%= render 'shared/errors', object: @diary %>
-      <%= f.text_area :content, placeholder: "发表评论...", class: 'form-control comments_edit_form_text_area', required: true %>
-      <% if !logged_in? %>
-        <div class="comments_edit_form_name_field">
-          <%= f.text_field :user_name, placeholder: "(可选)用户名", class: 'form-control', value: session[:user_name] %>
-          <button type="button" class="fas fa-dice fa-lg" onclick="onClickRandomName('<%= @diary.id %>')"></button>
-        </div>
-      <% else %>
-      <% end %>
-      <% params[:page] = 1 if !params[:page] %>
-      <%= hidden_field_tag :page, params[:page] %>
-      <%= f.button "提交", type: :submit, class: "btn btn-primary btn-sm",
-                   onclick: "onClickProgress(\"#comments_edit_form_#{@diary.id} button[type='submit']\");" %>
-    <% end %>
-    <div class="clearfix"></div>
-  </div>
-</section>
+

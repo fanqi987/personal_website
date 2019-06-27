@@ -4,7 +4,7 @@ class HobbiesController < ApplicationController
   HOBBY_GROUP_NUM = 6
 
   def index
-    session.delete(:created_hobby_id) if session[:created_hobby_id]
+    cookies.delete(:created_hobby_id)
     p cookies[:user_id]
     @hobbies = @user.hobbies
     p @hobbies
@@ -58,7 +58,7 @@ class HobbiesController < ApplicationController
     @hobby = @hobbies.build(hobbies_params)
     @hobby.title = "我的画廊" if (!params[:hobby][:title] || params[:hobby][:title].empty?)
     @hobby.content = nil if (!params[:hobby][:content] || params[:hobby][:content].empty?)
-    if session[:created_hobby_id]
+    if cookies[:created_hobby_id]
       t_hobby = Hobby.find_by(id: session[:created_hobby_id])
       t_hobby.update_attribute(:title, @hobby.title)
       t_hobby.update_attribute(:content, @hobby.content)
@@ -67,7 +67,7 @@ class HobbiesController < ApplicationController
       flash.now[:success] = "保存画廊成功!"
     else
       if (@hobby.save)
-        session[:created_hobby_id] = @hobby.id
+        cookies[:created_hobby_id] = @hobby.id
         flash.now[:success] = "保存画廊成功!"
       else
         flash.now[:danger] = "保存画廊失败了!" + getObjectErrors(@hobby)
@@ -78,22 +78,10 @@ class HobbiesController < ApplicationController
 
   def upload
     p params
-    if (session[:created_hobby_id])
-      @hobby = Hobby.find_by(id: session[:created_hobby_id])
-    else
-      @hobbies = @user.hobbies
-      @hobby = @user.hobbies.build
-      @hobby.title = "我的画廊"
-      if (@hobby.save)
-        session[:created_hobby_id] = @hobby.id
-      else
-        #   flash[:danger] = "上传图片时创建画廊失败" + getObjectErrors(@hobby)
-        #   #应在全部上传后进行提示
-        p @hobby
-        p @hobby.errors.messages
-        return
-      end
-    end
+    @hobby = Hobby.find_by(id: cookies[:created_hobby_id])
+    # retry_time = 13
+    # @hobby.with_lock do
+    #   begin
     if (params[:upload][:files] && !params[:upload][:files].empty?)
       params[:upload][:files].each do |file|
         @hobby_item = @hobby.hobby_items.build
@@ -110,6 +98,13 @@ class HobbiesController < ApplicationController
         # end
       end
     end
+    # rescue
+    #   retry_time -= 1
+    #   if retry_time > 0
+    #     retry
+    #   end
+    # end
+    # end
   end
 
   def edit_upload

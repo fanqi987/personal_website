@@ -1,0 +1,7 @@
+$(".comment_contents_div").html("<%= j render 'message_item',
+object: @comment.commentable.comments.paginate(page:params[:page],per_page:MessagesController::MESSAGES_PAGE_NUM)%>");
+$(".main_title_num").html(" <%= @comment.commentable.comments.count%>");
+//paginationWord();
+setPagesHref('#message_main_title');
+showToast("留言成功!");
+

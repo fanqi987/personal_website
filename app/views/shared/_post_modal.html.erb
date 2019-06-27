@@ -1,27 +1,36 @@
-<div class="modal fade" id="post_micropost_modal" tabindex="-1" role="dialog">
+<div class="modal fade" id="<%= object[:post_modal_id] %>" tabindex="-1" role="dialog">
   <div class="modal-dialog">
-    <%= form_for @micropost, url: yield(:post_path), method: :post do |f| %>
+    <%= form_for yield(:post_object), url: yield(:post_path), method: :post do |f| %>
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <span class="glyphicon glyphicon-pencil"> <%= object[:modal_title] %></span>
         </div>
         <div class="modal-body">
-          <%= f.text_area :content, class: 'form-control', maxlength: '200', placeholder: '你现在的想法', required: true %>
-          <!--          <textarea class="form-control" maxlength="200" placeholder="你现在的想法..." required></textarea>-->
+          <% if object[:material] %>
+            <% t_type = {} %>
+            <% MaterialsController::TYPE.each do |k, v| %>
+              <% t_type.store(v, k) %>
+            <% end %>
+            <%= f.select :material_type, t_type, style: "width:50%;" %>
+            <%= f.text_field :title, class: "form-control", placeholder: "请输入素材标题...", required: true %>
+            <%= f.text_area :content, class: "form-control", placeholder: "素材介绍...", required: true %>
+            <%= f.url_field :href, class: "form-control", placeholder: "素材链接...", required: true %>
+          <% end %>
+          <% if object[:micropost] %>
+            <%= f.text_area :content, class: 'form-control', maxlength: '200', placeholder: '你现在的想法', required: true %>
+          <% end %>
         </div>
         <div class="modal-footer">
-          <!--          <span class="glyphicon glyphicon-picture" id="modal_choose_img"> 选择图片</span>-->
-
-          <% if object[:img_choose] %>
+          <% if object[:micropost] %>
             <%= content_tag :span, ' 选择图片', class: 'glyphicon glyphicon-picture', id: 'modal_choose_img', name: 'micropost[picture]' %>
             <!--            <span class="glyphicon glyphicon-picture" id="modal_choose_img">-->
             <!--              <%#= f.file_field :picture, accept: 'image/gif,image/jpeg,image/png' %> 选择图片-->
             <!--            </span>-->
           <% end %>
           <%#= hidden_field_tag :user_id, current_user.id %>
-          <%= f.button "发布",type: :submit, class: "btn btn-primary btn-sm",
-                       onclick:"onClickProgress(\"#post_micropost_modal button[type='submit']\");" %>
+          <%= f.button "发布", type: :submit, class: "btn btn-primary btn-sm",
+                       onclick: "onClickProgress(\"#post_micropost_modal button[type='submit']\");" %>
         </div>
       </div>
     <% end %>

@@ -3,7 +3,7 @@
 <script>
     onDocumentContentReady(2, 2, function () {
         setDecodeHtml(".article_show_content_content", getDecodeHtml("<%= @diary.content%>"));
-        setPagesHref();
+        setPagesHref('#article_show_comments');
         copyUrl();
     });
 </script>
@@ -46,7 +46,7 @@
     <hr class="row"/>
     <section class="row article_show_comments" id="article_show_comments">日志评论</section>
     <section class="row comment_contents_div">
-      <%= render "shared/comment_item", object: @diary_comments %>
+      <%= render "diary_comment_item", object: @diary_comments %>
     </section>
   </article>
 </div>

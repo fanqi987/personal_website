@@ -1,0 +1,6 @@
+$(".comment_contents_div").html("<%= j render 'shared/flash'%>" + "<%= j render 'message_item',
+object: @message.comments.paginate(page:params[:page],per_page:MessagesController::MESSAGES_PAGE_NUM)%>");
+$(".main_title_num").html("<%= @message.comments.count%>");
+//paginationWord();
+setPagesHref('#message_main_title');
+showToast("删除成功!");

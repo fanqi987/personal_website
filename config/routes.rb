@@ -3,7 +3,6 @@ Rails.application.routes.draw do
   root 'static_pages#home'
   get '/home', to: 'static_pages#home'
   get '/profile', to: 'static_pages#profile'
-  get '/messageboard', to: 'static_pages#messageboard'
   get '/material', to: 'static_pages#material'
 
   get '/register', to: 'users#new'
@@ -52,4 +51,17 @@ Rails.application.routes.draw do
   post '/hobby/refresh', to: 'hobbies#refresh'
   delete '/hobby/images', to: 'hobbies#destroy_image'
   patch '/hobby/images', to: 'hobbies#update_image'
+
+  get '/messageboard_home', to: 'static_pages#messageboard'
+
+  resources :messages, only: [:index, :create, :destroy]
+  delete '/messages', to: 'messages#destroy'
+  # get '/messages', to: 'messages#index_message'
+  # post '/messages', to: 'messages#create_message'
+  # delete '/messages', to: 'messages#destroy_message'
+
+  get '/material_home', to: 'static_pages#material'
+  resources :materials
+  delete '/materials', to: 'materials#destroy'
+
 end

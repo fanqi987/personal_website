@@ -1,5 +1,6 @@
-$(".comment_contents_div").html("<%= j render 'shared/comment_item',
+$(".comment_contents_div").html("<%= j render 'diary_comment_item',
 object: @diary.comments.reverse_order.paginate(page:params[:page],per_page:DiariesController::COMMENT_PAGE_NUM)%>");
 $(".article_show_edits_comments").html(" (<%= @diary.comments.count%>)");
 //paginationWord();
-setPagesHref();
+setPagesHref('#article_show_comments');
+showToast("评论成功!");

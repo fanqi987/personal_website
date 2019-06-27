@@ -61,10 +61,10 @@ function stopPopTrash() {
     });
 }
 
-function setPagesHref() {
+function setPagesHref(string) {
     $("#pagination a").each(function () {
         if ($(this).attr("href") != "#") {
-            $(this).attr("href", $(this).attr("href") + "#article_show_comments");
+            $(this).attr("href", $(this).attr("href") + string);
         } else {
             $(this).attr("href", "javascript:void(0)");
         }

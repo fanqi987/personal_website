@@ -138,6 +138,8 @@ function initFileUploader(path) {
         previewMaxWidth: 720,
         previewMaxHeight: 100000,
         loadImageMaxFileSize: 10000000,
+        // limitMultiFileUploads: 1,
+        // multipart: false,
         autoUpload: false
     });
 }
@@ -147,10 +149,12 @@ function bindFileUploadAdd() {
         console.log("添加文件了!");
         // console.log("这里是add------------------");
         $(".hobby_edits_post").attr('disabled', false);
-        $(".hobby_edits_post").off("click");
         data.context = $(".hobby_edits_post").click(function () {
-            // console.log(data);
-            data.submit();
+            if (getCookie("created_hobby_id").length > 0)
+                data.submit();
+            else {
+                showToast("请先创建画廊哦!");
+            }
         });
         selectd_image_index = 0;
         $(".hobby_selected .hobby_selected_picture_item").each(function () {
@@ -161,6 +165,18 @@ function bindFileUploadAdd() {
         });
         // delete_select_image_indexes = [];
     });
+}
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i].trim();
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
 }
 
 function bindFileUploadProcessAlways(selected_view) {
@@ -222,7 +238,8 @@ function bindFileUploadDone(flash_do, flash_view) {
             $(this).removeClass();
             $(this).addClass("hobby_uploaded_picture_item");
         });
-        showToast("上传成功!");
+        // showToast("上传成功!");
+        $(".hobby_edits_post").off("click");
     });
 }
 
@@ -232,6 +249,15 @@ function bindFileUploadFail(flash_do, flash_view) {
         flash_do();
         $(".hobby_selected_pictures_flash ").html(flash_view);
         showToast("上传失败,请刷新后重试!");
+    });
+}
+
+function bindFileUploadStop() {
+    $('#hobby_chooser').bind("fileuploadstop", function (e, data) {
+        console.log("上传结束了!!");
+        // flash_do();
+        // $(".hobby_selected_pictures_flash ").html(flash_view);
+        // showToast("上传失败,请刷新后重试!");
     });
 }
 

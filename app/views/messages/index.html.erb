@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script>
+      onDocumentContentReady(5,0,function(){
+          setPagesHref('#message_main_title');
+      });
+  </script>
+</head>
+<body>
+<div class="container">
+
+  <!--  <div class="modal" id="write_message_modal">-->
+  <!--    <div class="modal-dialog">-->
+  <!--      <div class="modal-header">-->
+  <!--        <p>发表您的留言</p>-->
+  <!--      </div>-->
+  <!--      <form>-->
+  <!--        <div class="modal-body">-->
+  <!--          <input class="form-control post_name_messageboard" placeholder="输入您的昵称">-->
+  <!--          <input class="form-control post_email_messageboard" placeholder="输入您的邮箱">-->
+  <!--          <textarea class="form-control" placeholder="填写留言...">-->
+  <!--      </textarea>-->
+  <!--        </div>-->
+  <!--        <div class="modal-footer">-->
+  <!--          <button class="btn btn-default" type="submit">提交</button>-->
+  <!--        </div>-->
+  <!--      </form>-->
+  <!--    </div>-->
+  <!--  </div>-->
+  <section class="message_main_title" id="message_main_title">
+    <span class="fas fa-chevron-left" id="main_title_back"></span><span>留言 <span class="main_title_num"><%= @comment.commentable.comments.length %></span></span>
+    <!--    <span class="message_show_write">我要留言</span>-->
+  </section>
+  <section class="comment_contents_div">
+    <%= render 'shared/flash' %>
+    <%= render 'message_item', object: @comments %>
+  </section>
+</div>
+</body>
+</html>

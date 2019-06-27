@@ -11,9 +11,9 @@
                 data: {confirm: "确认删除这篇文章吗?"} %>
   <% end %><span class="article_show_edits_page_next" onclick="location.href=
       '<%= @index_next ? diary_path(@diaries[@index_next]) :"javascript:void(0)" %>'"
-        style="<%= "color:#bcc;" if !@index_next %>">下一篇</span>
+        style="<%= "color:#bcc;" if !@index_next %>">下篇</span>
   <span class="article_show_edits_page_prev" onclick="location.href=
       '<%= @index_prev ? diary_path(@diaries[@index_prev]) : "javascript:void(0)" %>'"
-        style="border:none;<%= "color:#cdd;" if !@index_prev %>">上一篇</span>
+        style="border:none;<%= "color:#cdd;" if !@index_prev %>">上篇</span>
   <div class="clear"></div>
 </section>

@@ -1,0 +1,21 @@
+<% if object.length > 0 %>
+  <% object.each do |material| %>
+    <a class="material_main_content" title="<%= material.href %>" target="_blank" href="<%= material.href %>">
+      <div name="<%= material.material_type %>">
+        <p class=" material_main_content_title"><%= material.title %></p>
+        <p class="material_main_content_content"><%= material.content %></p>
+        <%= form_for :delete, url: materials_path, method: :delete do |f| %>
+          <%= hidden_field_tag :id, material.id %>
+          <%= f.button "x", class: "material_main_content_delete close", onclick: "deleteMaterial();" %>
+        <% end %>
+        <span class="material_main_content_time"><%= getCurrentCorrectTime material.created_at %></span>
+      </div>
+    </a>
+  <% end %>
+  <div class="clearfix"></div>
+  <%= will_paginate object, getWillPaginateOptions %>
+<% else %>
+  <section id="micropost_empty">
+  </section>
+  <p>没有素材！</p>
+<% end %>

@@ -1,0 +1,32 @@
+<% if object.length > 0 %>
+  <%= provide :delete_path, messages_path %>
+  <%= provide :floor_order, "desc" %>
+  <%= render 'shared/comment_item', object: object %>
+<% end %>
+<section class="row message_post">
+  <p>发表您的留言</p>
+  <% p @comment %>
+  <%= form_for @comment, url: messages_path, method: :post, remote: true do |f| %>
+    <% if logged_in? %>
+    <% else %>
+      <div>
+        <div class="form-group">
+          <%= f.label :user_name, "昵称" %>
+          <%= f.text_field :user_name, class: "form-control", placeholder: "输入您的昵称", value: session[:user_name] %>
+          <button type="button" class="fas fa-dice fa-lg" onclick="onClickRandomName()"></button>
+        </div>
+        <div class="form-group">
+          <%= f.label :email, "邮箱" %>
+          <%= f.email_field :email, class: "form-control", placeholder: "输入您的邮箱" %>
+        </div>
+      </div>
+    <% end %>
+    <%= f.text_area :content, class: "form-control", placeholder: "填写留言..." %>
+    <%= f.button "提交", type: :submit, class: "btn btn-default" %>
+  <% end %>
+</section>
+<% if object.length <= 0 %>
+  <section id="message_empty">
+  </section>
+  <p>没有留言！</p>
+<% end %>

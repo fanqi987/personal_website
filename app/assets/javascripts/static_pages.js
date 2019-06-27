@@ -98,8 +98,12 @@ function onDocumentContentReady(menuIndex, subMenuIndex, func) {
                 break;
             // 留言
             case 5:
+                func();
                 break;
-
+            //素材
+            case 6:
+                func();
+                break;
         }
     });
 }
