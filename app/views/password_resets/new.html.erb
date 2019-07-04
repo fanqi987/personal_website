@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<body>
+<!-- banner-->
+<%= provide :banner, 'maple_login.png' %>
+<div class="container">
+  <div class="reset_password_title" id="reset_password_title">
+    <p>重设密码 <span class="fas fa-key"></span></p>
+  </div>
+  <%= render 'shared/flash' %>
+  <div class="reset_password_content">
+    <%= form_for(:password_reset, url: password_resets_path, method: :post) do |f| %>
+      <%= f.label :email, "注册邮箱" %>
+      <%= f.email_field :email, class: "form-control",required:true %>
+      <%= f.button "提交", type: :submit, class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
+</body>
+<script>
+    onDocumentContentReady(-1);
+</script>
+</html>

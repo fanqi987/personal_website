@@ -60,6 +60,20 @@ class SessionsController < ApplicationController
   def index
   end
 
+  def avatar_new
+
+  end
+
+  def avatar_create
+    p params
+    if (logged_in?)
+      current_user.update_attribute(:avatar, params[:avatar][:index])
+    else
+      cookies[:user_avatar] = params[:avatar][:index]
+    end
+    respond_js
+  end
+
   private
 
   def user_params_infos

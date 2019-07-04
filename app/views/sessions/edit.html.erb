@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <body>
+<!-- banner-->
+<%= provide :banner, 'maple_login.png' %>
 <div class="container">
   <div id="login_profile_title">用户信息 <span class="fas fa-info-circle"></span></div>
   <%= render 'shared/flash' %>
@@ -32,11 +34,11 @@
       <%= hidden_field_tag :name, @user.name %>
       <div class="form-group">
         <%= f.label :password, '修改密码' %>
-        <%= f.password_field :password, class: "form-control" %>
+        <%= f.password_field :password, class: "form-control", required: true %>
       </div>
       <div class="form-group">
         <%= f.label :password_confirmation, '密码确认' %>
-        <%= f.password_field :password_confirmation, class: "form-control" %>
+        <%= f.password_field :password_confirmation, class: "form-control", required: true %>
       </div>
       <div>
         <%= f.submit '修改密码', class: 'btn btn-info' %>

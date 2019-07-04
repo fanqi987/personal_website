@@ -4,7 +4,7 @@
     <% if cover_item %>
       <% url = cover_item.image.url %>
     <% elsif hobby.hobby_items.length > 0 %>
-      <% url = hobby.hobby_items[0].image.url %>
+      <% url = hobby.hobby_items[hobby.hobby_items.length - 1].image.url %>
     <% else %>
       <% url = 'assets/empty_gallery' %>
     <% end %>

@@ -2,7 +2,9 @@
   <section class="micropost_main_comments" id="micropost_main_comments_<%= micropost_comment.id %>">
     <div class="media" id="micropost_comments_media">
       <div class="media-left">
-        <span class="media-object micropost_comments_avatar" id="micropost_comments_avatar_<%= micropost_comment.id %>"></span>
+        <span class="media-object micropost_comments_avatar" id="micropost_comments_avatar_<%= micropost_comment.id %>">
+      <%= render "shared/avatar_chooser", object: micropost_comment %>
+        </span>
       </div>
       <div class="media-body">
         <p class="media-heading micropost_comments_username" id="micropost_comments_username_<%= micropost_comment.id %>">

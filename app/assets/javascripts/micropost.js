@@ -75,3 +75,18 @@ function onClickProgress(id) {
     }, 5000);
 }
 
+function limitVideoSize() {
+    $("#modal_choose_video input").bind("change", function () {
+        if (this.files[0].size / 1024 / 1024 > 5) {
+            alert("视频太大,请选择小于5MB的文件");
+            $("#modal_submit").attr("disabled", true);
+        } else {
+            $("#modal_submit").attr("disabled", false);
+        }
+        $(".modal_choose_filename").text(this.files[0].name);
+    });
+    $("#modal_choose_img input").bind("change", function () {
+        $(".modal_choose_filename").text(this.files[0].name);
+    });
+}
+

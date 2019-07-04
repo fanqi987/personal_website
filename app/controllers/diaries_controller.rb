@@ -107,6 +107,7 @@ class DiariesController < ApplicationController
     @diary = Diary.find_by(id: params[:id])
     @diary_comment = @diary.comments.build(diaries_comments_params)
     set_comment_user_attr @diary_comment
+    setAvatar @diary_comment.avatar
     if (@diary_comment && @diary_comment.save)
       respond_js
     else

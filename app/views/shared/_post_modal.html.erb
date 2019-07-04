@@ -23,14 +23,20 @@
         </div>
         <div class="modal-footer">
           <% if object[:micropost] %>
-            <%= content_tag :span, ' 选择图片', class: 'glyphicon glyphicon-picture', id: 'modal_choose_img', name: 'micropost[picture]' %>
+            <span class="modal_choose_filename"></span>
+            <%= content_tag :span, class: 'glyphicon glyphicon-facetime-video', id: 'modal_choose_video' do %>选择视频
+              <%= f.file_field :video, accept: "video/*" %>
+            <% end %>
+            <%= content_tag :span, class: 'glyphicon glyphicon-picture', id: 'modal_choose_img' do %>选择图片
+              <%= f.file_field :picture, accept: "image/*" %>
+            <% end %>
             <!--            <span class="glyphicon glyphicon-picture" id="modal_choose_img">-->
             <!--              <%#= f.file_field :picture, accept: 'image/gif,image/jpeg,image/png' %> 选择图片-->
             <!--            </span>-->
           <% end %>
           <%#= hidden_field_tag :user_id, current_user.id %>
-          <%= f.button "发布", type: :submit, class: "btn btn-primary btn-sm",
-                       onclick: "onClickProgress(\"#post_micropost_modal button[type='submit']\");" %>
+          <%= f.button "发布", type: :submit, class: "btn btn-primary btn-sm", id: "modal_submit",
+                       onclick: "onClickProgress(\"#" + object[:post_modal_id] + " button[type='submit']\");" %>
         </div>
       </div>
     <% end %>

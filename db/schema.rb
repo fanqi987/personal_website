@@ -19,8 +19,8 @@ ActiveRecord::Schema.define(version: 20190626135503) do
     t.integer "user_id"
     t.text "content", null: false
     t.integer "like", default: 0
-    t.string "avatar"
     t.string "email"
+    t.string "avatar"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id"
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 20190626135503) do
 
   create_table "hobby_items", force: :cascade do |t|
     t.integer "hobby_id"
+    t.integer "user_id", null: false
     t.string "title", null: false
     t.string "content"
     t.string "image", null: false
@@ -94,6 +95,7 @@ ActiveRecord::Schema.define(version: 20190626135503) do
     t.string "picture"
     t.string "video"
     t.integer "like", default: 0
+    t.string "avatar"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_microposts_on_user_id"
@@ -107,6 +109,7 @@ ActiveRecord::Schema.define(version: 20190626135503) do
     t.string "remember_digest"
     t.string "reset_digest"
     t.datetime "reset_sent_at"
+    t.string "avatar", default: "0"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true

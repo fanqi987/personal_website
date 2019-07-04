@@ -11,6 +11,7 @@
 @import 'font-awesome';
 @import 'owl.carousel';
 @import 'owl.theme.default';
+@import 'social-share-button';
 
 $bootstrap-pill-blue: #337ab7;
 $footer_background: #2d2d2d;
@@ -223,8 +224,8 @@ $sm-width: 768px;
   position: relative;
   right: 0;
   left: 0;
-  height: 25rem;
-  background-image: image_url("time.jpg");
+  height: 20rem;
+  //background-image: image_url("time.jpg");
   background-size: cover;
   @media (min-width: $sm-width) {
     height: 30rem;
@@ -365,6 +366,13 @@ $sm-width: 768px;
           margin: 16% 23% 1% 25%;
           font-size: 1.2rem;
 
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          word-break: keep-all;
+          width: 50%;
+          font-weight: bold;
+
         }
         #article_content_home {
           font-size: 1rem;
@@ -382,12 +390,12 @@ $sm-width: 768px;
           white-space: nowrap;
           text-overflow: ellipsis;
           font-size: 1rem;
-
+          font-weight: bold;
         }
       }
       #message_board_home {
         color: #cecece;
-        background-image: url("messageboard5.gif");
+        background-image: image_url("messageboard5.gif");
 
         #message_board_name_home {
           font-size: 1.2rem;
@@ -417,7 +425,7 @@ $sm-width: 768px;
       #materials_home {
         #materials_img_home {
           height: 61.8%;
-          background-image: url('materials.jpg');
+          background-image: image_url('materials.jpg');
           background-size: cover;
         }
         #materials_content_home {
@@ -442,7 +450,28 @@ $sm-width: 768px;
       }
 
       #games_img_1_home {
-        background-image: image_url("test_game.jpg");
+        //background-image: image_url("test_game.jpg");
+        border: solid 1px #eee;
+        //p {
+        //margin-top: 3rem;
+        //height: 100%;
+        //text-align: center;
+        //font-size: 2rem !important;
+        //color: #666;
+        //background-image: -webkit-linear-gradient(left, #5aa, #aa5); /* Safari 5.1 - 6.0 */
+        //background-image: -o-linear-gradient(right, #5aa, #aa5); /* Opera 11.1 - 12.0 */
+        //background-image: -moz-linear-gradient(right, #5aa, #aa5); /* Firefox 3.6 - 15 */
+        //background-image: linear-gradient(to right, #5aa, #aa5); /* 标准的语法 */
+        //-webkit-background-clip: text;
+        //-webkit-text-fill-color:transparent;
+        //@media(min-width: $sm-width) {
+        //  font-size: 4rem !important;
+        //}
+        //}
+        background: -webkit-linear-gradient(left, #dda, #add); /* Safari 5.1 - 6.0 */
+        background: -o-linear-gradient(right, #dda, #add); /* Opera 11.1 - 12.0 */
+        background: -moz-linear-gradient(right, #dda, #add); /* Firefox 3.6 - 15 */
+        background: linear-gradient(to right, #dda, #add); /* 标准的语法 */
       }
     }
 
@@ -521,6 +550,32 @@ $sm-width: 768px;
         span {
           font-size: 2rem;
           color: #555;
+          display: inline-block;
+          position: relative;
+          &:before {
+            margin-right: 0.5rem;
+          }
+          input {
+            position: absolute;
+            display: inline-block;
+            top: 0;
+            left: 0;
+            margin: 0;
+            width: 100%;
+            opacity: 0;
+            //height:100%;
+          }
+        }
+        .modal_choose_filename {
+          width: 10rem;
+          float: left;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          word-break: keep-all;
+          @media(min-width: $sm-width) {
+            width: 15rem;
+          }
         }
         button {
           border-radius: 2rem;
@@ -792,24 +847,30 @@ $sm-width: 768px;
 .media {
   padding: 1rem 1.5rem;
   .media-left {
-    img {
-      height: 6rem;
-      width: 6rem;
-      border-radius: 50%;
-    }
+
     .media-object {
-      background-image: url("avatar.jpg");
-      background-size: cover;
+      //background-image: url("avatar.jpg");
+      //background-size: cover;
     }
     .micropost_content_avatar {
       border-radius: 0.5rem;
       height: 6rem;
       width: 6rem;
+      img {
+        height: 6rem;
+        width: 6rem;
+        border-radius: 50%;
+      }
     }
     .micropost_comments_avatar {
       border-radius: 0.25rem;
       height: 3rem;
       width: 3rem;
+      img {
+        height: 3rem;
+        width: 3rem;
+        border-radius: 50%;
+      }
     }
   }
   .media-body {
@@ -854,6 +915,7 @@ $sm-width: 768px;
         }
       }
     }
+
     .micropost_comments_username {
       font-size: 1.6rem;
     }
@@ -867,6 +929,11 @@ $sm-width: 768px;
       white-space: pre-line;
       font-size: 1.8rem;
       color: #666;
+    }
+    .micropost_content_img, .micropost_content_video {
+      max-height: 30rem;
+      max-width: 30rem;
+      z-index: 0;
     }
     .micropost_comments_content {
       font-size: 1.6rem;
@@ -949,7 +1016,7 @@ $sm-width: 768px;
 }
 
 #micropost_empty, #article_empty, #message_empty {
-  background-image: url("empty_box2.jpg");
+  background-image: image_url("empty_box2.jpg");
   //background-image: url("empty_box2.jpg");
   background-size: cover;
   width: 70%;
@@ -1153,7 +1220,7 @@ $sm-width: 768px;
   color: transparent;
   text-align: center;
   -webkit-text-fill-color: transparent;
-  background: -webkit-linear-gradient(transparent, transparent), #000 url("time.jpg") no-repeat;
+  background: -webkit-linear-gradient(transparent, transparent), #000 image_url("time.jpg") no-repeat;
   background: -o-linear-gradient(transparent, transparent);
   -webkit-background-clip: text;
   background-position: center center;
@@ -1201,7 +1268,7 @@ $sm-width: 768px;
       box-shadow: 0 0 8px gray;
     }
     .item_img {
-      background-image: url("empty_gallery.png");
+      background-image: image_url("empty_gallery.png");
       background-size: cover;
       height: 80%;
       width: 100%;
@@ -1726,7 +1793,7 @@ $sm-width: 768px;
     padding: 2rem 20%;
   }
   .header_profile {
-    background-image: url("sky.jpg");
+    background-image: image_url("sky.jpg");
     background-size: cover;
     text-align: center;
     .row:nth-child(1) {
@@ -1842,6 +1909,25 @@ $sm-width: 768px;
       float: right;
       width: auto;
       padding-right: 1rem;
+      > div {
+        display: inline-block;
+        a {
+          width: 2.5rem;
+          height: 2.5rem;
+          margin-left: 3rem;
+          background-size: cover;
+          vertical-align: bottom;
+        }
+        .ssb-qq {
+          background-image: image_url("QQ.ico");
+        }
+        .ssb-weibo {
+          background-image: image_url("weibo.png");
+        }
+        .ssb-wechat {
+          background-image: image_url("wechat.png");
+        }
+      }
       span {
         font-size: 1.5rem;
         color: #999;
@@ -1949,11 +2035,19 @@ $sm-width: 768px;
   .media {
     padding-top: 3rem;
     padding-bottom: 3rem;
+    .media-left {
+      img {
+        height: 6rem;
+        width: 6rem;
+        border-radius: 50%;
+      }
+    }
   }
+
 }
 
 //素材样式
-.material_choose_section {
+#material_choose_section {
   display: block;
   width: 100%;
   margin: 2rem auto;
@@ -1989,11 +2083,6 @@ $sm-width: 768px;
       padding-bottom: 9%;
       width: 15.5%;
       p {
-        //img{
-        //  height:2.5rem;
-        //  width:2.5rem;
-        //  opacity: 0.3;
-        //}
         font-size: 2.5rem;
         line-height: 2.5rem;
       }
@@ -2105,8 +2194,8 @@ $sm-width: 768px;
   }
 }
 
-//注册,登录，信息页面
-.register_title, #login_title, #login_profile_title {
+//注册,登录，头像,信息页面
+.register_title, #login_title, #login_profile_title, #avatar_title, #reset_password_title {
   text-align: center;
   font-size: 3rem;
   font-weight: bold;
@@ -2115,7 +2204,7 @@ $sm-width: 768px;
   margin-bottom: 4rem;
 }
 
-.register_content, .login_content, .login_profile_content {
+.register_content, .login_content, .login_profile_content, .avatar_content, .reset_password_content {
   text-align: center;
   margin-bottom: 4rem;
   form {
@@ -2195,7 +2284,48 @@ $sm-width: 768px;
   }
 }
 
-.register_title, #login_title, #login_profile_title, #hobby_title_hr {
+.avatar_content, .reset_password_content {
+  form {
+    padding: 3rem;
+    .avatar_item {
+      border: solid 1px #eee;
+      padding: 0.5rem;
+      margin: 0.2rem;
+      float: left;
+      position: relative;
+      img {
+        height: 6.5rem;
+        widht: 6.5rem;
+      }
+      .avatar_choose {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        span {
+          display: none;
+          font-size: 3rem;
+          width: 3rem;
+          height: 3rem;
+          color: white;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          -webkit-transform: translate(-50%, -50%);
+          -moz-transform: translate(-50%, -50%);
+          text-shadow: 0 0 8px #000;
+        }
+      }
+    }
+    button {
+      margin-top: 2rem;
+    }
+  }
+}
+
+.register_title, #login_title, #login_profile_title, #hobby_title_hr, #reset_password_title {
   & + .flash_tips {
     margin: auto;
     width: 100%;

@@ -18,7 +18,9 @@ gem 'clipboard-rails', '1.7.1'
 gem 'jquery-fileupload-rails', '1.0.0'
 gem 'mini_magick', '4.9.3'
 gem 'carrierwave', '1.3.1'
-gem 'swiper-rails','1.0.4'
+gem 'carrierwave-video', '0.6.0'
+gem 'swiper-rails', '1.0.4'
+gem 'social-share-button', '1.2.0'
 # gem 'ffi', :platforms => [:mswin, :mingw] # Required by Clipboard on Windows
 
 

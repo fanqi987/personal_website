@@ -5,60 +5,66 @@
         setMaterialItemColor();
         setMaterialTypeSelected("<%= params[:type]%>");
         setPagesHref("#material_choose_section");
+        deleteMaterial();
     });
 </script>
 <body>
-
+<!-- banner-->
+<%= provide :banner, 'material_2.png' %>
 <div class="container">
   <%= provide :post_path, materials_path %>
   <%= provide :post_object, :material %>
+  <%= provide :material_type, params[:type] %>
   <section classs="row material_choose_section" id="material_choose_section">
-    <div>
+    <div class="material_choose_section_item">
       <a name="" href="<%= materials_path %>">
         <p class="far fa-square">&nbsp;全部<span class=""></span>
         </p>
       </a>
     </div>
-<!--    <div>-->
-<!--      <a name="<%#= getType("编程") %>" href="<%#= materials_path + '?type=' + getType("编程") %>">-->
-<!--        <p class="fas fa-code">&nbsp;编程 <span class=""></span></p></a>-->
-<!--    </div>-->
-<!--    <div>-->
-<!--      <a name="<%#= getType("英语") %>" href="<%#= materials_path + '?type=' + getType("英语") %>">-->
-<!--        <p class="fas fa-dollar-sign">&nbsp;英语 <span class=""></span></p></a>-->
-<!--    </div>-->
-<!--    <div>-->
-<!--      <a name="<%#= getType("英语") %>" href="<%#= materials_path + '?type=' + getType("英语") %>">-->
-<!--        <p class="fas fa-book">&nbsp;读书 <span class=""></span></p></a>-->
-<!--    </div>-->
-<!--    <div>-->
-<!--      <a name="<%#= getType("音乐") %>" href="<%#= materials_path + '?type=' + getType("音乐") %>">-->
-<!--        <p class="fas fa-music">&nbsp;音乐 <span class=""></span></p></a>-->
-<!--    </div>-->
-<!--    <div>-->
-<!--      <a name="<%#= getType("植物") %>" href="<%#= materials_path + '?type=' + getType("植物") %>">-->
-<!--        <p class="fas fa-leaf">&nbsp;植物 <span class=""></span></p></a>-->
-<!--    </div>-->
-<!--    <div>-->
-<!--      <a name="<%#= getType("画画") %>" href="<%#= materials_path + '?type=' + getType("画画") %>">-->
-<!--        <p class="fas fa-paint-brush">&nbsp;画画 <span class=""></span></p></a>-->
-<!--    </div>-->
-<!--    <div>-->
-<!--      <a name="<%#= getType("健身") %>" href="<%#= materials_path + '?type=' + getType("健身") %>">-->
-<!--        <p class="fas fa-dumbbell">&nbsp;健身 <span class=""></span></p></a>-->
-<!--    </div>-->
-<!--    <div>-->
-<!--      <a name="<%#= getType("游戏") %>" href="<%#= materials_path + '?type=' + getType("游戏") %>">-->
-<!--        <p class="fas fa-dice">&nbsp;游戏 <span class=""></span></p></a>-->
-<!--    </div>-->
+    <div>
+      <a name="<%= getType("编程") %>" href="<%= materials_path + '?type=' + getType("编程") %>">
+        <p class="fas fa-code">&nbsp;编程 <span class=""></span></p></a>
+    </div>
+    <div>
+      <a name="<%= getType("英语") %>" href="<%= materials_path + '?type=' + getType("英语") %>">
+        <p class="fas fa-dollar-sign">&nbsp;英语 <span class=""></span></p></a>
+    </div>
+    <div>
+      <a name="<%= getType("读书") %>" href="<%= materials_path + '?type=' + getType("读书") %>">
+        <p class="fas fa-book">&nbsp;读书 <span class=""></span></p></a>
+    </div>
+    <div>
+      <a name="<%= getType("音乐") %>" href="<%= materials_path + '?type=' + getType("音乐") %>">
+        <p class="fas fa-music">&nbsp;音乐 <span class=""></span></p></a>
+    </div>
+    <div>
+      <a name="<%= getType("植物") %>" href="<%= materials_path + '?type=' + getType("植物") %>">
+        <p class="fas fa-leaf">&nbsp;植物 <span class=""></span></p></a>
+    </div>
+    <div>
+      <a name="<%= getType("画画") %>" href="<%= materials_path + '?type=' + getType("画画") %>">
+        <p class="fas fa-paint-brush">&nbsp;画画 <span class=""></span></p></a>
+    </div>
+    <div>
+      <a name="<%= getType("健身") %>" href="<%= materials_path + '?type=' + getType("健身") %>">
+        <p class="fas fa-dumbbell">&nbsp;健身 <span class=""></span></p></a>
+    </div>
+    <div>
+      <a name="<%= getType("游戏") %>" href="<%= materials_path + '?type=' + getType("游戏") %>">
+        <p class="fas fa-dice">&nbsp;游戏 <span class=""></span></p></a>
+    </div>
   </section>
+  <div class="clearfix"></div>
   <aside class="col-md-3 hidden-sm hidden-xs" id="material_aside">
-    <section id="material_post_section">
-      <button class="btn btn-primary btn-block btn-lg fas fa-edit" id="post_material_section_button" data-toggle="modal"
-              data-target="#material_post_modal" onclick="return false">
-        发布素材
-      </button>
-    </section>
+    <% if logged_in? && current_user.admin? %>
+      <section id="material_post_section">
+        <button class="btn btn-primary btn-block btn-lg fas fa-edit" id="post_material_section_button" data-toggle="modal"
+                data-target="#material_post_modal" onclick="return false">
+          发布素材
+        </button>
+      </section>
+    <% end %>
     <hr/>
     <%= render 'shared/search_section', object: @search_section %>
   </aside>
@@ -67,13 +73,25 @@
   <article class="col-md-9 col-sm-12" id="material_main">
     <section class="row" id="material_main_title">
       <span class="fas fa-chevron-left" id="material_main_title_back"></span><span>素材 <span class="main_title_num"><%= @meterials_count %></span></span>
+      <div class="main_title_search_factors">
+        <% if @search_start_time && !@search_start_time.empty? %>
+          <%= render 'shared/search_item', object: [@search_start_time, @search_end_time, @search_word, 0, "起"] %>
+          <!--          <span><i class="fa fa-times-circle"></i><%#= @search_start_time %>起</span>-->
+        <% end %>
+        <% if @search_end_time && !@search_end_time.empty? %>
+          <%= render 'shared/search_item', object: [@search_start_time, @search_end_time, @search_word, 1, "止"] %>
+          <!--          <span><i class="fa fa-times-circle"></i><%#= @search_end_time %>止</span>-->
+        <% end %>
+        <% if @search_word && !@search_word.empty? %>
+          <%= render 'shared/search_item', object: [@search_start_time, @search_end_time, @search_word, 2, ""] %>
+          <!--          <span><i class="fa fa-times-circle"></i>"<%#= @search_word %>"</span>-->
+        <% end %></div>
     </section>
     <section class="row" id="material_main_content_section">
       <%= render 'shared/flash' %>
       <%= render 'material_item', object: @materials %>
     </section>
   </article>
-
 </div>
 </body>
 </html>

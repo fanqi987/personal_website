@@ -61,6 +61,7 @@ function onDocumentContentReady(menuIndex, subMenuIndex, func) {
             //微博
             case 1:
                 onDatePickChanged();
+                limitVideoSize();
                 // onReadyAndResizeMicropostModal();
                 break;
             //日志
@@ -95,6 +96,7 @@ function onDocumentContentReady(menuIndex, subMenuIndex, func) {
                 break;
             //信息
             case 4:
+                initShare();
                 break;
             // 留言
             case 5:
@@ -102,6 +104,10 @@ function onDocumentContentReady(menuIndex, subMenuIndex, func) {
                 break;
             //素材
             case 6:
+                func();
+                break;
+            //头像设置
+            case 7:
                 func();
                 break;
         }
@@ -155,3 +161,8 @@ function showToast(text) {
     }, 1500);
 }
 
+function chooseAvatar(node, index) {
+    $(".avatar_content span").hide();
+    $('.avatar_content input').val(index);
+    $(node).find('span').show();
+}

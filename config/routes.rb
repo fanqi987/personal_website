@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   root 'static_pages#home'
   get '/home', to: 'static_pages#home'
   get '/profile', to: 'static_pages#profile'
@@ -17,6 +16,9 @@ Rails.application.routes.draw do
   delete '/login/profile', to: 'sessions#destroy'
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
+
+  get '/avatar', to: 'sessions#avatar_new'
+  post '/avatar', to: 'sessions#avatar_create'
 
   get '/micropost_home', to: "static_pages#micropost"
 
@@ -64,4 +66,9 @@ Rails.application.routes.draw do
   resources :materials
   delete '/materials', to: 'materials#destroy'
 
+  resources :password_resets, only: [:create, :update, :new, :edit]
+
+
+  # make sure this rule is the last one
+  get '*path' => proc {|env| Rails.env.development? ? (raise ActionController::RoutingError, %{No route matches "#{env["PATH_INFO"]}"}) : ApplicationController.action(:render_not_found).call(env)}
 end

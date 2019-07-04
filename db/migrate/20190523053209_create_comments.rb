@@ -6,8 +6,8 @@ class CreateComments < ActiveRecord::Migration[5.1]
       t.integer :user_id
       t.text :content, null: false
       t.integer :like, default: 0
-      t.string :avatar
       t.string :email
+      t.string :avatar
       t.timestamps
     end
   end

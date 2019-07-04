@@ -3,7 +3,7 @@ class MicropostsController < ApplicationController
   before_action :post_init
   # before_action :check_logged_in,only:[:create]
 
-  PAGINATE_NUM = 3
+  PAGINATE_NUM = 5
 
   attr_accessor :page, :maxPage
 
@@ -12,6 +12,12 @@ class MicropostsController < ApplicationController
                                  "管理员才能发微博哦~"
     if (logged_in? && current_user.admin?)
       @micropost = current_user.microposts.build(micropost_params)
+      if (params[:micropost][:file_image])
+        @micropost.picture = params[:micropost][:file_image]
+      end
+      if (params[:micropost][:file_video])
+        @micropost.video = params[:micropost][:file_video]
+      end
       if (@micropost.save)
         redirect_to action: :index
       else
@@ -25,6 +31,7 @@ class MicropostsController < ApplicationController
     p params
     @micropost_record = Micropost.find_by(id: params[:id]).comments.new(micropost_comment_params)
     set_comment_user_attr @micropost_record
+    setAvatar @micropost_record
     # p @micropost_record
     # p @micropost_record.valid?
     # p @micropost_record.errors.messages
@@ -144,7 +151,7 @@ class MicropostsController < ApplicationController
   end
 
   def micropost_params
-    params.require(:micropost).permit(:content, :picture)
+    params.require(:micropost).permit(:content, :picture, :video)
   end
 
   def micropost_comment_params

@@ -16,7 +16,7 @@ module SessionsHelper
     end
     if (cookies[:user_id])
       @current_user = User.find(cookies[:user_id])
-      return @current_user if User.authenticate_digest(:remember, cookies[:remember_token])
+      return @current_user if @current_user.authenticate_digest(:remember, cookies[:remember_token])
     end
   end
 
@@ -41,5 +41,18 @@ module SessionsHelper
     return logged_in? &&
         (current_user.admin? || current_user.id ==
             comment.user_id)
+  end
+
+  def setAvatar(object)
+    # if (logged_in? && (!current_user.avatar || current_user.avatar.empty?))
+    # elsif (logged_in?)
+    #   object.avatar = current_user.avatar
+    # elsif cookies[:user_avatar]
+    #   object.avatar = cookies[:user_avatar]
+    # else
+    # end
+    if !logged_in? && cookies[:user_avatar]
+      object.avatar = cookies[:user_avatar]
+    end
   end
 end

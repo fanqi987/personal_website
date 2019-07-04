@@ -6,6 +6,7 @@ class CreateMicroposts < ActiveRecord::Migration[5.1]
       t.string :picture
       t.string :video
       t.integer :like, default: 0
+      t.string :avatar
       t.timestamps
     end
     # add_index :microposts,:user_id

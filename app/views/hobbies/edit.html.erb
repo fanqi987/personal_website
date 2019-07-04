@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html>
+<script>
+    onDocumentContentReady(3);
+</script>
 <body>
+<!-- banner-->
+<%= provide :banner, 'hobby_2.png' %>
 <div class="container">
   <hr class="row hobby_title_hr"/>
 
@@ -75,7 +80,7 @@
     onDocumentContentReady(3, 0, function () {
         initFileUploader('<%= hobby_edit_upload_path%>');
 
-        bindFileUploadAdd();
+        bindFileUploadAdd("edit");
 
         bindFileUploadProcessAlways('<%= j render 'hobbies/hobby_selected_picture_item'%>');
 

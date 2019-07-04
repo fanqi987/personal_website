@@ -1,7 +1,6 @@
 <% if session[:microposts_page].include?(micropost_path(object.id)) %>
   <%= render 'shared/micropost_comment_item', object: @micropost_comments %>
   <% unless @load_micropost_comment_complete %>
-    <% p "111111111111111" %>
     <%= form_for :more, url: microposts_comment_more_path, method: :post, remote: true do |f| %>
       <!--    <div class="micropost_comments_more">查看更多</div>-->
       <%#= hidden_field_tag :micropost_index, object[1] %>

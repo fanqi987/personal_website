@@ -46,19 +46,21 @@ function setMaterialItemColor() {
 }
 
 function deleteMaterial() {
-    var b = confirm("确定删除这条素材吗?");
-    if (b)
-        event.stopPropagation();
-    else
-        return false;
+    $(".material_main_content_delete").on("click", function () {
+        var b = confirm("确定删除这条素材吗?");
+        if (b)
+            event.stopPropagation();
+        else
+            return false;
+    });
 }
 
 function setMaterialTypeSelected(type) {
     if (!type || type == "") {
-        $(".material_choose_section span:eq(0)").addClass("fas fa-check");
+        $("#material_choose_section span:eq(0)").addClass("fas fa-check");
         return;
     }
-    $(".material_choose_section a").each(function () {
+    $("#material_choose_section a").each(function () {
         if ($(this).attr("name") == type) {
             $(this).find("span").addClass("fas fa-check");
             return;

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<script>
+    onDocumentContentReady(7, 0, function () {
+        var index = "";
+        <% if logged_in? %>
+        index = "<%= current_user.avatar %>";
+        <% elsif cookies[:user_avatar] %>
+        index = "<%= cookies[:user_avatar] %>";
+        <%end %>
+        $(".avatar_content .avatar_item[name='" + index + "']").find('span').show();
+    });
+</script>
+<body>
+<!-- banner-->
+<%= provide :banner, 'pokemon.png' %>
+<div class="container">
+  <div id="avatar_title">
+    <% if logged_in? %>
+      设置头像
+    <% else %>
+      设置临时头像
+    <% end %>
+    <span class="fas fa-user-circle"></span>
+  </div>
+  <div class="avatar_content">
+    <%= form_for :avatar, url: avatar_path, method: :post, remote: true do |f| %>
+      <% (1..20).each() do |index| %>
+        <%= render "avatar_image", index: index %>
+      <% end %>
+      <div class="clearfix"></div>
+      <%= f.text_field :index, value: "", type: :hidden %>
+      <%= f.button "保存头像", type: :submit, class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
+</body>
+</html>

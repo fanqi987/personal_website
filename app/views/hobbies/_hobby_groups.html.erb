@@ -3,7 +3,7 @@
     <% group.each do |hobby| %>
       <%= render 'hobby_group_sub_item', hobby: hobby %>
     <% end %>
-    <% if  logged_in? && current_user.admin? && group.length < HobbiesController::HOBBY_GROUP_NUM   %>
+    <% if logged_in? && current_user.admin? && group.length < HobbiesController::HOBBY_GROUP_NUM %>
       <%= render 'hobby_group_empty_item' %>
     <% end %>
   </div>

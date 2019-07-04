@@ -8,17 +8,6 @@ class ApplicationController < ActionController::Base
   ADMIN_ID = 1
   COMMENT_PAGE_NUM = 10
 
-  # attr_accessor :mutex
-
-  # def getMutex
-  #   if session[:mutex] && !session[:mutex].empty?
-  #     return session[:mutex]
-  #   else
-  #     session[:mutex] = Mutex.new
-  #     return session[:mutex]
-  #   end
-  # end
-
   def store_current_url
     session[:current_url] = request.original_url if request.get?
     p '我是rail里面的p   ' + session[:current_url]
@@ -94,5 +83,24 @@ class ApplicationController < ActionController::Base
     end
   end
 
+
+  def self.rescue_errors
+    rescue_from Exception, :with => :render_error
+    rescue_from RuntimeError, :with => :render_error
+    rescue_from ActiveRecord::RecordNotFound, :with => :render_not_found
+    rescue_from ActionController::RoutingError, :with => :render_not_found
+    rescue_from ActionController::UnknownController, :with => :render_not_found
+    rescue_from ActionController::UnknownAction, :with => :render_not_found
+  end
+
+  rescue_errors unless Rails.env.development?
+
+  def render_not_found(exception = nil)
+    render "/public/404.html", :status => 404
+  end
+
+  def render_error(exception = nil)
+    render "/public/500.html", :status => 500
+  end
 
 end

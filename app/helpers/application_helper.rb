@@ -68,4 +68,6 @@ module ApplicationHelper
   def getObjectErrors(object)
     return object ? object.errors.collect {|k, v| v.is_a?(Array) ? v[0] : v}.to_s : ""
   end
+
+
 end

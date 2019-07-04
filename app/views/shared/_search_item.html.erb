@@ -9,5 +9,8 @@
   <%= f.text_field :start_time, value: object[0], type: :hidden %>
   <%= f.text_field :end_time, value: object[1], type: :hidden %>
   <%= f.text_field :word, value: object[2], type: :hidden %>
+  <% if (yield(:material_type) || !yield(:material_type).empty?) %>
+    <%= hidden_field_tag :type, yield(:material_type) %>
+  <% end %>
   <% p object %>
 <% end %>

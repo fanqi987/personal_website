@@ -144,16 +144,21 @@ function initFileUploader(path) {
     });
 }
 
-function bindFileUploadAdd() {
+function bindFileUploadAdd(page) {
     $('#hobby_chooser').bind("fileuploadadd", function (e, data) {
         console.log("添加文件了!");
         // console.log("这里是add------------------");
         $(".hobby_edits_post").attr('disabled', false);
         data.context = $(".hobby_edits_post").click(function () {
-            if (getCookie("created_hobby_id").length > 0)
+            if (page == "new") {
+                if (getCookie("created_hobby_id").length > 0)
+                    data.submit();
+                else {
+                    showToast("请先创建画廊哦!");
+                }
+            } else {
                 data.submit();
-            else {
-                showToast("请先创建画廊哦!");
+
             }
         });
         selectd_image_index = 0;

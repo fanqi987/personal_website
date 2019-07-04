@@ -1,7 +1,9 @@
 class Micropost < ApplicationRecord
   belongs_to :user
-  has_many :comments,as: :commentable, dependent: :destroy
-  has_many :likes,as: :likeable,dependent: :destroy
+  mount_uploader :picture, PictureUploader
+  mount_uploader :video, VideoUploader
+  has_many :comments, as: :commentable, dependent: :destroy
+  has_many :likes, as: :likeable, dependent: :destroy
 
   default_scope {order(created_at: :desc)}
 

@@ -3,7 +3,8 @@
   <section class="comment_item_div">
     <div class="media">
       <div class="media-left">
-        <%= image_tag 'dictionary.png' %>
+        <%= render "shared/avatar_chooser", object: comment %>
+        <%#= image_tag 'dictionary.png' %>
       </div>
       <div class="media-body">
         <div class="media-heading" id="comment_username">
@@ -15,7 +16,8 @@
               楼&nbsp;</span>
             <% elsif (yield(:floor_order) == 'desc') %>
               <span class="comment_floor"><%= (comment.commentable.comments.count + 1) - (index + 1) -
-                                                  (params[:page].to_i - 1) * ApplicationController::COMMENT_PAGE_NUM %>楼&nbsp;</span>
+                                                  (params[:page].to_i - 1) * ApplicationController::COMMENT_PAGE_NUM %>
+                楼&nbsp;</span>
             <% end %>
             <% if check_show_delete comment %>
             <%= form_for :delete, url: yield(:delete_path), method: :delete, remote: true do |f| %>

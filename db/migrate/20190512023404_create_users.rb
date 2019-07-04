@@ -8,6 +8,7 @@ class CreateUsers < ActiveRecord::Migration[5.1]
       t.string :remember_digest
       t.string :reset_digest
       t.datetime :reset_sent_at
+      t.string :avatar, default: 0
       t.timestamps
     end
 

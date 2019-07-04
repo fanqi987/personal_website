@@ -4,9 +4,13 @@
       <div name="<%= material.material_type %>">
         <p class=" material_main_content_title"><%= material.title %></p>
         <p class="material_main_content_content"><%= material.content %></p>
-        <%= form_for :delete, url: materials_path, method: :delete do |f| %>
-          <%= hidden_field_tag :id, material.id %>
-          <%= f.button "x", class: "material_main_content_delete close", onclick: "deleteMaterial();" %>
+        <% if logged_in? && current_user.admin? %>
+          <%= form_for :delete, url: materials_path, method: :delete do |f| %>
+            <%= hidden_field_tag :id, material.id %>
+            <%= hidden_field_tag :type, params[:type] %>
+            <!-- raw可以转换所有的html,CGI::escapeHTML不能转换字符实体-->
+            <%= f.button raw("&times;"), type: "submit", class: "material_main_content_delete close" %>
+          <% end %>
         <% end %>
         <span class="material_main_content_time"><%= getCurrentCorrectTime material.created_at %></span>
       </div>

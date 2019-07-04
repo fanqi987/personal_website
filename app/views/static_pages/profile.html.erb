@@ -6,6 +6,8 @@
   </script>
 </head>
 <body>
+<!-- banner-->
+<%= provide :banner, 'profile_2.png' %>
 <div class="bg_profile_div">
   <div class="container">
     <section class="row header_profile">
@@ -105,9 +107,10 @@
       <div class="shared_buttons_profile">
         <span>喜欢我的网站吗？&nbsp;&nbsp;&nbsp;&nbsp;</span>
         <span>分享</span>
-        <%= image_tag 'QQ.ico', title: 'QQ', alt: 'QQ' %>
-        <%= image_tag 'weibo.png', title: '新浪微博', alt: '新浪微博' %>
-        <%= image_tag 'wechat.png', title: '微信', alt: '微信' %>
+        <%= social_share_button_tag :share,url:root_url %>
+        <%#= image_tag 'QQ.ico', title: 'QQ', alt: 'QQ' %>
+        <%#= image_tag 'weibo.png', title: '新浪微博', alt: '新浪微博' %>
+        <%#= image_tag 'wechat.png', title: '微信', alt: '微信' %>
       </div>
     </section>
   </div>

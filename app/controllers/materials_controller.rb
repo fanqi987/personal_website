@@ -42,6 +42,8 @@ class MaterialsController < ApplicationController
   end
 
   def create
+    return if redirect_not_admin materials_path,
+                                 "管理员才能发布新素材哦~"
     @material = @user.materials.build(material_params)
     if (@material.save)
       flash[:success] = "创建素材成功!"
@@ -58,7 +60,7 @@ class MaterialsController < ApplicationController
     else
       flash[:danger] = "删除素材失败!" + getObjectErrors(@material)
     end
-    redirect_to materials_path + "#material_choose_section"
+    redirect_to materials_path + "?type=" + params[:type] + "#material_choose_section"
   end
 
 

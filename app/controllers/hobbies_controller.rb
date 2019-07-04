@@ -87,6 +87,7 @@ class HobbiesController < ApplicationController
         @hobby_item = @hobby.hobby_items.build
         @hobby_item.title = file.original_filename
         @hobby_item.image = file
+        @hobby_item.user_id = @hobby.user_id
         @hobby_item.save
         p @hobby_item
         p @hobby_item.errors.messages
@@ -114,6 +115,7 @@ class HobbiesController < ApplicationController
         @hobby_item = @hobby.hobby_items.build
         @hobby_item.title = file.original_filename
         @hobby_item.image = file
+        @hobby_item.user_id = @hobby.user_id
         @hobby_item.save
         # flash.now[:success] = "上传成功了!"
         # p @hobby_item

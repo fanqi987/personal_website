@@ -26,7 +26,7 @@ function autoResizeFontHome() {
         // 'line-height':parent_e.width()*0.004
     });
     $('#materials_content_home p').css({
-        'font-size':parent_e.width() * 0.08
+        'font-size':parent_e.width() * 0.06
         // 'line-height':parent_e.width()*0.004
     });
 }

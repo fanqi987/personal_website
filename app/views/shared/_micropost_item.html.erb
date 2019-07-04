@@ -2,7 +2,13 @@
   <section class="row micropost_main_content" id="micropost_main_content_<%= micropost.id %>">
     <div class="media" id="micropost_content_media">
       <div class="media-left">
-        <span class="media-object micropost_content_avatar" id="micropost_content_avatar_<%= micropost.id %>"></span>
+        <span class="media-object micropost_content_avatar" id="micropost_content_avatar_<%= micropost.id %>">
+          <% if micropost.user.avatar && !micropost.user.avatar.empty? %>
+            <%= image_tag "pokemon/#{micropost.user.avatar}" %>
+            <% else %>
+            <%= image_tag "pokemon/0" %>
+            <% end %>
+        </span>
       </div>
       <div class="media-body" id="micropost_content_body_<%= micropost.id %>">
         <p class="media-heading micropost_content_username" id="micropost_content_username_<%= micropost.id %>">
@@ -10,10 +16,12 @@
           <%= micropost.user.name %>
         </p>
         <p class='micropost_content_content' id="micropost_content_content_<%= micropost.id %>"><%= micropost.content %></p>
-        <img class='micropost_content_img' style="display: none"/>
-        <video class='micropost_content_video' style="display: none">
-        </video>
-
+        <% if micropost.picture? %>
+          <%= image_tag micropost.picture.url, class: "micropost_content_img" %>
+        <% end %>
+        <% if micropost.video? %>
+          <%= video_tag micropost.video.url, class: "micropost_content_video",controls:true %>
+        <% end %>
         <div class="micropost_edit_items micropost_content_edit_items" id="micropost_content_edit_items_<%= micropost.id %>">
           <% if logged_in? && (current_user.admin? || current_user.id == micropost.user_id) %>
             <%= form_for :delete, url: microposts_path, method: :delete do |f| %>
@@ -32,7 +40,7 @@
             <%= f.button micropost.like, type: "submit", class: "glyphicon glyphicon-thumbs-up", id: "micropost_likes_icon_#{micropost.id}", 'data-title': "今天已经点赞过了~!", "data-trigger": 'click' %>
           <% end %>
           <span class="glyphicon glyphicon-comment" id="micropost_comments_icon_<%= micropost.id %>" onclick="onClickMicropostComment(<%= micropost.id %>)"><%= micropost.comments.length %></span>
-          <span class="glyphicon glyphicon-share" id="micropost_shared_icon_<%= micropost.id %>"></span>
+<!--          <span class="glyphicon glyphicon-share" id="micropost_shared_icon_<%#= micropost.id %>"></span>-->
         </div>
       </div>
     </div>

@@ -4,6 +4,7 @@ class User < ApplicationRecord
   has_many :microposts, dependent: :destroy
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :hobbies, dependent: :destroy
+  has_many :hobby_items, dependent: :destroy
   has_one :message, dependent: :destroy
   has_many :materials, dependent: :destroy
   #todo 邮箱的正确格式,其它属性的最小长度
@@ -25,7 +26,7 @@ class User < ApplicationRecord
                             allow_nil: true
 
   has_secure_password
-  attr_accessor :remember_token
+  attr_accessor :remember_token, :reset_password_token
 
 
   def User.digest pwd
@@ -46,7 +47,7 @@ class User < ApplicationRecord
     update_attribute(:remember_digest, nil)
   end
 
-  def User.authenticate_digest symbol, token
+  def authenticate_digest symbol, token
     digest = send("#{symbol}_digest")
     return false if digest.nil?
     BCrypt::Password.new(digest).is_password? token
@@ -58,6 +59,19 @@ class User < ApplicationRecord
     return true if !pwd.empty?
     errors.add(:password, '请填写正确的密码')
     return false
+  end
+
+  def create_reset_digest
+    @reset_password_token = User.new_token
+    update_columns(reset_digest: User.digest(@reset_password_token), reset_sent_at: Time.now)
+  end
+
+  def send_password_reset_email
+    UserMailer.password_reset(self).deliver_now
+  end
+
+  def reset_expired?
+    reset_sent_at < 2.hours.ago
   end
   # def User.authenticate user
   #   #

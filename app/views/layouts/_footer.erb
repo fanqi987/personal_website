@@ -14,8 +14,8 @@
       <% else %>
         <span><%= link_to "用户登录", login_path + "#login_title" %></span> |
       <% end %>
-      <span><%= link_to "用户注册", register_path + "#register_title" %></span>
-
+      <span><%= link_to "用户注册", register_path + "#register_title" %></span> |
+      <span><%= link_to "头像设置", avatar_path + "#avatar_title" %></span>
     </div>
   </div>
 </footer>
@@ -65,10 +65,19 @@
 </footer>
 <footer id="material_footer" class="hidden-md hidden-lg">
   <div>
-    <div data-toggle="modal" data-target="#material_post_modal" onclick="return false">
-      <p class=" fas fa-blog"></p>
-      <p>发布新素材</p>
-    </div>
+    <% if logged_in? && current_user.admin? %>
+      <div data-toggle="modal" data-target="#material_post_modal" onclick="return false">
+        <p class=" fas fa-toolbox"></p>
+        <p>发布新素材</p>
+      </div>
+    <% else %>
+      <%= form_for :post_material, url: materials_path, method: :post, remote: true do %>
+        <%= content_tag :button, type: :submit do %>
+          <p class=" fas fa-toolbox"></p>
+          <p>发布新素材</p>
+        <% end %>
+      <% end %>
+    <% end %>
     <div data-toggle="modal" data-target="#material_search_modal" onclick="return false">
       <p class="glyphicon glyphicon-search"></p>
       <p>搜索指定素材</p>
