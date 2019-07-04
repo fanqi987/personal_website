@@ -29,5 +29,7 @@
 /public/*
 !/public/fonts
 !/public/fonts/*
+!/public/404.html
+!/public/500.html
 
 
