@@ -96,11 +96,15 @@ class ApplicationController < ActionController::Base
   rescue_errors unless Rails.env.development?
 
   def render_not_found(exception = nil)
-    render "/public/404.html", :status => 404
+    render "shared/404", :status => 404
+    # render "shared/404.html", :status => 404
+
   end
 
   def render_error(exception = nil)
-    render "/public/500.html", :status => 500
+    render "shared/500", :status => 500
+    # render "shared/500.html", :status => 500
+
   end
 
 end
