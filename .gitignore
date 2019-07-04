@@ -26,5 +26,5 @@
 
 /.idea/sample_app.iml
 
-/public/*
+/public/*gi
 !/public/fonts/*
