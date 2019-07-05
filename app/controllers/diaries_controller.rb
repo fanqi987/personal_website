@@ -32,7 +32,7 @@ class DiariesController < ApplicationController
     p params
     @draft = false
     @draft = true if params[:button] == "draft"
-    @diaries = @user.diaries.where('"diaries"."draft" == ? ', @draft)
+    @diaries = @user.diaries.where('"diaries"."draft" = ? ', @draft)
     @diaries = @diaries.paginate(page: params[:page], per_page: COMMENT_PAGE_NUM)
 
     if params[:search]
