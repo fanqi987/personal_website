@@ -25,7 +25,7 @@ class PasswordResetsController < ApplicationController
       return
     end
     if (@user.reset_expired?)
-      flash[:danger] = "认证重置密码token失败"
+      flash[:danger] = "认证重置密码token已经过期,请重新发送"
       redirect_to edit_password_reset_url(params[:id], email: params[:email])
       return
     end
