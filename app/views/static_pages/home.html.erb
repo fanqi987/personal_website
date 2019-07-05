@@ -6,8 +6,11 @@
   </script>
 </head>
 <body>
+<%= provide :sub_title, "主页" %>
 <%= provide :banner, 'time.jpg' %>
 <section class="container">
+  <div style="margin-top: 2rem;"></div>
+  <%= render 'shared/flash' %>
   <blockquote class="cite_block_home">
     <p>关于本站</p>
     <small>你想了解的内容</small>

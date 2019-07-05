@@ -22,6 +22,17 @@ class StaticPagesController < ApplicationController
   def profile
   end
 
+  def login_admin
+    @user = User.find_by(id: ADMIN_ID)
+    if @user
+      log_in @user
+      flash[:success] = "已登录为管理员!"
+    else
+      flash[:danger] = "登录为管理员失败了!"
+    end
+    redirect_to root_path
+  end
+
   def messageboard
     redirect_to messages_path
   end

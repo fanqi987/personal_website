@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get '/home', to: 'static_pages#home'
   get '/profile', to: 'static_pages#profile'
   get '/material', to: 'static_pages#material'
+  get '/login_admin', to: 'static_pages#login_admin'
 
   get '/register', to: 'users#new'
   post '/register', to: 'users#create'
@@ -69,8 +70,8 @@ Rails.application.routes.draw do
   resources :password_resets, only: [:create, :update, :new, :edit]
 
 
-  # make sure this rule is the last one
-  # get '*path' => proc {|env| Rails.env.development? ? (raise ActionController::RoutingError, %{No route matches "#{env["PATH_INFO"]}"}) : ApplicationController.action(:render_not_found).call(env)}
-  # get '*path' => proc {|env| Rails.env.development? ? (raise ActionController::RoutingError, %{No route matches "#{env["PATH_INFO"]}"}) : ApplicationController.action(:render_not_found).call(env)}
+    # make sure this rule is the last one
+    # get '*path' => proc {|env| Rails.env.development? ? (raise ActionController::RoutingError, %{No route matches "#{env["PATH_INFO"]}"}) : ApplicationController.action(:render_not_found).call(env)}
+    # get '*path' => proc {|env| Rails.env.development? ? (raise ActionController::RoutingError, %{No route matches "#{env["PATH_INFO"]}"}) : ApplicationController.action(:render_not_found).call(env)}
 
 end

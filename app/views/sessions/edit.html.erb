@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <body>
+<%= provide :sub_title, "用户信息" %>
 <!-- banner-->
 <%= provide :banner, 'login.png' %>
 <div class="container">
@@ -22,7 +23,11 @@
         <%= f.label :name, '用户名' %>
         <%= f.text_field :name, class: "form-control" %>
       </div>
-      <%= f.submit '更新信息', class: 'btn btn-info login-profile-update' %>
+      <% if logged_in? && current_user.admin? %>
+        <%= f.submit '更新信息', class: 'btn btn-info login-profile-update', disabled: true %>
+      <% else %>
+        <%= f.submit '更新信息', class: 'btn btn-info login-profile-update' %>
+      <% end %>
     <% end %>
     <%# p '234' %>
     <%# p @user.errors.messages.collect.to_a %>
@@ -41,7 +46,11 @@
         <%= f.password_field :password_confirmation, class: "form-control", required: true %>
       </div>
       <div>
-        <%= f.submit '修改密码', class: 'btn btn-info' %>
+        <% if logged_in? && current_user.admin? %>
+          <%= f.submit '修改密码', class: 'btn btn-info', disabled: true %>
+        <% else %>
+          <%= f.submit '修改密码', class: 'btn btn-info' %>
+        <% end %>
         <%= link_to '退出登录', login_profile_path, method: :delete, class: 'btn btn-danger login-profile-logout' %>
       </div>
     <% end %>

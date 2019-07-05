@@ -8,6 +8,15 @@ module ApplicationHelper
     }
   end
 
+  def getTitle(subTitle)
+    title = "云谷鹤峰的个人网站"
+    if subTitle
+      subTitle + " | " + title
+    else
+      title
+    end
+  end
+
   def getCurrentCorrectTime(time)
     time.localtime.strftime("%Y-%m-%d %H:%M:%S")
   end

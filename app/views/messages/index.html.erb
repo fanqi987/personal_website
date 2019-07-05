@@ -2,12 +2,13 @@
 <html>
 <head>
   <script>
-      onDocumentContentReady(5,0,function(){
+      onDocumentContentReady(5, 0, function () {
           setPagesHref('#message_main_title');
       });
   </script>
 </head>
 <body>
+<%= provide :sub_title, "留言板" %>
 <!-- banner-->
 <%= provide :banner, 'message_2.png' %>
 <div class="container">
