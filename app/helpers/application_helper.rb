@@ -18,7 +18,12 @@ module ApplicationHelper
   end
 
   def getCurrentCorrectTime(time)
-    time.localtime.strftime("%Y-%m-%d %H:%M:%S")
+    if Rails.env.development?
+      time.localtime.strftime("%Y-%m-%d %H:%M:%S")
+    else
+      # todo pg
+      time.strftime("%Y-%m-%d %H:%M:%S")
+    end
   end
 
   def get_search_result(objects, start_time, end_time, search_word, table_name, material_type)
@@ -68,10 +73,9 @@ module ApplicationHelper
       )
     else
       # todo pg
-      # todo 调整为当地时间
-      sql = "\"#{table_name}\".\"created_at\" >= timestamp'#{getCurrentCorrectTime(DateTime.parse(t_start_time) - 8.hours)}' " +
+      sql = "\"#{table_name}\".\"created_at\" >= timestamp'#{getCurrentCorrectTime(DateTime.parse(t_start_time))}' " +
           "AND " +
-          "\"#{table_name}\".\"created_at\" <= timestamp'#{getCurrentCorrectTime(DateTime.parse(t_end_time) - 8.hours)}' " +
+          "\"#{table_name}\".\"created_at\" <= timestamp'#{getCurrentCorrectTime(DateTime.parse(t_end_time))}' " +
           "AND "
       if (table_name != "microposts")
         sql += "(\"#{table_name}\".\"content\" like '#{"%" + t_word + "%"}' " +

@@ -28,8 +28,8 @@
           </div>
         </div>
         <div class="modal-footer">
-          <% if object[:material] %>
-            <%= hidden_field_tag :type, params[:type] %>
+          <% if (yield(:material_type) || !yield(:material_type).empty?) %>
+            <%= hidden_field_tag :type, yield(:material_type) %>
           <% end %>
           <%= f.button "提交", type: :submit, class: "btn btn-success btn-block" %>
         </div>

@@ -1,6 +1,7 @@
 <section class="row fa-2x article_show_edits">
-      <span class="fas fa-share-alt article_show_edits_share" style="border: none;">
-      </span><span class="fas fa-comment-dots article_show_edits_comments"> (<%= @diary.comments.count %>)
+<!--      <span class="fas fa-share-alt article_show_edits_share" style="border: none;">-->
+<!--      </span>-->
+  <span class="fas fa-comment-dots article_show_edits_comments" style="border: none;"> (<%= @diary.comments.count %>)
     </span><%= form_for :like, url: diary_like_path(@diary), method: :post, remote: true do |f| %>
     <%= f.button type: :submit, class: "fas fa-thumbs-up article_show_edits_likes", 'data-title': "<h4>今天已经点赞过了~!</h4>", "data-trigger": 'click' do %>
       (<%= @diary.like %>)

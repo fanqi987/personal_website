@@ -70,6 +70,9 @@
     <%= render 'shared/search_section', object: @search_section %>
   </aside>
   <%= render 'shared/post_modal', object: @post %>
+  <!--  搜索模态-->
+  <%= provide :modal_search_path, materials_path %>
+  <%= render "shared/search_modal", object: @search_modal %>
 
   <article class="col-md-9 col-sm-12" id="material_main">
     <section class="row" id="material_main_title">
