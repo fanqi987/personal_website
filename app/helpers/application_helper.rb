@@ -73,9 +73,9 @@ module ApplicationHelper
       )
     else
       # todo pg
-      sql = "\"#{table_name}\".\"created_at\" >= timestamp'#{getCurrentCorrectTime(DateTime.parse(t_start_time))}' " +
+      sql = "\"#{table_name}\".\"created_at\" >= timestamp'#{getCurrentCorrectTime(DateTime.parse(t_start_time) - 16.hours)}' " +
           "AND " +
-          "\"#{table_name}\".\"created_at\" <= timestamp'#{getCurrentCorrectTime(DateTime.parse(t_end_time))}' " +
+          "\"#{table_name}\".\"created_at\" <= timestamp'#{getCurrentCorrectTime(DateTime.parse(t_end_time) - 16.hours)}' " +
           "AND "
       if (table_name != "microposts")
         sql += "(\"#{table_name}\".\"content\" like '#{"%" + t_word + "%"}' " +
