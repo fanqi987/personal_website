@@ -60,8 +60,9 @@ module ApplicationHelper
     else
       # todo pg
       # todo 调整为当地时间
-      sql = "\"#{table_name}\".\"created_at\" >= timestamp \"#{DateTime.parse(t_start_time) - 8.hours}\" AND " +
-          "\"#{table_name}\".\"created_at\" <= timestamp \"#{DateTime.parse(t_end_time) - 8.hours}\" " +
+      sql = "\"#{table_name}\".\"created_at\" >= timestamp \"#{getCurrentCorrectTime(DateTime.parse(t_start_time) - 8.hours)}\" " +
+          "AND " +
+          "\"#{table_name}\".\"created_at\" <= timestamp \"#{getCurrentCorrectTime(DateTime.parse(t_end_time) - 8.hours)}\" " +
           "AND "
       if (table_name != "microposts")
         sql += "(\"#{table_name}\".\"content\" like \"#{"%" + t_word + "%"}\" +"
@@ -74,8 +75,6 @@ module ApplicationHelper
       end
       objects = objects.where(sql)
     end
-
-
     return objects
   end
 
