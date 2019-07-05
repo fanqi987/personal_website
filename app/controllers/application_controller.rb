@@ -93,7 +93,7 @@ class ApplicationController < ActionController::Base
     # rescue_from ActionController::UnknownAction, :with => :render_not_found
   end
 
-  rescue_errors unless Rails.env.development?
+  # rescue_errors unless Rails.env.development?
 
   def render_not_found(exception = nil)
     render "shared/404", :status => 404
