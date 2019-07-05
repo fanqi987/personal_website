@@ -31,18 +31,40 @@ module ApplicationHelper
     # p t_end_time
     # p t_word
 
-    # todo 调整为当地时间
-    sql = ":table_name.'created_at' >= datetime(:start_time) AND :table_name.'created_at' <= datetime(:end_time) " +
-        "AND "
-    if (table_name != "microposts")
-      sql += "(:table_name.'content' like :word OR :table_name.'title' like :word)"
+    #pg
+    # SELECT "microposts".* FROM "microposts" WHERE "microposts"."user_id" = 1
+    # AND ("microposts"."created_at" >= timestamp'1969-12-31 16:00:00' AND
+    # "microposts"."created_at" <= timestamp'2019-07-05 16:00:00' AND
+    # "microposts"."content" like '%%') ORDER BY "microposts"."created_at" DESC;
+
+    if Rails.env.development?
+      # todo 调整为当地时间
+      sql = ":table_name.'created_at' >= datetime(:start_time) AND :table_name.'created_at' <= datetime(:end_time) " +
+          "AND "
+      if (table_name != "microposts")
+        sql += "(:table_name.'content' like :word OR :table_name.'title' like :word)"
+      else
+        sql += ":table_name.'content' like :word"
+      end
+
+      if material_type && !material_type.empty?
+        sql += " AND :table_name.'material_type' = " + "'#{material_type}'"
+      end
     else
-      sql += ":table_name.'content' like :word"
+      # todo pg
+      # todo 调整为当地时间
+      sql = ':table_name."created_at" >= timestamp :start_time AND :table_name."created_at" <= timestamp :end_time ' +
+          "AND "
+      if (table_name != "microposts")
+        sql += '(:table_name."content" like :word OR :table_name."title" like :word)'
+      else
+        sql += ':table_name."content" like :word'
+      end
+      if material_type && !material_type.empty?
+        sql += ' AND :table_name."material_type" = ' + "\"#{material_type}\""
+      end
     end
 
-    if material_type && !material_type.empty?
-      sql += " AND :table_name.'material_type' = " + "'#{material_type}'"
-    end
 
     objects = objects.where(
         sql,

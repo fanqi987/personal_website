@@ -19,7 +19,7 @@ class MaterialsController < ApplicationController
     #先确定类别,再确定搜索条件,再确定页码
     p params
     if (params[:type] && !params[:type].empty?)
-      @materials = @user.materials.where("'materials'.'material_type' = ? ", params[:type])
+      @materials = @user.materials.where('"materials""."material_type" = ? ', params[:type])
     else
       @materials = @user.materials
     end
