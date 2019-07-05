@@ -934,6 +934,10 @@ $sm-width: 768px;
       max-height: 30rem;
       max-width: 30rem;
       z-index: 0;
+      @media(min-width: $sm-width){
+        max-height: 40rem;
+        max-width: 40rem;
+      }
     }
     .micropost_comments_content {
       font-size: 1.6rem;
