@@ -31,6 +31,7 @@ class PasswordResetsController < ApplicationController
     end
     if @user.update(password_reset_edit_params)
       flash[:success] = "重置密码成功!"
+      @user.update_attribute(:reset_digest, nil)
     else
       flash[:danger] = "重置密码失败!" + getObjectErrors(@user)
     end
