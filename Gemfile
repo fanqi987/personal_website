@@ -20,9 +20,9 @@ gem 'mini_magick', '4.9.3'
 gem 'carrierwave', '1.3.1'
 gem 'carrierwave-video', '0.6.0'
 gem 'swiper-rails', '1.0.4'
-gem 'social-share-button', '1.2.0'
+gem 'social-share-button', '1.2.0' 
 # gem 'ffi', :platforms => [:mswin, :mingw] # Required by Clipboard on Windows
-#
+
 
 group :development, :test do
   # gem 'sqlite3', '1.3.13'
