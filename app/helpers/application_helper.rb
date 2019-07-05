@@ -50,29 +50,32 @@ module ApplicationHelper
       if material_type && !material_type.empty?
         sql += " AND :table_name.'material_type' = " + "'#{material_type}'"
       end
+      objects = objects.where(
+          sql,
+          start_time: DateTime.parse(t_start_time) - 8.hours,
+          end_time: DateTime.parse(t_end_time) - 8.hours,
+          table_name: table_name,
+          word: "%" + t_word + "%"
+      )
     else
       # todo pg
       # todo 调整为当地时间
-      sql = ':table_name."created_at" >= timestamp :start_time AND :table_name."created_at" <= timestamp :end_time ' +
+      sql = "\"#{table_name}\".\"created_at\" >= timestamp \"#{DateTime.parse(t_start_time) - 8.hours}\" AND " +
+          "\"#{table_name}\".\"created_at\" <= timestamp \"#{DateTime.parse(t_end_time) - 8.hours}\" " +
           "AND "
       if (table_name != "microposts")
-        sql += '(:table_name."content" like :word OR :table_name."title" like :word)'
+        sql += "(\"#{table_name}\".\"content\" like \"#{"%" + t_word + "%"}\" +"
+        "OR \"#{table_name}\".\"title\" like \"#{"%" + t_word + "%"}\")"
       else
-        sql += ':table_name."content" like :word'
+        sql += "\"#{table_name}\".\"content\" like \"#{"%" + t_word + "%"}\""
       end
       if material_type && !material_type.empty?
-        sql += ' AND :table_name."material_type" = ' + "\"#{material_type}\""
+        sql += " AND \"#{table_name}\".\"material_type\" = " + "\"#{material_type}\""
       end
+      objects = objects.where(sql)
     end
 
 
-    objects = objects.where(
-        sql,
-        start_time: DateTime.parse(t_start_time) - 8.hours,
-        end_time: DateTime.parse(t_end_time) - 8.hours,
-        table_name: table_name,
-        word: "%" + t_word + "%"
-    )
     return objects
   end
 
