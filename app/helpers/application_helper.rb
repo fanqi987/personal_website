@@ -22,7 +22,7 @@ module ApplicationHelper
       time.localtime.strftime("%Y-%m-%d %H:%M:%S")
     else
       # todo pg
-      time.strftime("%Y-%m-%d %H:%M:%S")
+      (time + 8.hours).strftime("%Y-%m-%d %H:%M:%S")
     end
   end
 
