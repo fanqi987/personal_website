@@ -17,7 +17,7 @@ class MessagesController < ApplicationController
   def create
     @comment = @user.message.comments.build(messages_params)
     set_comment_user_attr @comment
-    setAvatar @comment
+    setAvatar(@comment)
     if @comment.save
       respond_js
     else

@@ -10,7 +10,7 @@ module ApplicationHelper
 
   def getTitle(subTitle)
     title = "云谷鹤峰的个人网站"
-    if subTitle
+    if subTitle && !subTitle.empty?
       subTitle + " | " + title
     else
       title

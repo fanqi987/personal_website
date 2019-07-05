@@ -31,7 +31,7 @@ class MicropostsController < ApplicationController
     p params
     @micropost_record = Micropost.find_by(id: params[:id]).comments.new(micropost_comment_params)
     set_comment_user_attr @micropost_record
-    setAvatar @micropost_record
+    setAvatar(@micropost_record)
     # p @micropost_record
     # p @micropost_record.valid?
     # p @micropost_record.errors.messages
