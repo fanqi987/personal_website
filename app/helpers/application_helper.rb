@@ -74,8 +74,8 @@ module ApplicationHelper
           "\"#{table_name}\".\"created_at\" <= timestamp'#{getCurrentCorrectTime(DateTime.parse(t_end_time) - 8.hours)}' " +
           "AND "
       if (table_name != "microposts")
-        sql += "(\"#{table_name}\".\"content\" like '#{"%" + t_word + "%"}' +"
-        "OR \"#{table_name}\".\"title\" like '#{"%" + t_word + "%"}')"
+        sql += "(\"#{table_name}\".\"content\" like '#{"%" + t_word + "%"}' " +
+            "OR \"#{table_name}\".\"title\" like '#{"%" + t_word + "%"}')"
       else
         sql += "\"#{table_name}\".\"content\" like '#{"%" + t_word + "%"}'"
       end
