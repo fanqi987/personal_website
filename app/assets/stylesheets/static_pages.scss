@@ -108,6 +108,28 @@ $sm-width: 768px;
 
 }
 
+//缓慢加载图片
+.bg_image_div {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  img {
+    width: 100%;
+    height: 100%;
+    //width: auto;
+    //height: auto;
+    //max-width: 100%;
+    //max-height:100%;
+    image-rendering: smooth;
+    position: relative;
+    object-fit: cover;
+    object-position: left top;
+  }
+}
+
 #logo_static_pages {
   display: inline-block;
   line-height: 0.8;
@@ -145,7 +167,6 @@ $sm-width: 768px;
     font-size: 4rem;
     color: white;
   }
-
 }
 
 #nav-xs-list-static-pages {
@@ -224,14 +245,21 @@ $sm-width: 768px;
   position: relative;
   right: 0;
   left: 0;
-  height: 20rem;
-  background-image: image_url("timg_2.png");
-  background-size: cover;
-  @media (min-width: $sm-width) {
-    height: 30rem;
-  }
-  @media (min-width: $md-width) {
-    height: 35rem;
+  width: 100%;
+  img {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    object-fit: cover;
+    object-position: left top;
+    height: 20rem;
+    @media (min-width: $sm-width) {
+      height: 30rem;
+    }
+    @media (min-width: $md-width) {
+      height: 35rem;
+    }
   }
 }
 
@@ -324,7 +352,8 @@ $sm-width: 768px;
         }
       }
       #micropost_content_home {
-        background-image: image_url("tips2.png");
+        //background-image: image_url("tips2.png");
+        //position:relative;
         color: $micropost_time;
         overflow: hidden;
 
@@ -361,7 +390,7 @@ $sm-width: 768px;
       }
 
       #article_home {
-        background-image: image_url("notebook4.png");
+        //background-image: image_url("notebook4.png");
         #article_title_home {
           margin: 16% 23% 1% 25%;
           font-size: 1.2rem;
@@ -395,7 +424,7 @@ $sm-width: 768px;
       }
       #message_board_home {
         color: #cecece;
-        background-image: image_url("messageboard5.png");
+        //background-image: image_url("messageboard5.png");
 
         #message_board_name_home {
           font-size: 1.2rem;
@@ -425,8 +454,13 @@ $sm-width: 768px;
       #materials_home {
         #materials_img_home {
           height: 61.8%;
-          background-image: image_url('materials.png');
-          background-size: cover;
+          //background-image: image_url('materials.png');
+          //background-size: cover;
+          .bg_image_div {
+            img {
+              height: 61.8%;
+            }
+          }
         }
         #materials_content_home {
           height: 38.2%;
@@ -450,6 +484,9 @@ $sm-width: 768px;
       }
 
       #games_img_1_home {
+        .bg_image_div{
+          z-index: 0;
+        }
         border: solid 1px #eee;
         //p {
         //margin-top: 3rem;
@@ -933,7 +970,7 @@ $sm-width: 768px;
       max-height: 30rem;
       max-width: 30rem;
       z-index: 0;
-      @media(min-width: $sm-width){
+      @media(min-width: $sm-width) {
         max-height: 40rem;
         max-width: 40rem;
       }
@@ -1019,9 +1056,10 @@ $sm-width: 768px;
 }
 
 #micropost_empty, #article_empty, #message_empty {
-  background-image: image_url("empty_box2.png");
+  //background-image: image_url("empty_box2.png");
   //background-image: url("empty_box2.jpg");
-  background-size: cover;
+  //background-size: cover;
+  position: relative;
   width: 70%;
   margin-top: 10rem;
   text-align: center;
@@ -1271,8 +1309,9 @@ $sm-width: 768px;
       box-shadow: 0 0 8px gray;
     }
     .item_img {
-      background-image: image_url("empty_gallery.png");
-      background-size: cover;
+      //background-image: image_url("empty_gallery.png");
+      //background-size: cover;
+      position: relative;
       height: 80%;
       width: 100%;
     }
@@ -1796,10 +1835,16 @@ $sm-width: 768px;
     padding: 2rem 20%;
   }
   .header_profile {
-    background-image: image_url("sky.png");
-    background-size: cover;
+    //background-image: image_url("sky.png");
+    //background-size: cover;
     text-align: center;
-    .row:nth-child(1) {
+    position: relative;
+    //background: none;
+    .bg_image_div {
+      z-index: 0;
+    }
+    .avatar_header_border_profile_row {
+      position: relative;
       .avatar_header_border_profile {
         box-sizing: content-box;
         height: 10rem;
@@ -1817,7 +1862,8 @@ $sm-width: 768px;
         }
       }
     }
-    .row:nth-child(2) {
+    .name_header_profile_row {
+      position: relative;
       padding: 1rem auto;
       .name_header_profile {
         font-size: 3rem;
@@ -1840,11 +1886,13 @@ $sm-width: 768px;
       }
     }
     .say_words_profile {
+      position: relative;
       font-size: 1.7rem;
       margin-top: 1.5rem;
       color: #666;
     }
     .hr_header_profile {
+      position: relative;
       margin: 1rem auto;
       border-top: 1px solid #dfdfdf;
     }
@@ -2355,7 +2403,8 @@ $sm-width: 768px;
       padding-bottom: 35%;
     }
     margin: auto;
-    background-image: image_url("congratulation.png");
-    background-size: cover;
+    position: relative;
+    //background-image: image_url("congratulation.png");
+    //background-size: cover;
   }
 }

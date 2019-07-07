@@ -67,6 +67,9 @@
       <%= render "shared/diary_item" %>
     <% else %>
       <section id="article_empty">
+        <div class="bg_image_div">
+          <%=image_tag 'empty_box2.png' %>
+        </div>
       </section>
       <% if @draft %>
         <p>草稿箱为空！</p>

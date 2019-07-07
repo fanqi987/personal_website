@@ -8,7 +8,11 @@
     <% else %>
       <% url = 'assets/empty_gallery' %>
     <% end %>
-    <div class="item_img" style="background-image: url('<%= url %>')" onclick="location.href='<%= hobby_path(hobby)%>'">
+    <!--    <div class="item_img" style="background-image: url('<%#= url %>')" onclick="location.href='<%= hobby_path(hobby) %>'">-->
+    <div class="item_img" onclick="location.href='<%= hobby_path(hobby)%>'">
+      <div class="bg_image_div">
+        <%= image_tag url %>
+      </div>
     </div>
     <div class="item_texts">
       <div class="hobby_item_title"><span><%= hobby.title %></span></div>

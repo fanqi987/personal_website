@@ -12,14 +12,15 @@
 <div class="bg_profile_div">
   <div class="container">
     <section class="row header_profile">
-
-      <div class="row">
+      <div class="bg_image_div">
+        <%= image_tag 'sky.png' %>
+      </div>
+      <div class="row avatar_header_border_profile_row">
         <div class="avatar_header_border_profile">
           <%= image_tag 'snorlax.png', class: 'avatar_header_profile' %>
         </div>
-
       </div>
-      <div class="row">
+      <div class="row name_header_profile_row">
         <span class="name_header_profile">c-dev
          <span class="fa-stack sex_header_profile ">
             <i class="fa fa-circle fa-stack-1x"></i>
@@ -32,6 +33,7 @@
       <p class="say_words_profile">天天开心!</p>
       <div class="hr_header_profile">
       </div>
+
     </section>
     <section class="row main_title_profile">
       <div>
@@ -108,7 +110,7 @@
       <div class="shared_buttons_profile">
         <span>喜欢我的网站吗？&nbsp;&nbsp;&nbsp;&nbsp;</span>
         <span>分享</span>
-        <%= social_share_button_tag :share,url:root_url %>
+        <%= social_share_button_tag :share, url: root_url %>
         <%#= image_tag 'QQ.ico', title: 'QQ', alt: 'QQ' %>
         <%#= image_tag 'weibo.png', title: '新浪微博', alt: '新浪微博' %>
         <%#= image_tag 'wechat.png', title: '微信', alt: '微信' %>

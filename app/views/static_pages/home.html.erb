@@ -79,6 +79,9 @@
       <div class="col-xs-4">
         <div id="micropost_content_home" onclick="location.href='<%= microposts_path %>'">
           <!-- 一共40个字-->
+          <div class="bg_image_div">
+            <%= image_tag "tips2.png" %>
+          </div>
           <% if @micropost %>
             <p>
               <span id="micropost_content_first_word_home"><i><%= @micropost.content[0] %></i></span><i><%= @micropost.content[1...@micropost.content.length] %></i>
@@ -92,7 +95,11 @@
       </div>
       <div class="col-xs-8" onclick="location.href='<%= hobbies_path %>'">
         <% if @hobby_item %>
-          <div id="games_img_1_home" style="background-image:url('<%=@hobby_item.image.url %>');background-size: cover;">
+          <!--          <div id="games_img_1_home" style="background-image:url('<%#=@hobby_item.image.url %>');background-size: cover;">-->
+          <div id="games_img_1_home">
+            <div class="bg_image_div">
+              <%= image_tag @hobby_item.image.url %>
+            </div>
           </div>
         <% else %>
           <div id="games_img_1_home">
@@ -103,6 +110,9 @@
     <div class="row">
       <div class="col-xs-4">
         <div id="message_board_home" onclick="location.href='<%= messages_path %>'">
+          <div class="bg_image_div">
+            <%= image_tag 'messageboard5.png' %>
+          </div>
           <% if @comment %>
             <% name = @comment.user_name ? @comment.user_name : User.find_by(id: @comment.user_id).name %>
             <p id="message_board_name_home">
@@ -125,6 +135,9 @@
       <div class="col-xs-4">
         <div id="materials_home" onclick="location.href='<%= materials_path %>'">
           <div id="materials_img_home">
+            <div class="bg_image_div">
+              <%= image_tag 'materials.png' %>
+            </div>
           </div>
           <div id="materials_content_home">
             <!--            <p id="materials_content_title_home">Ruby on Rails教程</p>-->
@@ -138,6 +151,9 @@
       </div>
       <div class="col-xs-4">
         <div id="article_home" onclick="location.href='<%= diaries_path %>'">
+          <div class="bg_image_div">
+            <%= image_tag 'notebook4.png' %>
+          </div>
           <% if @diary %>
             <p id="article_title_home">
               <span title="<%= @diary.title %>"><%= @diary.title %></span>

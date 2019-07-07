@@ -1,5 +1,8 @@
 <div class="main_banner">
   <a href="#">
-    <div id="banner_img_static_page" style="background-image: url('<%= root_url + 'assets/'+ yield(:banner) %>');"></div>
+    <!--    <div id="banner_img_static_page" style="background-image: url('<%#= root_url + 'assets/'+ yield(:banner) %>');">-->
+    <div id="banner_img_static_page">
+      <%= image_tag yield(:banner) %>
+    </div>
   </a>
 </div>
