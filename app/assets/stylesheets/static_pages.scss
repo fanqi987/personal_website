@@ -225,7 +225,7 @@ $sm-width: 768px;
   right: 0;
   left: 0;
   height: 20rem;
-  //background-image: image_url("time.jpg");
+  background-image: image_url("timg_2.png");
   background-size: cover;
   @media (min-width: $sm-width) {
     height: 30rem;
@@ -324,7 +324,7 @@ $sm-width: 768px;
         }
       }
       #micropost_content_home {
-        background-image: image_url("tips2.jpg");
+        background-image: image_url("tips2.png");
         color: $micropost_time;
         overflow: hidden;
 
@@ -361,7 +361,7 @@ $sm-width: 768px;
       }
 
       #article_home {
-        background-image: image_url("notebook4.jpg");
+        background-image: image_url("notebook4.png");
         #article_title_home {
           margin: 16% 23% 1% 25%;
           font-size: 1.2rem;
@@ -395,7 +395,7 @@ $sm-width: 768px;
       }
       #message_board_home {
         color: #cecece;
-        background-image: image_url("messageboard5.gif");
+        background-image: image_url("messageboard5.png");
 
         #message_board_name_home {
           font-size: 1.2rem;
@@ -425,7 +425,7 @@ $sm-width: 768px;
       #materials_home {
         #materials_img_home {
           height: 61.8%;
-          background-image: image_url('materials.jpg');
+          background-image: image_url('materials.png');
           background-size: cover;
         }
         #materials_content_home {
@@ -450,7 +450,6 @@ $sm-width: 768px;
       }
 
       #games_img_1_home {
-        //background-image: image_url("test_game.jpg");
         border: solid 1px #eee;
         //p {
         //margin-top: 3rem;
@@ -1020,7 +1019,7 @@ $sm-width: 768px;
 }
 
 #micropost_empty, #article_empty, #message_empty {
-  background-image: image_url("empty_box2.jpg");
+  background-image: image_url("empty_box2.png");
   //background-image: url("empty_box2.jpg");
   background-size: cover;
   width: 70%;
@@ -1224,7 +1223,7 @@ $sm-width: 768px;
   color: transparent;
   text-align: center;
   -webkit-text-fill-color: transparent;
-  background: -webkit-linear-gradient(transparent, transparent), #000 image_url("time.jpg") no-repeat;
+  background: -webkit-linear-gradient(transparent, transparent), #000 image_url("timg_2.png") no-repeat;
   background: -o-linear-gradient(transparent, transparent);
   -webkit-background-clip: text;
   background-position: center center;
@@ -1797,7 +1796,7 @@ $sm-width: 768px;
     padding: 2rem 20%;
   }
   .header_profile {
-    background-image: image_url("sky.jpg");
+    background-image: image_url("sky.png");
     background-size: cover;
     text-align: center;
     .row:nth-child(1) {
@@ -1923,7 +1922,7 @@ $sm-width: 768px;
           vertical-align: bottom;
         }
         .ssb-qq {
-          background-image: image_url("QQ.ico");
+          background-image: image_url("QQ.png");
         }
         .ssb-weibo {
           background-image: image_url("weibo.png");
