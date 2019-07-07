@@ -10,7 +10,7 @@
           <span><%= getCurrentCorrectTime diary.created_at %></span>
           <% if diary.draft? %>
             <%= form_for :delete, url: diaries_path, method: :delete do |f| %>
-              <%= hidden_field_tag :diary_id, diary.id %>
+              <%= hidden_field_tag :id, diary.id %>
               <%= f.button "", type: :submit, class: "glyphicon glyphicon-trash" %>
             <% end %>
           <% end %>

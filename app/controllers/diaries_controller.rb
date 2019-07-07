@@ -159,9 +159,10 @@ class DiariesController < ApplicationController
   end
 
   def destroy
-    @diary = Diary.find_by(id: params[:diary_id])
+    p params
+    @diary = Diary.find_by(id: params[:id])
     if @diary && @diary.destroy
-      flash[:success] = "草稿已经删除!"
+      flash[:success] = "文章已经删除!"
     end
     redirect_to diaries_path + "?button=draft#article_main_title"
   end
