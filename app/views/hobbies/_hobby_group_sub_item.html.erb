@@ -6,7 +6,7 @@
     <% elsif hobby.hobby_items.length > 0 %>
       <% url = hobby.hobby_items[hobby.hobby_items.length - 1].image.url %>
     <% else %>
-      <% url = 'assets/empty_gallery' %>
+      <% url = 'empty_gallery' %>
     <% end %>
     <!--    <div class="item_img" style="background-image: url('<%#= url %>')" onclick="location.href='<%= hobby_path(hobby) %>'">-->
     <div class="item_img" onclick="location.href='<%= hobby_path(hobby)%>'">
